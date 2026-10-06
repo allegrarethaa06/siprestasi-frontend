@@ -39,21 +39,19 @@ function Login() {
   // SUBMIT
   // =========================
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+const handleSubmit = (e) => {
+  e.preventDefault()
 
-    setEmailTouched(true)
-    setPasswordTouched(true)
-    setLoginError('')
+  setEmailTouched(true)
+  setPasswordTouched(true)
+  setLoginError('')
 
-    if (!isFormValid) {
-      return
-    }
-
-    // SEMENTARA UNTUK TEST TAMPILAN ERROR LOGIN
-    // Nanti bagian ini diganti request ke backend.
-    setLoginError('Email atau kata sandi tidak sesuai.')
+  if (!isFormValid) {
+    return
   }
+
+  navigate('/admin/dashboard')
+}
 
   return (
     <main className="login-page">

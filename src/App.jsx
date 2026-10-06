@@ -7,7 +7,7 @@ import {
 
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
-
+import AdminDashboard from './pages/Admin_dashboard'
 
 function App() {
   return (
@@ -32,6 +32,11 @@ function App() {
         <Route
           path="/forgot-password"
           element={<ForgotPassword />}
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
         />
 
       </Routes>
