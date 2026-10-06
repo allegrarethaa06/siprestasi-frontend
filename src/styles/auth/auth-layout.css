@@ -1,0 +1,484 @@
+:root {
+  --burgundy: #7e1f4e;
+  --burgundy-medium: #8c3962;
+  --rose: #c487a6;
+
+  --text-primary: #231f20;
+  --text-secondary: #77727a;
+
+  --border: #e7dde1;
+  --surface: #ffffff;
+
+  --error: #b23a48;
+  --success: #2f855a;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px;
+
+  background: #fbfbfb;
+}
+
+.auth-card {
+  width: min(1260px, 100%);
+  min-height: 754px;
+
+  display: grid;
+  grid-template-columns: 42% 58%;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfe3;
+  border-radius: 24px;
+
+  box-shadow: 0 25px 55px rgba(58, 24, 39, 0.13);
+}
+
+/* =========================
+   PANEL KIRI
+========================= */
+
+.auth-sidebar {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 48px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 78% 16%,
+      rgba(196, 135, 166, 0.82) 0%,
+      rgba(196, 135, 166, 0.3) 23%,
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at 15% 48%,
+      rgba(140, 57, 98, 0.78) 0%,
+      transparent 47%
+    ),
+    radial-gradient(
+      circle at 90% 92%,
+      rgba(126, 31, 78, 0.95) 0%,
+      transparent 52%
+    ),
+    linear-gradient(
+      155deg,
+      #c487a6 0%,
+      #8c3962 43%,
+      #7e1f4e 100%
+    );
+}
+
+.auth-sidebar::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.12) 1px,
+    transparent 1px
+  );
+
+  background-size: 20px 20px;
+
+  opacity: 0.25;
+}
+
+.auth-sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.brand-name {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand-subtitle {
+  margin-top: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  opacity: 0.85;
+}
+
+/* =========================
+   SIDEBAR CONTENT
+========================= */
+
+.sidebar-content {
+  margin-top: 105px;
+}
+
+.sidebar-content h1 {
+  margin: 0;
+
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.sidebar-content > p {
+  max-width: 390px;
+
+  margin: 14px 0 36px;
+
+  font-size: 17px;
+  line-height: 1.55;
+
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* =========================
+   STEPPER
+========================= */
+
+.registration-steps {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.registration-step {
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 14px 17px;
+
+  color: rgba(255, 255, 255, 0.83);
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.registration-step.active {
+  color: #231f20;
+
+  background: #ffffff;
+}
+
+.step-number {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 10px;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.registration-step.active .step-number {
+  color: #ffffff;
+
+  border-color: var(--burgundy);
+
+  background: var(--burgundy);
+}
+
+.step-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.step-subtitle {
+  margin-top: 2px;
+
+  font-size: 13px;
+
+  opacity: 0.7;
+}
+
+/* =========================
+   PANEL KANAN
+========================= */
+
+.auth-main {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 72px 70px;
+
+  background: #ffffff;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 640px;
+
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.form-heading {
+  margin-bottom: 34px;
+}
+
+.form-heading h2 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.form-heading p {
+  margin: 8px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 16px;
+}
+
+/* =========================
+   ERROR UMUM
+========================= */
+
+.field-error {
+  margin: 6px 0 0;
+
+  color: var(--error);
+
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.input-error {
+  border-color: var(--error) !important;
+}
+
+/* =========================
+   BUTTON UTAMA
+========================= */
+
+.primary-button {
+  width: 100%;
+  height: 55px;
+
+  margin-top: 37px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 11px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: var(--burgundy);
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 12px rgba(126, 31, 78, 0.16);
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.primary-button:hover {
+  background: #6d173f;
+
+  box-shadow: 0 7px 16px rgba(126, 31, 78, 0.2);
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1050px) {
+  .auth-page {
+    padding: 24px;
+  }
+
+  .auth-card {
+    grid-template-columns: 40% 60%;
+  }
+
+  .auth-sidebar {
+    padding: 34px;
+  }
+
+  .sidebar-content {
+    margin-top: 80px;
+  }
+
+  .auth-main {
+    padding: 60px 42px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+  .auth-page {
+    padding: 0;
+
+    align-items: flex-start;
+  }
+
+  .auth-card {
+    display: block;
+
+    min-height: 100vh;
+
+    border: 0;
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+  .auth-sidebar {
+    padding: 30px 24px;
+  }
+
+  .sidebar-content {
+    margin-top: 45px;
+  }
+
+  .sidebar-content h1 {
+    font-size: 28px;
+  }
+
+  .sidebar-content > p {
+    margin-bottom: 0;
+
+    font-size: 15px;
+  }
+
+  .registration-steps {
+    display: none;
+  }
+
+  .auth-main {
+    padding: 48px 24px;
+  }
+
+  .register-container {
+    max-width: none;
+  }
+
+  .form-heading h2 {
+    font-size: 30px;
+  }
+}
+/* =========================
+   STEPPER COMPLETED
+========================= */
+
+.step-content {
+  min-width: 0;
+}
+
+.step-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.step-completed-badge {
+  padding: 2px 7px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  border-radius: 5px;
+
+  background: rgba(255, 255, 255, 0.14);
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.registration-step.completed .step-number {
+  color: #ffffff;
+
+  border-color: rgba(255, 255, 255, 0.25);
+
+  background: rgba(255, 255, 255, 0.18);
+}
