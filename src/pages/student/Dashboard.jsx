@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import {
   Award,
   BookOpen,
@@ -11,13 +13,7 @@ import {
 import '../../styles/student/dashboard.css'
 
 function Dashboard() {
-  /*
-    ============================================
-    MOCK DATA DASHBOARD
-    ============================================
-
-    Nanti data ini diganti response backend.
-  */
+  const navigate = useNavigate()
 
   const registration = {
     status: 'Belum Dimulai',
@@ -96,12 +92,7 @@ function Dashboard() {
   ]
 
   const handleStartRegistration = () => {
-    /*
-      Nanti diarahkan ke halaman
-      Pendaftaran Mapres.
-    */
-
-    console.log('Mulai Pendaftaran')
+    navigate('/pendaftaran-mapres')
   }
 
   return (

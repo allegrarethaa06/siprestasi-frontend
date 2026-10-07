@@ -1,0 +1,1090 @@
+/* =========================
+   PAGE
+========================= */
+
+.finalis-dashboard-page {
+  min-height: 100vh;
+
+  padding: 0 0 56px;
+
+  background: #ffffff;
+  color: #231f20;
+
+  border-top: 6px solid #7e1f4e;
+}
+
+.finalis-dashboard-container {
+  width: min(1400px, calc(100% - 64px));
+
+  margin: 0 auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.finalis-page-header {
+  position: relative;
+
+  margin-left:
+    calc((100vw - min(1400px, calc(100vw - 64px))) / -2);
+
+  margin-right:
+    calc((100vw - min(1400px, calc(100vw - 64px))) / -2);
+
+  margin-bottom: 30px;
+
+  padding: 34px max(
+    calc((100vw - 1400px) / 2),
+    32px
+  );
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    105deg,
+    #7e1f4e 0%,
+    #914065 32%,
+    #b66f91 58%,
+    #ead2de 82%,
+    #faf6f8 100%
+  );
+}
+
+.finalis-page-header::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at 76% 30%,
+    rgba(255, 255, 255, 0.22),
+    transparent 34%
+  );
+}
+
+.finalis-page-header > div {
+  position: relative;
+  z-index: 1;
+
+  max-width: 760px;
+}
+
+.finalis-page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 24px;
+
+  margin-bottom: 10px;
+  padding: 0 10px;
+
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.finalis-page-header h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.finalis-page-header p {
+  margin: 9px 0 0;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.finalis-result-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 24px 25px;
+
+  border: 1px solid #dce9df;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 68%,
+    #f6fbf7 100%
+  );
+
+  box-shadow:
+    0 6px 22px rgba(55, 20, 37, 0.045);
+}
+
+.finalis-result-main {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  min-width: 0;
+}
+
+.finalis-result-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #2f855a;
+
+  border: 1px solid #c8e1d0;
+  border-radius: 11px;
+
+  background: #f2faf5;
+}
+
+.finalis-result-label {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  color: #2f855a;
+
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.finalis-result-main h2 {
+  margin: 0;
+
+  color: #302b2e;
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.finalis-result-main p {
+  margin: 6px 0 0;
+
+  color: #817a81;
+
+  font-size: 10px;
+}
+
+
+/* =========================
+   RESULT STATS
+========================= */
+
+.finalis-result-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.finalis-result-stats > div {
+  min-width: 130px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e9e1e4;
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+.finalis-result-stats span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #918a90;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.finalis-result-stats strong {
+  color: #7e1f4e;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.finalis-dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.55fr)
+    minmax(320px, 0.85fr);
+
+  gap: 22px;
+
+  margin-top: 24px;
+}
+
+
+/* =========================
+   GENERAL CARD
+========================= */
+
+.finalis-summary-card,
+.finalis-selection-card,
+.finalis-pradita-card,
+.finalis-information-card {
+  border: 1px solid #eadfe3;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 18px rgba(55, 20, 37, 0.035);
+}
+
+.finalis-summary-card,
+.finalis-selection-card {
+  padding: 22px 24px;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.finalis-card-heading {
+  margin-bottom: 18px;
+}
+
+.finalis-card-heading h2 {
+  margin: 0;
+
+  color: #302b2e;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.finalis-card-heading p {
+  margin: 4px 0 0;
+
+  color: #918990;
+
+  font-size: 9px;
+}
+
+
+/* =========================
+   INDICATOR
+========================= */
+
+.finalis-indicator-list {
+  overflow: hidden;
+
+  border: 1px solid #eee5e8;
+  border-radius: 11px;
+}
+
+.finalis-indicator-row {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 77px;
+
+  padding: 13px 14px;
+
+  border-bottom: 1px solid #eee5e8;
+
+  background: #ffffff;
+}
+
+.finalis-indicator-row:last-child {
+  border-bottom: 0;
+}
+
+.finalis-indicator-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #7e1f4e;
+
+  border: 1px solid #ead8e0;
+  border-radius: 9px;
+
+  background: #faf2f6;
+}
+
+.finalis-indicator-content {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.finalis-indicator-content > span {
+  color: #948d93;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.finalis-indicator-content > strong {
+  overflow: hidden;
+
+  color: #302b2e;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finalis-indicator-content > small {
+  color: #888087;
+
+  font-size: 8px;
+}
+
+.finalis-indicator-action {
+  flex-shrink: 0;
+}
+
+.finalis-indicator-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  min-height: 27px;
+  padding: 0 9px;
+
+  border-radius: 999px;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.finalis-status-verified {
+  color: #2f855a;
+
+  border: 1px solid #c5e2cf;
+
+  background: #f2faf5;
+}
+
+.finalis-status-neutral {
+  color: #777077;
+
+  border: 1px solid #dfd8dc;
+
+  background: #f8f6f7;
+}
+
+
+/* =========================
+   TIMELINE
+========================= */
+
+.finalis-selection-step {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.finalis-selection-marker {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #999198;
+
+  border: 1px solid #ddd5d9;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.finalis-selection-copy {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.finalis-selection-copy strong {
+  color: #6f686e;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.finalis-selection-copy span {
+  color: #a0999f;
+
+  font-size: 8px;
+}
+
+.finalis-selection-step.is-complete
+.finalis-selection-marker {
+  color: #ffffff;
+
+  border-color: #2f855a;
+
+  background: #2f855a;
+}
+
+.finalis-selection-step.is-complete
+.finalis-selection-copy strong {
+  color: #35463b;
+}
+
+.finalis-selection-step.is-current
+.finalis-selection-marker {
+  color: #7e1f4e;
+
+  border: 2px solid #7e1f4e;
+
+  background: #ffffff;
+}
+
+.finalis-selection-step.is-current
+.finalis-selection-copy strong {
+  color: #7e1f4e;
+}
+
+.finalis-selection-line {
+  width: 1px;
+  height: 34px;
+
+  margin: 5px 0 5px 15px;
+
+  background: #e3dade;
+}
+
+.finalis-selection-line.is-complete {
+  background: #81b395;
+}
+
+
+/* =========================
+   PRADITA VALUE
+========================= */
+
+.finalis-pradita-card {
+  margin-top: 22px;
+  padding: 22px;
+
+  border-left: 4px solid #7e1f4e;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 72%,
+    #fcf6f9 100%
+  );
+}
+
+.finalis-pradita-card-sent {
+  border-left-color: #2f855a;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 72%,
+    #f7fbf8 100%
+  );
+}
+
+.finalis-pradita-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 18px;
+}
+
+.finalis-pradita-content {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.finalis-pradita-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #7e1f4e;
+
+  border: 1px solid #e6d1db;
+  border-radius: 10px;
+
+  background: #faf2f6;
+}
+
+.finalis-pradita-icon-success {
+  color: #2f855a;
+
+  border-color: #c9e2d1;
+
+  background: #f2faf5;
+}
+
+.finalis-pradita-label {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #a66b87;
+
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.finalis-pradita-label-success {
+  color: #2f855a;
+}
+
+.finalis-pradita-content h2 {
+  margin: 0;
+
+  color: #373134;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.finalis-pradita-content p {
+  margin: 4px 0 0;
+
+  color: #898188;
+
+  font-size: 9px;
+}
+
+.finalis-pradita-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  flex-shrink: 0;
+
+  padding: 7px 10px;
+
+  color: #7e1f4e;
+
+  border: 1px solid #dfbdcd;
+  border-radius: 999px;
+
+  background: #faf1f5;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.finalis-pradita-status-success {
+  color: #2f855a;
+
+  border-color: #c5e2cf;
+
+  background: #f2faf5;
+}
+
+
+/* =========================
+   PRADITA INFO
+========================= */
+
+.finalis-pradita-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.finalis-pradita-info > div {
+  min-height: 58px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 4px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #ece3e6;
+  border-radius: 9px;
+
+  background: #ffffff;
+}
+
+.finalis-pradita-info span {
+  color: #948d93;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.finalis-pradita-info strong {
+  color: #373134;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.finalis-success-text {
+  color: #2f855a !important;
+}
+
+.finalis-waiting-text {
+  color: #8b747f !important;
+}
+
+
+/* =========================
+   EMAIL REKAN SEJAWAT
+========================= */
+
+.finalis-peer-email-section {
+  margin-top: 18px;
+  padding-top: 17px;
+
+  border-top: 1px solid #eee3e8;
+}
+
+.finalis-peer-email-heading h3 {
+  margin: 0;
+
+  color: #3b3438;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.finalis-peer-email-heading p {
+  margin: 3px 0 0;
+
+  color: #918990;
+
+  font-size: 8px;
+}
+
+.finalis-peer-email-list {
+  display: grid;
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.finalis-peer-email-item {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-height: 52px;
+
+  padding: 9px 11px;
+
+  border: 1px solid #e8e1e4;
+  border-radius: 9px;
+
+  background: #ffffff;
+}
+
+.finalis-peer-email-number {
+  width: 29px;
+  height: 29px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #7e1f4e;
+
+  border: 1px solid #e4ccd7;
+  border-radius: 50%;
+
+  background: #faf2f6;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.finalis-peer-email-copy {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.finalis-peer-email-copy span {
+  color: #999197;
+
+  font-size: 7px;
+}
+
+.finalis-peer-email-copy strong {
+  overflow: hidden;
+
+  color: #40393d;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.finalis-peer-email-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  flex-shrink: 0;
+
+  padding: 5px 8px;
+
+  color: #2f855a;
+
+  border: 1px solid #c8e2d0;
+  border-radius: 999px;
+
+  background: #f2faf5;
+
+  font-size: 7px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   PRADITA ACTION
+========================= */
+
+.finalis-pradita-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-top: 16px;
+  padding-top: 16px;
+
+  border-top: 1px solid #eee3e8;
+}
+
+.finalis-pradita-bottom > p {
+  max-width: 720px;
+
+  margin: 0;
+
+  color: #766e73;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.finalis-waiting-admin {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #8a6475;
+}
+
+.finalis-waiting-admin p {
+  margin: 0;
+
+  color: #766e73;
+
+  font-size: 9px;
+}
+
+.finalis-peer-button {
+  min-width: 175px;
+  height: 39px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 0 14px;
+
+  color: #ffffff;
+
+  border: 1px solid #7e1f4e;
+  border-radius: 8px;
+
+  background: #7e1f4e;
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.finalis-peer-button:hover {
+  background: #6d173f;
+}
+
+.finalis-peer-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================
+   INFORMATION
+========================= */
+
+.finalis-information-card {
+  margin-top: 22px;
+  padding: 21px 22px;
+}
+
+.finalis-information-list {
+  display: grid;
+
+  gap: 10px;
+}
+
+.finalis-information-item {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 9px;
+}
+
+.finalis-information-dot {
+  width: 6px;
+  height: 6px;
+
+  flex-shrink: 0;
+
+  margin-top: 5px;
+
+  border-radius: 50%;
+
+  background: #7e1f4e;
+}
+
+.finalis-information-item p {
+  margin: 0;
+
+  color: #6f686f;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+  .finalis-dashboard-container {
+    width: min(100% - 40px, 1400px);
+  }
+
+  .finalis-page-header {
+    margin-left: -20px;
+    margin-right: -20px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .finalis-result-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .finalis-result-stats {
+    width: 100%;
+  }
+
+  .finalis-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  .finalis-dashboard-container {
+    width: min(100% - 28px, 1400px);
+  }
+
+  .finalis-page-header {
+    margin-left: -14px;
+    margin-right: -14px;
+
+    padding: 28px 18px;
+  }
+
+  .finalis-page-header h1 {
+    font-size: 23px;
+  }
+
+  .finalis-result-card {
+    padding: 20px;
+  }
+
+  .finalis-result-main h2 {
+    font-size: 16px;
+  }
+
+  .finalis-result-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .finalis-summary-card,
+  .finalis-selection-card {
+    padding: 19px;
+  }
+
+  .finalis-indicator-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .finalis-indicator-content {
+    width: calc(100% - 50px);
+    flex: none;
+  }
+
+  .finalis-indicator-action {
+    width: 100%;
+
+    padding-left: 49px;
+  }
+
+  .finalis-pradita-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .finalis-pradita-info {
+    grid-template-columns: 1fr;
+  }
+
+  .finalis-peer-email-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .finalis-peer-email-copy {
+    width: calc(100% - 42px);
+
+    flex: none;
+  }
+
+  .finalis-peer-email-copy strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .finalis-peer-email-status {
+    margin-left: 39px;
+  }
+
+  .finalis-pradita-bottom {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .finalis-peer-button {
+    width: 100%;
+  }
+}
