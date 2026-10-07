@@ -4,10 +4,12 @@ import {
   Routes,
 } from 'react-router-dom'
 
+import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import VerifyKrs from './pages/auth/VerifyKrs'
 import VerifyEmail from './pages/auth/VerifyEmail'
 import RegisterSuccess from './pages/auth/RegisterSuccess'
+import Dashboard from './pages/student/Dashboard'
 
 function App() {
   return (
@@ -16,10 +18,15 @@ function App() {
         path="/"
         element={
           <Navigate
-            to="/register"
+            to="/login"
             replace
           />
         }
+      />
+
+      <Route
+        path="/login"
+        element={<Login />}
       />
 
       <Route
@@ -40,6 +47,11 @@ function App() {
       <Route
         path="/register/success"
         element={<RegisterSuccess />}
+      />
+
+      <Route
+        path="/dashboard"
+        element={<Dashboard />}
       />
     </Routes>
   )

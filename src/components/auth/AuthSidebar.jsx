@@ -1,4 +1,4 @@
-import { GraduationCap } from 'lucide-react'
+import { Check, GraduationCap } from 'lucide-react'
 
 const steps = [
   {
@@ -62,12 +62,24 @@ function AuthSidebar({ activeStep = 1 }) {
                 }`}
               >
                 <div className="step-number">
-                  {isCompleted ? '✓' : step.number}
+                  {isCompleted ? (
+                    <Check size={20} strokeWidth={2.5} />
+                  ) : (
+                    step.number
+                  )}
                 </div>
 
-                <div>
-                  <div className="step-title">
-                    {step.title}
+                <div className="step-content">
+                  <div className="step-title-row">
+                    <div className="step-title">
+                      {step.title}
+                    </div>
+
+                    {isCompleted && (
+                      <span className="step-completed-badge">
+                        Selesai
+                      </span>
+                    )}
                   </div>
 
                   <div className="step-subtitle">
