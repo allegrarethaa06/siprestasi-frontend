@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar'
 import './Admin_dashboard.css'
+import AdminHeader from '../components/AdminHeader'
 
 function AdminDashboard() {
   const stats = [
@@ -126,56 +127,10 @@ function AdminDashboard() {
       {/* NAVBAR */}
       <Navbar />
 
-      {/* =========================
-          HERO
-      ========================= */}
-
-      <section className="admin-hero">
-
-        <div className="admin-hero-content">
-
-          <span className="portal-badge">
-            ● PORTAL ADMINISTRATOR
-          </span>
-
-          <h1>
-            Selamat Datang di SIPRESTASI
-          </h1>
-
-          <p>
-            Kelola proses seleksi Mahasiswa Berprestasi
-            secara terstruktur dan efisien.
-          </p>
-
-          <div className="hero-meta">
-
-            <span className="period-badge">
-              Periode Seleksi 2026
-            </span>
-
-            <span>•</span>
-
-            <span>
-              TA 2025/2026
-            </span>
-
-            <span>•</span>
-
-            <strong>
-              Tahap 1 sedang berlangsung
-            </strong>
-
-            <span>•</span>
-
-            <span>
-              Batas verifikasi: 28 Februari 2026
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
+     <AdminHeader
+        title="Selamat Datang di SIPRESTASI"
+        description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
+    />
 
       {/* =========================
           CONTENT
