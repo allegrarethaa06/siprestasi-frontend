@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   ArrowRight,
+  Check,
   Eye,
   EyeOff,
 } from 'lucide-react'
 
 import LoginSidebar from '../../components/auth/LoginSidebar'
-import PasswordStrength from '../../components/auth/PasswordStrength'
 
 import '../../styles/auth/auth-layout.css'
 import '../../styles/auth/login.css'
@@ -23,6 +23,18 @@ function Login() {
 
   const [errors, setErrors] = useState({})
   const [showPassword, setShowPassword] = useState(false)
+
+  const emailPattern =
+    /^[^\s@]+@student\.pradita\.ac\.id$/i
+
+  const emailValid =
+    emailPattern.test(formData.email.trim())
+
+  const passwordValid =
+    formData.password.length > 0
+
+  const formValid =
+    emailValid && passwordValid
 
   const handleChange = (event) => {
     const {
@@ -53,12 +65,8 @@ function Login() {
 
     if (!formData.email.trim()) {
       newErrors.email =
-        'Email student wajib diisi.'
-    } else if (
-      !/^[^\s@]+@student\.pradita\.ac\.id$/i.test(
-        formData.email.trim()
-      )
-    ) {
+        'Email mahasiswa wajib diisi.'
+    } else if (!emailValid) {
       newErrors.email =
         'Gunakan email @student.pradita.ac.id.'
     }
@@ -93,18 +101,20 @@ function Login() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+
         <LoginSidebar />
 
         <section className="auth-main">
           <div className="login-container">
 
-            <div className="form-heading">
+            <div className="form-heading login-heading">
               <h2>
                 Masuk ke SIPRESTASI
               </h2>
 
               <p>
-                Masukkan akun Anda untuk melanjutkan.
+                Masukkan akun mahasiswa Anda untuk
+                melanjutkan.
               </p>
             </div>
 
@@ -117,17 +127,20 @@ function Login() {
                 {/* EMAIL */}
 
                 <div className="form-group">
+
                   <label htmlFor="email">
-                    Email Student <span>*</span>
+                    Email Mahasiswa
+                    <span>*</span>
                   </label>
 
                   <input
                     id="email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Masukkan Email Student"
+                    placeholder="nama@student.pradita.ac.id"
                     className={
                       errors.email
                         ? 'input-error'
@@ -140,13 +153,16 @@ function Login() {
                       {errors.email}
                     </p>
                   )}
+
                 </div>
 
                 {/* PASSWORD */}
 
                 <div className="form-group password-group">
+
                   <label htmlFor="password">
-                    Password <span>*</span>
+                    Password
+                    <span>*</span>
                   </label>
 
                   <div
@@ -164,9 +180,10 @@ function Login() {
                           ? 'text'
                           : 'password'
                       }
+                      autoComplete="current-password"
                       value={formData.password}
                       onChange={handleChange}
-                      placeholder="Masukkan Password"
+                      placeholder="Masukkan password"
                     />
 
                     <button
@@ -174,8 +191,7 @@ function Login() {
                       className="password-toggle"
                       onClick={() =>
                         setShowPassword(
-                          (previous) =>
-                            !previous
+                          (previous) => !previous
                         )
                       }
                       aria-label={
@@ -185,50 +201,53 @@ function Login() {
                       }
                     >
                       {showPassword ? (
-                        <EyeOff size={19} />
+                        <EyeOff size={18} />
                       ) : (
-                        <Eye size={19} />
+                        <Eye size={18} />
                       )}
                     </button>
                   </div>
-
-                  {/* PASSWORD STRENGTH */}
-
-                  <PasswordStrength
-                    password={formData.password}
-                  />
 
                   {errors.password && (
                     <p className="field-error">
                       {errors.password}
                     </p>
                   )}
+
                 </div>
 
-                {/* REMEMBER + FORGOT */}
+                {/* OPTIONS */}
 
                 <div className="login-options">
+
                   <label className="remember-me">
+
                     <input
                       type="checkbox"
                       name="rememberMe"
-                      checked={
-                        formData.rememberMe
-                      }
+                      checked={formData.rememberMe}
                       onChange={handleChange}
                     />
 
-                    <span>
+                    <span className="remember-checkbox">
+                      {formData.rememberMe && (
+                        <Check size={13} />
+                      )}
+                    </span>
+
+                    <span className="remember-label">
                       Ingat saya
                     </span>
+
                   </label>
 
                   <Link
                     to="/forgot-password"
                     className="forgot-password-link"
                   >
-                    Lupa Password?
+                    Lupa password?
                   </Link>
+
                 </div>
 
                 {/* LOGIN */}
@@ -236,9 +255,10 @@ function Login() {
                 <button
                   type="submit"
                   className="primary-button login-button"
+                  disabled={!formValid}
                 >
                   Masuk
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} />
                 </button>
 
                 {/* REGISTER */}
@@ -253,8 +273,10 @@ function Login() {
 
               </div>
             </form>
+
           </div>
         </section>
+
       </div>
     </main>
   )

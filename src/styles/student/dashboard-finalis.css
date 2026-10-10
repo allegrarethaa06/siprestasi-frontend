@@ -115,7 +115,7 @@
 
 
 /* =========================
-   RESULT
+   RESULT TAHAP 1
 ========================= */
 
 .finalis-result-card {
@@ -146,8 +146,6 @@
   align-items: flex-start;
 
   gap: 14px;
-
-  min-width: 0;
 }
 
 .finalis-result-icon {
@@ -187,7 +185,6 @@
 
   font-size: 19px;
   font-weight: 700;
-  line-height: 1.35;
 }
 
 .finalis-result-main p {
@@ -198,18 +195,12 @@
   font-size: 10px;
 }
 
-
-/* =========================
-   RESULT STATS
-========================= */
-
 .finalis-result-stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-template-columns:
+    repeat(2, minmax(120px, 1fr));
 
   gap: 10px;
-
-  flex-shrink: 0;
 }
 
 .finalis-result-stats > div {
@@ -231,7 +222,6 @@
   color: #918a90;
 
   font-size: 8px;
-  font-weight: 600;
 }
 
 .finalis-result-stats strong {
@@ -309,7 +299,7 @@
 
 
 /* =========================
-   INDICATOR
+   INDICATORS
 ========================= */
 
 .finalis-indicator-list {
@@ -330,8 +320,6 @@
   padding: 13px 14px;
 
   border-bottom: 1px solid #eee5e8;
-
-  background: #ffffff;
 }
 
 .finalis-indicator-row:last-child {
@@ -398,19 +386,17 @@
 .finalis-indicator-status {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
 
   gap: 5px;
 
   min-height: 27px;
+
   padding: 0 9px;
 
   border-radius: 999px;
 
   font-size: 8px;
   font-weight: 700;
-
-  white-space: nowrap;
 }
 
 .finalis-status-verified {
@@ -496,6 +482,11 @@
   color: #35463b;
 }
 
+.finalis-selection-step.is-complete
+.finalis-selection-copy span {
+  color: #66806f;
+}
+
 .finalis-selection-step.is-current
 .finalis-selection-marker {
   color: #7e1f4e;
@@ -521,6 +512,225 @@
 
 .finalis-selection-line.is-complete {
   background: #81b395;
+}
+
+
+/* =========================
+   FINAL RESULT
+========================= */
+
+.final-result-card {
+  margin-top: 22px;
+  padding: 24px;
+
+  border: 1px solid #dcc3cf;
+  border-left: 5px solid #7e1f4e;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #ffffff 55%,
+    #faf0f5 100%
+  );
+
+  box-shadow:
+    0 8px 28px rgba(81, 28, 55, 0.07);
+}
+
+.final-result-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.final-result-main {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.final-result-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #7e1f4e;
+
+  border: 1px solid #dfc3d0;
+  border-radius: 12px;
+
+  background: #faf1f5;
+}
+
+.final-result-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #7e1f4e;
+
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.final-result-main h2 {
+  margin: 0;
+
+  color: #302b2e;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.final-result-main p {
+  max-width: 720px;
+
+  margin: 5px 0 0;
+
+  color: #817a81;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.final-result-badge {
+  flex-shrink: 0;
+
+  padding: 7px 11px;
+
+  color: #2f855a;
+
+  border: 1px solid #c8e2d0;
+  border-radius: 999px;
+
+  background: #f2faf5;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.final-result-ranking {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 20px;
+  padding: 18px;
+
+  border: 1px solid #ead6df;
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.final-result-ranking-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: #7e1f4e;
+
+  border-radius: 50%;
+
+  background: #faf1f5;
+}
+
+.final-result-ranking span {
+  display: block;
+
+  color: #918990;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.final-result-ranking strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #7e1f4e;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.final-result-ranking p {
+  margin: 2px 0 0;
+
+  color: #7c747a;
+
+  font-size: 9px;
+}
+
+.final-result-score-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-top: 14px;
+}
+
+.final-result-score-grid > div {
+  min-height: 72px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e9e1e4;
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+.final-result-score-grid span {
+  color: #918990;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.final-result-score-grid strong {
+  color: #3b3438;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.final-result-score-grid
+.final-result-score-primary {
+  border-color: #dfbdcd;
+
+  background: #faf2f6;
+}
+
+.final-result-score-primary strong {
+  color: #7e1f4e;
+
+  font-size: 21px;
 }
 
 
@@ -620,17 +830,19 @@
 }
 
 .finalis-pradita-content p {
+  max-width: 760px;
+
   margin: 4px 0 0;
 
   color: #898188;
 
   font-size: 9px;
+  line-height: 1.5;
 }
 
 .finalis-pradita-status {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
 
   gap: 5px;
 
@@ -664,7 +876,8 @@
 
 .finalis-pradita-info {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
   gap: 10px;
 
@@ -692,7 +905,6 @@
   color: #948d93;
 
   font-size: 8px;
-  font-weight: 600;
 }
 
 .finalis-pradita-info strong {
@@ -712,130 +924,72 @@
 
 
 /* =========================
-   EMAIL REKAN SEJAWAT
+   PROGRESS
 ========================= */
 
-.finalis-peer-email-section {
+.finalis-progress-section {
   margin-top: 18px;
-  padding-top: 17px;
+  padding: 16px;
 
-  border-top: 1px solid #eee3e8;
+  border: 1px solid #eee3e8;
+  border-radius: 10px;
+
+  background: #fcfafb;
 }
 
-.finalis-peer-email-heading h3 {
-  margin: 0;
+.finalis-progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  color: #3b3438;
+  gap: 16px;
+}
 
-  font-size: 11px;
+.finalis-progress-heading span {
+  color: #746d72;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.finalis-progress-heading strong {
+  color: #7e1f4e;
+
+  font-size: 9px;
   font-weight: 700;
 }
 
-.finalis-peer-email-heading p {
-  margin: 3px 0 0;
+.finalis-progress-track {
+  height: 8px;
+
+  margin-top: 11px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #eadde3;
+}
+
+.finalis-progress-fill {
+  height: 100%;
+
+  border-radius: 999px;
+
+  background: #7e1f4e;
+}
+
+.finalis-progress-section p {
+  margin: 8px 0 0;
 
   color: #918990;
 
   font-size: 8px;
 }
 
-.finalis-peer-email-list {
-  display: grid;
-
-  gap: 8px;
-
-  margin-top: 12px;
-}
-
-.finalis-peer-email-item {
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
-  min-height: 52px;
-
-  padding: 9px 11px;
-
-  border: 1px solid #e8e1e4;
-  border-radius: 9px;
-
-  background: #ffffff;
-}
-
-.finalis-peer-email-number {
-  width: 29px;
-  height: 29px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  color: #7e1f4e;
-
-  border: 1px solid #e4ccd7;
-  border-radius: 50%;
-
-  background: #faf2f6;
-
-  font-size: 8px;
-  font-weight: 700;
-}
-
-.finalis-peer-email-copy {
-  min-width: 0;
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 2px;
-}
-
-.finalis-peer-email-copy span {
-  color: #999197;
-
-  font-size: 7px;
-}
-
-.finalis-peer-email-copy strong {
-  overflow: hidden;
-
-  color: #40393d;
-
-  font-size: 9px;
-  font-weight: 700;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.finalis-peer-email-status {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 4px;
-
-  flex-shrink: 0;
-
-  padding: 5px 8px;
-
-  color: #2f855a;
-
-  border: 1px solid #c8e2d0;
-  border-radius: 999px;
-
-  background: #f2faf5;
-
-  font-size: 7px;
-  font-weight: 700;
-}
-
 
 /* =========================
-   PRADITA ACTION
+   ACTION
 ========================= */
 
 .finalis-pradita-bottom {
@@ -851,9 +1005,8 @@
   border-top: 1px solid #eee3e8;
 }
 
-.finalis-pradita-bottom > p {
-  max-width: 720px;
-
+.finalis-pradita-bottom > p,
+.finalis-waiting-admin p {
   margin: 0;
 
   color: #766e73;
@@ -869,14 +1022,6 @@
   gap: 7px;
 
   color: #8a6475;
-}
-
-.finalis-waiting-admin p {
-  margin: 0;
-
-  color: #766e73;
-
-  font-size: 9px;
 }
 
 .finalis-peer-button {
@@ -905,18 +1050,51 @@
   font-weight: 700;
 
   cursor: pointer;
-
-  transition:
-    background 0.18s ease,
-    transform 0.18s ease;
 }
 
 .finalis-peer-button:hover {
   background: #6d173f;
 }
 
-.finalis-peer-button:active {
-  transform: translateY(1px);
+
+/* =========================
+   DEMO
+========================= */
+
+.finalis-demo-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 9px;
+
+  margin-top: 12px;
+}
+
+.finalis-demo-area span {
+  color: #9a9298;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.finalis-demo-area button {
+  min-height: 30px;
+
+  padding: 0 10px;
+
+  color: #7e1f4e;
+
+  border: 1px dashed #cfa8ba;
+  border-radius: 7px;
+
+  background: #fffafd;
+
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 700;
+
+  cursor: pointer;
 }
 
 
@@ -1021,11 +1199,9 @@
     padding: 20px;
   }
 
-  .finalis-result-main h2 {
-    font-size: 16px;
-  }
-
   .finalis-result-stats {
+    width: 100%;
+
     grid-template-columns: 1fr;
   }
 
@@ -1041,6 +1217,7 @@
 
   .finalis-indicator-content {
     width: calc(100% - 50px);
+
     flex: none;
   }
 
@@ -1050,33 +1227,22 @@
     padding-left: 49px;
   }
 
-  .finalis-pradita-top {
+  .finalis-pradita-top,
+  .final-result-top {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .finalis-pradita-info {
+  .finalis-pradita-info,
+  .final-result-score-grid {
     grid-template-columns: 1fr;
   }
 
-  .finalis-peer-email-item {
+  .finalis-progress-heading {
     align-items: flex-start;
-    flex-wrap: wrap;
-  }
+    flex-direction: column;
 
-  .finalis-peer-email-copy {
-    width: calc(100% - 42px);
-
-    flex: none;
-  }
-
-  .finalis-peer-email-copy strong {
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-
-  .finalis-peer-email-status {
-    margin-left: 39px;
+    gap: 5px;
   }
 
   .finalis-pradita-bottom {
@@ -1086,5 +1252,14 @@
 
   .finalis-peer-button {
     width: 100%;
+  }
+
+  .finalis-demo-area {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .final-result-ranking strong {
+    font-size: 19px;
   }
 }

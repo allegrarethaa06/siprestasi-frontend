@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
 import {
+  ArrowRight,
   Award,
   BookOpen,
+  CheckCircle2,
   FileText,
   Info,
   Languages,
@@ -15,79 +17,85 @@ import '../../styles/student/dashboard.css'
 function Dashboard() {
   const navigate = useNavigate()
 
-  const registration = {
-    status: 'Belum Dimulai',
-    progress: 0,
+  /*
+    ============================================
+    MOCK DATA
+
+    Nanti diganti response backend.
+    ============================================
+  */
+
+  const student = {
+    name: 'Allegra Aretha Putri',
+    nim: '2410102004',
+    ipk: '3.88',
+    skpi: '250',
   }
 
   const stageOneItems = [
     {
       id: 'ipk',
       title: 'IPK',
-      description: 'Indeks Prestasi Kumulatif',
-      status: 'Belum Tersedia',
+      value: `${student.ipk} / 4.00`,
+      status: 'Tersedia',
+      type: 'available',
       icon: BookOpen,
-      source: 'master',
     },
     {
       id: 'skpi',
       title: 'SKPI',
-      description: 'Surat Keterangan Pendamping Ijazah',
-      status: 'Belum Tersedia',
+      value: student.skpi,
+      status: 'Tersedia',
+      type: 'available',
       icon: FileText,
-      source: 'master',
     },
     {
       id: 'prestasi',
       title: 'Prestasi',
-      description: 'Prestasi terbaik yang diajukan',
-      status: 'Belum Terisi',
+      value: 'Belum diisi',
+      status: 'Belum diisi',
+      type: 'empty',
       icon: Award,
-      source: 'student',
     },
     {
       id: 'organisasi',
       title: 'Organisasi',
-      description: 'Pengalaman organisasi',
-      status: 'Belum Terisi',
+      value: 'Belum diisi',
+      status: 'Belum diisi',
+      type: 'empty',
       icon: Users,
-      source: 'student',
     },
     {
       id: 'bahasa',
       title: 'Bahasa Asing',
-      description: 'Sertifikasi kemampuan bahasa',
-      status: 'Belum Terisi',
+      value: 'Belum diisi',
+      status: 'Belum diisi',
+      type: 'empty',
       icon: Languages,
-      source: 'student',
     },
   ]
-
-  const completedStageOne = stageOneItems.filter(
-    (item) => item.status === 'Lengkap'
-  ).length
 
   const selectionStages = [
     {
       number: 1,
       title: 'Tahap 1',
-      description: 'Input Data & Verifikasi',
-      status: 'BELUM DIMULAI',
+      description: 'Pengisian dan verifikasi data',
+      current: true,
     },
     {
       number: 2,
       title: 'Ranking per Angkatan',
-      description: 'Top 3 setiap angkatan',
+      description: 'Menentukan Top 3 setiap angkatan',
     },
     {
       number: 3,
       title: 'Pradita Value',
-      description: 'Untuk 9 finalis',
+      description: 'Penilaian untuk finalis',
     },
     {
       number: 4,
       title: 'Pengumuman Final',
-      description: 'Juara 1, 2, dan 3',
+      description: 'Hasil akhir seleksi',
     },
   ]
 
@@ -96,7 +104,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="student-page">
+    <div className="student-dashboard-page">
 
       {/* =========================
           HERO
@@ -104,305 +112,337 @@ function Dashboard() {
 
       <section className="dashboard-hero">
         <div className="dashboard-container">
-          <span className="dashboard-hero-badge">
+
+          <span className="dashboard-hero-label">
             MAHASISWA BERPRESTASI
           </span>
 
           <h1>
-            Selamat Datang di SIPRESTASI
+            Pendaftaran SIPRESTASI
           </h1>
 
           <p>
-            Lengkapi data dan ikuti proses seleksi
-            Mahasiswa Berprestasi.
+            Lengkapi data Tahap 1 untuk mengikuti
+            proses seleksi Mahasiswa Berprestasi.
           </p>
+
         </div>
       </section>
 
       {/* =========================
-          CONTENT
+          MAIN
       ========================== */}
 
       <main className="dashboard-main">
         <div className="dashboard-container">
 
           {/* =========================
-              REGISTRATION PROGRESS
+              REGISTRATION
           ========================== */}
 
-          <section className="dashboard-card registration-progress-card">
-            <div className="registration-progress-header">
-              <div>
-                <div className="registration-status-row">
-                  <span className="registration-status-badge">
-                    {registration.status}
-                  </span>
+          <section className="dashboard-registration">
 
-                  <span className="registration-status-dot" />
+            <div className="dashboard-registration-copy">
 
-                  <span className="registration-status-text">
-                    Pendaftaran belum diisi
-                  </span>
-                </div>
-
-                <h2>
-                  Pendaftaran Mahasiswa Berprestasi
-                </h2>
-              </div>
-
-              <button
-                type="button"
-                className="dashboard-primary-button"
-                onClick={handleStartRegistration}
-              >
-                Mulai Pendaftaran
-              </button>
-            </div>
-
-            <div className="registration-progress-divider" />
-
-            <div className="registration-progress-info">
-              <span>
-                Anda belum memulai pengisian data Tahap 1.
+              <span className="registration-status">
+                Belum Dimulai
               </span>
 
-              <strong>
-                {registration.progress}%
-              </strong>
+              <h2>
+                Pendaftaran Mahasiswa Berprestasi
+              </h2>
+
+              <p>
+                Anda belum mengisi data Tahap 1.
+                Mulai pendaftaran untuk melengkapi
+                data yang dibutuhkan.
+              </p>
+
             </div>
 
-            <div className="registration-progress-track">
-              <div
-                className="registration-progress-fill"
-                style={{
-                  width: `${registration.progress}%`,
-                }}
-              />
-            </div>
+            <button
+              type="button"
+              className="dashboard-primary-button"
+              onClick={handleStartRegistration}
+            >
+              Mulai Pendaftaran
+              <ArrowRight size={18} />
+            </button>
+
           </section>
 
           {/* =========================
-              TWO COLUMN AREA
+              TWO COLUMN
           ========================== */}
 
-          <div className="dashboard-grid">
+          <div className="dashboard-content-grid">
 
             {/* =========================
-                STAGE ONE
+                TAHAP 1
             ========================== */}
 
-            <section className="dashboard-card stage-one-card">
-              <div className="dashboard-section-header">
+            <section className="dashboard-panel stage-one-panel">
+
+              <div className="dashboard-panel-heading">
+
                 <div>
+                  <span className="dashboard-section-label">
+                    TAHAP 1
+                  </span>
+
                   <h2>
-                    Kelengkapan Tahap 1
+                    Data Pendaftaran
                   </h2>
 
                   <p>
-                    5 komponen verifikasi awal dokumen prestasi
+                    Cek data yang sudah tersedia dan
+                    lengkapi bagian yang masih kosong.
                   </p>
                 </div>
 
-                <span className="dashboard-count-badge">
-                  {completedStageOne} / {stageOneItems.length} Lengkap
-                </span>
               </div>
 
-              <div className="dashboard-section-divider" />
+              <div className="stage-one-list">
 
-              <div className="stage-one-grid">
                 {stageOneItems.map((item) => {
                   const Icon = item.icon
 
                   return (
-                    <article
+                    <div
                       key={item.id}
-                      className={`stage-one-item ${
-                        item.id === 'bahasa'
-                          ? 'stage-one-item-wide'
-                          : ''
-                      }`}
+                      className="stage-one-row"
                     >
-                      <div className="stage-one-item-header">
-                        <div className="stage-one-icon">
-                          <Icon size={19} />
+
+                      <div className="stage-one-row-main">
+
+                        <div className="stage-one-row-icon">
+                          <Icon size={18} />
                         </div>
 
-                        <span className="stage-one-status">
-                          {item.status}
-                        </span>
+                        <div className="stage-one-row-copy">
+
+                          <span>
+                            {item.title}
+                          </span>
+
+                          <strong
+                            className={
+                              item.type === 'empty'
+                                ? 'stage-one-empty-value'
+                                : ''
+                            }
+                          >
+                            {item.value}
+                          </strong>
+
+                        </div>
+
                       </div>
 
-                      <h3>
-                        {item.title}
-                      </h3>
+                      <span
+                        className={`stage-one-row-status ${
+                          item.type === 'available'
+                            ? 'is-available'
+                            : 'is-empty'
+                        }`}
+                      >
+                        {item.type === 'available' && (
+                          <CheckCircle2 size={13} />
+                        )}
 
-                      <p>
-                        {item.description}
-                      </p>
+                        {item.status}
+                      </span>
 
-                      {item.source === 'master' && (
-                        <span className="stage-one-source">
-                          Data dari master akademik
-                        </span>
-                      )}
-                    </article>
+                    </div>
                   )
                 })}
+
               </div>
+
             </section>
 
             {/* =========================
-                SELECTION TIMELINE
+                TAHAP SELEKSI
             ========================== */}
 
-            <section className="dashboard-card selection-card">
-              <div className="dashboard-section-header">
+            <section className="dashboard-panel selection-panel">
+
+              <div className="dashboard-panel-heading">
+
                 <div>
+                  <span className="dashboard-section-label">
+                    PROSES SELEKSI
+                  </span>
+
                   <h2>
                     Tahap Seleksi
                   </h2>
 
                   <p>
-                    Alur proses penilaian Pemilihan
-                    Mahasiswa Berprestasi
+                    Alur seleksi yang akan Anda jalani.
                   </p>
                 </div>
+
               </div>
 
-              <div className="dashboard-section-divider" />
-
               <div className="selection-timeline">
+
                 {selectionStages.map(
                   (stage, index) => (
                     <div
+                      className={`selection-step ${
+                        stage.current
+                          ? 'is-current'
+                          : ''
+                      }`}
                       key={stage.number}
-                      className="selection-step"
                     >
-                      <div className="selection-step-marker">
-                        <div className="selection-step-number">
+
+                      <div className="selection-marker-column">
+
+                        <div className="selection-number">
                           {stage.number}
                         </div>
 
                         {index <
                           selectionStages.length - 1 && (
-                          <div className="selection-step-line" />
+                          <div className="selection-line" />
                         )}
+
                       </div>
 
-                      <div className="selection-step-content">
-                        <div className="selection-step-title-row">
-                          <h3>
-                            {stage.title}
-                          </h3>
+                      <div className="selection-copy">
 
-                          {stage.status && (
-                            <span className="selection-step-status">
-                              {stage.status}
+                        <div className="selection-title-row">
+
+                          <strong>
+                            {stage.title}
+                          </strong>
+
+                          {stage.current && (
+                            <span>
+                              Sekarang
                             </span>
                           )}
+
                         </div>
 
                         <p>
                           {stage.description}
                         </p>
+
                       </div>
+
                     </div>
                   )
                 )}
+
               </div>
 
-              <div className="selection-notice">
-                <Info size={16} />
-
-                <span>
-                  Pendaftaran belum dimulai. Mulai
-                  pendaftaran untuk memasuki Tahap 1.
-                </span>
-              </div>
             </section>
+
           </div>
 
           {/* =========================
               PRADITA VALUE
           ========================== */}
 
-          <section className="dashboard-card pradita-value-card">
-            <div className="pradita-value-header">
-              <div className="pradita-value-title">
-                <div className="pradita-value-icon">
-                  <LockKeyhole size={20} />
-                </div>
+          <section className="dashboard-pradita-card">
 
-                <div>
-                  <h2>
-                    Pradita Value
-                  </h2>
+            <div className="dashboard-pradita-main">
 
-                  <p>
-                    Hanya untuk finalis
-                  </p>
-                </div>
+              <div className="dashboard-pradita-icon">
+                <LockKeyhole size={20} />
               </div>
 
-              <span className="pradita-value-lock">
-                <LockKeyhole size={14} />
-                Terkunci
-              </span>
+              <div className="dashboard-pradita-copy">
+
+                <span>
+                  TAHAP LANJUTAN
+                </span>
+
+                <h2>
+                  Pradita Value
+                </h2>
+
+                <p>
+                  Penilaian Pradita Value dibuka
+                  setelah Anda masuk Top 3 angkatan.
+                </p>
+
+              </div>
+
             </div>
 
-            <p className="pradita-value-description">
-              Penilaian Pradita Value akan dibuka jika
-              Anda lolos sebagai 9 finalis.
-            </p>
+            <div className="dashboard-pradita-status">
+              <LockKeyhole size={14} />
+              Terkunci
+            </div>
+
           </section>
 
           {/* =========================
-              IMPORTANT INFO
+              INFORMATION
           ========================== */}
 
-          <section className="dashboard-card important-info-card">
-            <div className="important-info-heading">
-              <div className="important-info-icon">
+          <section className="dashboard-information">
+
+            <div className="dashboard-information-heading">
+
+              <div className="dashboard-information-icon">
                 <Info size={18} />
               </div>
 
-              <h2>
-                Informasi Penting
-              </h2>
+              <div>
+                <h2>
+                  Informasi Penting
+                </h2>
+
+                <p>
+                  Hal yang perlu diperhatikan sebelum
+                  memulai pendaftaran.
+                </p>
+              </div>
+
             </div>
 
-            <div className="dashboard-section-divider" />
+            <div className="dashboard-information-list">
 
-            <ul>
-              <li>
-                Pastikan seluruh data Tahap 1 sudah benar
-                sebelum dikirim.
-              </li>
+              <div className="dashboard-information-item">
+                <span />
 
-              <li>
-                Tahap 1 mencakup IPK, SKPI, Prestasi,
-                Organisasi, dan Bahasa Asing.
-              </li>
+                <p>
+                  Pastikan data yang Anda isi pada
+                  Tahap 1 sudah benar sebelum dikirim.
+                </p>
+              </div>
 
-              <li>
-                IPK dan SKPI diperoleh dari master data
-                akademik berdasarkan NIM mahasiswa.
-              </li>
+              <div className="dashboard-information-item">
+                <span />
 
-              <li>
-                Pradita Value hanya dinilai untuk 9 finalis.
-              </li>
+                <p>
+                  Tahap 1 mencakup IPK, SKPI,
+                  Prestasi, Organisasi, dan
+                  Bahasa Asing.
+                </p>
+              </div>
 
-              <li>
-                Hasil akhir ditentukan dari gabungan nilai
-                Tahap 1 dan Pradita Value.
-              </li>
-            </ul>
+              <div className="dashboard-information-item">
+                <span />
+
+                <p>
+                  Pradita Value dibuka setelah Anda
+                  lolos Top 3 angkatan.
+                </p>
+              </div>
+
+            </div>
+
           </section>
 
         </div>
       </main>
+
     </div>
   )
 }

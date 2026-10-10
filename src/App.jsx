@@ -19,6 +19,7 @@ import ReviewTahap1 from './pages/student/ReviewTahap1'
 import StatusVerifikasiTahap1 from './pages/student/StatusVerifikasiTahap1'
 
 import PraditaValuePeers from './pages/student/PraditaValuePeers'
+import PraditaValueStatus from './pages/student/PraditaValueStatus'
 
 function App() {
   return (
@@ -86,14 +87,17 @@ function App() {
 
       <Route
         path="/pendaftaran-mapres/status"
-        element={
-          <StatusVerifikasiTahap1 />
-        }
+        element={<StatusVerifikasiTahap1 />}
       />
 
       <Route
         path="/pradita-value/rekan-sejawat"
         element={<PraditaValuePeers />}
+      />
+
+      <Route
+        path="/pradita-value/status"
+        element={<PraditaValueStatus />}
       />
 
     </Routes>
