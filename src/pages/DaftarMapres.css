@@ -32,7 +32,12 @@
 .mapres-content {
   width: 100%;
 
-  padding: 24px 14px 55px;
+  position: relative;
+  z-index: 3;
+
+  margin-top: -64px;
+
+  padding: 0 28px 55px;
 }
 
 /* =========================
@@ -45,7 +50,7 @@
 
   gap: 14px;
 
-  padding: 22px 24px 28px;
+  margin-bottom: 26px;
 }
 
 .mapres-summary-card {
@@ -55,34 +60,44 @@
   align-items: center;
   justify-content: space-between;
 
+  gap: 20px;
+
   padding: 22px;
 
-  border: 0.5px solid #F2E9EC;
+  border: 1px solid #F0E7EA;
   border-radius: 11px;
 
   background: #ffffff;
 
   color: inherit;
-
   font-family: inherit;
   text-align: left;
 
   cursor: pointer;
 
+  box-shadow:
+    0 8px 24px rgba(109, 23, 53, 0.05);
+
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
+    box-shadow 0.2s ease,
     transform 0.2s ease;
 }
 
 .mapres-summary-card:hover {
-  border-color: #E1CBD3;
+  border-color: #DFC5CE;
+
   background: #FFFCFD;
 }
 
 .mapres-summary-card.active {
-  border-color: #D6A9B8;
+  border-color: #A84F72;
+
   background: #FBF1F4;
+
+  box-shadow:
+    0 8px 24px rgba(109, 23, 53, 0.08);
 }
 
 .mapres-summary-title {
@@ -92,6 +107,12 @@
 
   font-size: 13px;
   font-weight: 600;
+}
+
+.mapres-summary-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .mapres-summary-copy strong {
@@ -111,8 +132,8 @@
 }
 
 .mapres-summary-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
@@ -120,19 +141,15 @@
 
   flex-shrink: 0;
 
-  border-radius: 8px;
+  border-radius: 10px;
 
-  background: #F8EDF1;
-
-  color: var(--burgundy);
-
-  font-size: 18px;
-  font-weight: 600;
+  background: #F9EEF2;
+  color: #7A1739;
 }
 
 .mapres-summary-card.active .mapres-summary-icon {
-  background: var(--burgundy);
-  color: #ffffff;
+  background: #F4DFE6;
+  color: #6D1735;
 }
 
 /* =========================
@@ -180,9 +197,15 @@
 
   border-radius: 7px;
 
-  background: #FBF2F5;
+  background: #ffffff;
 
-  color: #675D61;
+  border: 1px solid #eae3e6;
+  border-radius: 8px;
+
+  color: #2B2527;
+
+  font-family: inherit;
+  font-weight: 400;
 }
 
 .search-box input {
@@ -220,14 +243,20 @@
 
   outline: none;
 
-  background: #FBF2F5;
+  background: #ffffff;
 
-  color: #40393C;
+  border: 1px solid #eae3e6;
+  border-radius: 8px;
+
+  color: #2B2527;
+
+  font-family: inherit;
+  font-weight: 400;
 
   font-family: inherit;
 
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
 
   cursor: pointer;
 }
@@ -273,9 +302,15 @@
   border: none;
   border-radius: 7px;
 
-  background: #FBF2F5;
+  background: #ffffff;
 
-  color: #62585C;
+  border: 1px solid #F2E9EC;
+  border-radius: 8px;
+
+  color: #2B2527;
+
+  font-family: inherit;
+  font-weight: 400; 
 
   font-family: inherit;
 
@@ -339,6 +374,14 @@
 
   text-align: center;
   vertical-align: middle;
+
+  background: #ffffff;
+
+  color: #6D1735;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid #F2E9EC; 
 }
 
 .mapres-table td {
@@ -346,8 +389,8 @@
 
   padding: 8px 10px;
 
-  border-bottom:
-    0.5px solid #F4ECEF;
+   background: #ffffff;
+  border-bottom: 1px solid #F5F5F5;
 
   color: #5E5659;
 
@@ -765,8 +808,12 @@
 
 @media (max-width: 1150px) {
   .mapres-summary-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 26px;
   }
 
   .mapres-filter {

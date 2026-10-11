@@ -3,6 +3,12 @@ import Navbar from '../components/Navbar'
 import './DaftarMapres.css'
 import AdminHeader from '../components/AdminHeader' 
 import { useNavigate } from 'react-router-dom' 
+import {
+  SubmissionIcon,
+  ReviewIcon,
+  RevisionIcon,
+  ApprovedIcon,
+} from '../components/SummaryIcons' 
 
 
 function SearchIcon() {
@@ -268,78 +274,43 @@ function DaftarMapres() {
       }),
     ]
 
-    const rejectedStudents = [
-      {
-        initials: 'FM',
-        name: 'Fikri Maulana',
-        prodi: 'S1 Manajemen Bisnis',
-        nim: '13522080',
-        angkatan: '2026',
-        kelengkapan: '2/5 Belum Lengkap',
-        completenessType: 'incomplete',
-        status: 'Ditolak',
-        statusType: 'rejected',
-        tanggal: '14 Feb 2026, 14:15 WIB',
-        action: 'Lihat Detail',
-        actionType: 'secondary',
-        timestamp: 2,
-      },
-
-      {
-        initials: 'RN',
-        name: 'Rizky Nugraha',
-        prodi: 'S1 Sistem Informasi',
-        nim: '13522091',
-        angkatan: '2026',
-        kelengkapan: '3/5 Belum Lengkap',
-        completenessType: 'incomplete',
-        status: 'Ditolak',
-        statusType: 'rejected',
-        tanggal: '13 Feb 2026, 09:30 WIB',
-        action: 'Lihat Detail',
-        actionType: 'secondary',
-        timestamp: 1,
-      },
-    ]
-
     return [
       ...reviewStudents,
       ...approvedStudents,
       ...revisionStudents,
-      ...rejectedStudents,
     ]
   }, [])
 
   const summaryCards = [
-    {
-      key: 'Semua',
-      title: 'Semua Pengajuan',
-      value: 42,
-      description: 'Total mahasiswa terdaftar',
-      icon: '▣',
-    },
-    {
-      key: 'Perlu Ditinjau',
-      title: 'Perlu Ditinjau',
-      value: 18,
-      description: 'Menunggu verifikasi Tahap 1',
-      icon: '!',
-    },
-    {
-      key: 'Perlu Revisi',
-      title: 'Perlu Revisi',
-      value: 6,
-      description: 'Menunggu perbaikan berkas',
-      icon: '✎',
-    },
-    {
-      key: 'Disetujui',
-      title: 'Disetujui',
-      value: 16,
-      description: 'Lolos verifikasi Tahap 1',
-      icon: '✓',
-    },
-  ]
+  {
+    title: 'Semua Pengajuan',
+    value: 42,
+    description: 'Total mahasiswa terdaftar',
+    filterValue: 'Semua',
+    icon: <SubmissionIcon />,
+  },
+  {
+    title: 'Perlu Ditinjau',
+    value: 18,
+    description: 'Menunggu verifikasi Tahap 1',
+    filterValue: 'Perlu Ditinjau',
+    icon: <ReviewIcon />,
+  },
+  {
+    title: 'Perlu Revisi',
+    value: 6,
+    description: 'Menunggu perbaikan berkas',
+    filterValue: 'Perlu Revisi',
+    icon: <RevisionIcon />,
+  },
+  {
+    title: 'Disetujui',
+    value: 16,
+    description: 'Lolos verifikasi Tahap 1',
+    filterValue: 'Disetujui',
+    icon: <ApprovedIcon />,
+  },
+]
 
   const filteredStudents = useMemo(() => {
     let result = [...students]
@@ -448,13 +419,20 @@ function DaftarMapres() {
   return (
     <div className="mapres-page">
 
-      <Navbar />
+      <div className="admin-top-section">
 
-      <AdminHeader
-        title="Daftar Mahasiswa Berprestasi"
-        description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
-        showRankingButton
-      />
+        <Navbar />
+
+        <AdminHeader
+          title="Daftar Mahasiswa Berprestasi"
+          description="Kelola proses verifikasi dan seleksi administrasi Mahasiswa Berprestasi."
+          showRankingButton={true}
+          onRankingClick={() =>
+            navigate('/admin/daftar-mapres/ranking')
+          }
+        />
+
+      </div>
 
       <main className="mapres-content">
 
@@ -462,41 +440,32 @@ function DaftarMapres() {
 
         <section className="mapres-summary-grid">
 
-          {summaryCards.map((item) => (
+          {summaryCards.map((card) => (
             <button
-              type="button"
-              key={item.key}
-              className={`mapres-summary-card ${
-                status === item.key
-                  ? 'active'
-                  : ''
-              }`}
-              onClick={() =>
-                handleSummaryClick(item.key)
-              }
-            >
+  key={card.title}
+  type="button"
+  className={`mapres-summary-card ${
+    status === card.filterValue ? 'active' : ''
+  }`}
+  onClick={() => {
+    setStatus(card.filterValue)
+    setPage(1)
+  }}
+>
+  <div className="mapres-summary-copy">
+    <span className="mapres-summary-title">
+      {card.title}
+    </span>
 
-              <div className="mapres-summary-copy">
+    <strong>{card.value}</strong>
 
-                <span className="mapres-summary-title">
-                  {item.title}
-                </span>
+    <p>{card.description}</p>
+  </div>
 
-                <strong>
-                  {item.value}
-                </strong>
-
-                <p>
-                  {item.description}
-                </p>
-
-              </div>
-
-              <div className="mapres-summary-icon">
-                {item.icon}
-              </div>
-
-            </button>
+  <div className="mapres-summary-icon">
+    {card.icon}
+  </div>
+</button>
           ))}
 
         </section>
@@ -561,10 +530,7 @@ function DaftarMapres() {
               <option value="Disetujui">
                 Disetujui
               </option>
-
-              <option value="Ditolak">
-                Ditolak
-              </option>
+            
             </select>
 
             <select
