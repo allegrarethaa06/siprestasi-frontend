@@ -43,7 +43,7 @@ function TinjauRevisi() {
   return (
     <div className="verification-page">
 
-      <Navbar />
+      <Navbar variant="light" />
 
       <main className="verification-content">
 
