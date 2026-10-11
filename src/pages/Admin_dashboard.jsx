@@ -1,34 +1,40 @@
 import Navbar from '../components/Navbar'
 import './Admin_dashboard.css'
 import AdminHeader from '../components/AdminHeader'
+import {
+  SubmissionIcon,
+  ReviewIcon,
+  RevisionIcon,
+  ApprovedIcon,
+} from '../components/SummaryIcons'
 
 function AdminDashboard() {
-  const stats = [
-    {
-      title: 'Total Pengajuan',
-      value: '42',
-      note: 'Mahasiswa',
-      icon: '▣',
-    },
-    {
-      title: 'Perlu Ditinjau',
-      value: '18',
-      note: 'Menunggu verifikasi',
-      icon: '◷',
-    },
-    {
-      title: 'Perlu Revisi',
-      value: '6',
-      note: 'Menunggu perbaikan',
-      icon: '✎',
-    },
-    {
-      title: 'Disetujui',
-      value: '16',
-      note: 'Lolos verifikasi Tahap 1',
-      icon: '✓',
-    },
-  ]
+const stats = [
+  {
+    title: 'Total Pengajuan',
+    value: '42',
+    note: 'Mahasiswa',
+    icon: <SubmissionIcon />,
+  },
+  {
+    title: 'Perlu Ditinjau',
+    value: '18',
+    note: 'Menunggu verifikasi',
+    icon: <ReviewIcon />,
+  },
+  {
+    title: 'Perlu Revisi',
+    value: '6',
+    note: 'Menunggu perbaikan',
+    icon: <RevisionIcon />,
+  },
+  {
+    title: 'Disetujui',
+    value: '16',
+    note: 'Lolos verifikasi Tahap 1',
+    icon: <ApprovedIcon />,
+  },
+]
 
   const stages = [
     {
@@ -125,12 +131,16 @@ function AdminDashboard() {
     <div className="admin-dashboard">
 
       {/* NAVBAR */}
-      <Navbar />
+      <div className="admin-top-section">
 
-     <AdminHeader
+        <Navbar />
+
+        <AdminHeader
         title="Selamat Datang di SIPRESTASI"
         description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
-    />
+      />
+
+    </div>
 
       {/* =========================
           CONTENT

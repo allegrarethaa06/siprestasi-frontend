@@ -22,6 +22,8 @@ function RankingIcon() {
 function AdminHeader({
   title,
   description,
+  metaStage = 'Tahap 1 sedang berlangsung',
+  metaInfo = 'Batas verifikasi: 28 Februari 2026',
   showRankingButton = false,
   onRankingClick,
 }) {
@@ -39,27 +41,11 @@ function AdminHeader({
         <p>{description}</p>
 
         <div className="admin-header-meta">
-
-          <span className="admin-header-period">
-            Periode Seleksi 2026
-          </span>
-
-          <span>•</span>
-
           <span>TA 2025/2026</span>
-
           <span>•</span>
-
-          <strong>
-            Tahap 1 sedang berlangsung
-          </strong>
-
+          <strong>{metaStage}</strong>
           <span>•</span>
-
-          <span>
-            Batas verifikasi: 28 Februari 2026
-          </span>
-
+          <span>{metaInfo}</span>
         </div>
 
       </div>
@@ -74,6 +60,14 @@ function AdminHeader({
           Lihat Peringkat Tahap 1
         </button>
       )}
+
+       <div className="admin-header-art" aria-hidden="true">
+
+    <div className="header-wave wave-one"></div>
+    <div className="header-wave wave-two"></div>
+    <div className="header-wave wave-three"></div>
+
+  </div>
 
     </section>
   )

@@ -1,18 +1,40 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+
 import './Navbar.css'
 
-function BellIcon() {
+function GraduationCapIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="21"
-      height="21"
+      width="20"
+      height="20"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 10 12 5l9 5-9 5-9-5Z" />
+      <path d="M7 12.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-3.5" />
+      <path d="M21 10v5" />
+    </svg>
+  )
+}
+
+function BellIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
       <path d="M10 21h4" />
@@ -20,103 +42,83 @@ function BellIcon() {
   )
 }
 
-function GraduationIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="22"
-      height="22"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 10l10-5 10 5-10 5-10-5Z" />
-      <path d="M6 12v5c3 2 9 2 12 0v-5" />
-    </svg>
-  )
-}
-
-function Navbar() {
-  const [showNotifications, setShowNotifications] = useState(false)
+function Navbar({ variant = 'default' }) {
+  const navigate = useNavigate()
+  
+  const [showNotifications, setShowNotifications] =
+    useState(false)
 
   const [notifications, setNotifications] = useState([
     {
       id: 1,
-      title: 'Pengajuan Baru',
+      title: 'Pengajuan baru',
       message:
-        'Ahmad Rizky Pratama mengirim pengajuan Mahasiswa Berprestasi.',
-      time: '5 menit lalu',
-      unread: true,
+        'Ada pengajuan mahasiswa yang perlu ditinjau.',
+      read: false,
     },
     {
       id: 2,
-      title: 'Revisi Dikirim Ulang',
+      title: 'Revisi dikirim ulang',
       message:
-        'Kevin Jonathan telah mengirim ulang data yang diminta untuk direvisi.',
-      time: '20 menit lalu',
-      unread: true,
+        'Mahasiswa telah mengirim kembali dokumen revisi.',
+      read: false,
     },
     {
       id: 3,
-      title: 'Tahap Seleksi',
+      title: 'Pradita Value',
       message:
-        'Verifikasi Tahap 1 akan berakhir pada 28 Februari 2026.',
-      time: '1 jam lalu',
-      unread: true,
-    },
-    {
-      id: 4,
-      title: 'Pengajuan Baru',
-      message:
-        'Siti Nurhaliza mengirim pengajuan Mahasiswa Berprestasi.',
-      time: '2 jam lalu',
-      unread: false,
-    },
-    {
-      id: 5,
-      title: 'Revisi Dikirim Ulang',
-      message:
-        'Muhammad Farhan telah mengirim ulang dokumen revisi.',
-      time: '3 jam lalu',
-      unread: false,
+        'Data penilai finalis perlu diperiksa.',
+      read: false,
     },
   ])
 
-  const notificationCount =
-    notifications.filter((item) => item.unread).length
+  const unreadCount = notifications.filter(
+    (notification) => !notification.read
+  ).length
 
-  const handleMarkAllAsRead = () => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.map((item) => ({
-        ...item,
-        unread: false,
-      }))
-    )
-  }
-
-  const handleNotificationClick = (id) => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.map((item) =>
-        item.id === id
-          ? { ...item, unread: false }
-          : item
+  const markAsRead = (id) => {
+    setNotifications((current) =>
+      current.map((notification) =>
+        notification.id === id
+          ? {
+              ...notification,
+              read: true,
+            }
+          : notification
       )
     )
   }
 
-  return (
-    <header className="admin-navbar">
+  const markAllAsRead = () => {
+    setNotifications((current) =>
+      current.map((notification) => ({
+        ...notification,
+        read: true,
+      }))
+    )
+  }
 
+  return (
+    <header
+      className={`admin-navbar ${
+        variant === 'light' ? 'admin-navbar-light' : ''
+      }`}
+    >
+
+      {/* BRAND */}
       <div className="admin-brand">
+
         <div className="admin-brand-icon">
-          <GraduationIcon />
+          <GraduationCapIcon />
         </div>
 
-        <span>SIPRESTASI</span>
+        <span>
+          SIPRESTASI
+        </span>
+
       </div>
 
+      {/* NAVIGATION */}
       <nav className="admin-nav-menu">
 
         <NavLink
@@ -165,7 +167,8 @@ function Navbar() {
 
       </nav>
 
-      <div className="admin-user-area">
+      {/* RIGHT */}
+      <div className="admin-nav-right">
 
         <div className="notification-wrapper">
 
@@ -174,16 +177,16 @@ function Navbar() {
             className="notification-button"
             aria-label="Notifikasi"
             onClick={() =>
-              setShowNotifications((prev) => !prev)
+              setShowNotifications(
+                (current) => !current
+              )
             }
           >
             <BellIcon />
 
-            {notificationCount > 0 && (
+            {unreadCount > 0 && (
               <span className="notification-badge">
-                {notificationCount > 9
-                  ? '9+'
-                  : notificationCount}
+                {unreadCount}
               </span>
             )}
           </button>
@@ -192,72 +195,62 @@ function Navbar() {
             <div className="notification-dropdown">
 
               <div className="notification-header">
+
                 <div>
-                  <h3>Notifikasi</h3>
+                  <strong>
+                    Notifikasi
+                  </strong>
 
                   <span>
-                    {notificationCount > 0
-                      ? `${notificationCount} notifikasi baru`
-                      : 'Tidak ada notifikasi baru'}
+                    {unreadCount} belum dibaca
                   </span>
                 </div>
 
-                {notificationCount > 0 && (
+                {unreadCount > 0 && (
                   <button
                     type="button"
-                    onClick={handleMarkAllAsRead}
+                    onClick={markAllAsRead}
                   >
                     Tandai semua dibaca
                   </button>
                 )}
+
               </div>
 
               <div className="notification-list">
 
-                {notifications.map((item) => (
-                  <button
-                    type="button"
-                    className={`notification-item ${
-                      item.unread ? 'unread' : ''
-                    }`}
-                    key={item.id}
-                    onClick={() =>
-                      handleNotificationClick(item.id)
-                    }
-                  >
+                {notifications.map(
+                  (notification) => (
+                    <button
+                      type="button"
+                      key={notification.id}
+                      className={
+                        notification.read
+                          ? 'notification-item read'
+                          : 'notification-item'
+                      }
+                      onClick={() =>
+                        markAsRead(
+                          notification.id
+                        )
+                      }
+                    >
 
-                    <div className="notification-item-icon">
-                      {item.title === 'Pengajuan Baru'
-                        ? '＋'
-                        : item.title === 'Revisi Dikirim Ulang'
-                          ? '↻'
-                          : '◷'}
-                    </div>
+                      <span className="notification-dot" />
 
-                    <div className="notification-item-content">
-
-                      <div className="notification-item-title">
+                      <div>
                         <strong>
-                          {item.title}
+                          {notification.title}
                         </strong>
 
-                        {item.unread && (
-                          <span className="notification-unread-dot"></span>
-                        )}
+                        <p>
+                          {notification.message}
+                        </p>
                       </div>
 
-                      <p>
-                        {item.message}
-                      </p>
-
-                      <span className="notification-time">
-                        {item.time}
-                      </span>
-
-                    </div>
-
-                  </button>
-                ))}
+                    </button>
+                  )
+                )}
 
               </div>
 
@@ -266,15 +259,32 @@ function Navbar() {
 
         </div>
 
-        <div className="admin-user-divider"></div>
+        <div className="admin-user-divider" />
 
-        <div className="admin-avatar">
-          AL
-        </div>
+        <div
+          className="admin-profile-trigger"
+          onClick={() => navigate('/admin/profile')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              navigate('/admin/profile')
+            }
+          }}
+        >
+          <div className="admin-avatar">
+            AL
+          </div>
 
-        <div className="admin-user-info">
-          <strong>Allegra Aretha Putri</strong>
-          <span>2410102004</span>
+          <div className="admin-user-info">
+            <strong>
+              Allegra Aretha Putri
+            </strong>
+
+            <span>
+              Administrator
+            </span>
+          </div>
         </div>
 
       </div>

@@ -35,9 +35,12 @@
 .admin-content {
   width: 100%;
 
-  margin: 0;
+  position: relative;
+  z-index: 3;
 
-  padding: 24px 28px 58px;
+  margin-top: -64px;
+
+  padding: 0 28px 58px;
 }
 
 /* =========================
@@ -61,12 +64,17 @@
   align-items: center;
   justify-content: space-between;
 
+  gap: 20px;
+
   padding: 22px;
 
-  border: 0.5px solid var(--border);
+  border: 1px solid #F0E7EA;
   border-radius: 11px;
 
   background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(109, 23, 53, 0.05);
 }
 
 .stat-content {
@@ -99,20 +107,20 @@
 }
 
 .stat-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 8px;
+  flex-shrink: 0;
 
-  background: var(--rose-soft);
+  border-radius: 10px;
 
-  color: var(--burgundy);
+  background: #F9EEF2;
 
-  font-size: 20px;
+  color: #7A1739;
 }
 
 /* =========================
