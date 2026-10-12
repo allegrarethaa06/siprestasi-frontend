@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
@@ -7,6 +8,7 @@ import './Profile.css'
 
 function Profile() {
   const navigate = useNavigate()
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
 
   return (
     <div className="profile-page">
@@ -188,6 +190,80 @@ function Profile() {
 
         </section>
 
+        <section className="profile-section profile-logout-section">
+
+  <div className="profile-security-row">
+
+    <div className="profile-security-copy">
+
+      <div className="profile-logout-icon">
+        <LogoutIcon />
+      </div>
+
+      <div>
+        <h3>
+          Keluar dari Akun
+        </h3>
+
+        <p>
+          Akhiri sesi administrator dan kembali ke halaman login.
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      className="profile-logout-button"
+      onClick={() => setShowLogoutConfirm(true)}
+    >
+      Keluar
+    </button>
+
+  </div>
+
+</section>
+
+{showLogoutConfirm && (
+  <div className="logout-modal-overlay">
+
+    <div className="logout-modal">
+
+      <div className="logout-modal-icon">
+        <LogoutIcon />
+      </div>
+
+      <h2>Keluar dari Akun?</h2>
+
+      <p>
+        Apakah Anda yakin ingin keluar dari akun SIPRESTASI?
+      </p>
+
+      <div className="logout-modal-actions">
+
+        <button
+          type="button"
+          className="logout-modal-cancel"
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          Batal
+        </button>
+
+        <button
+          type="button"
+          className="logout-modal-confirm"
+          onClick={() => navigate('/login')}
+        >
+          Ya, Keluar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
+
       </main>
 
     </div>
@@ -226,5 +302,23 @@ function LockIcon() {
   )
 }
 
+function LogoutIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4" />
+      <path d="M14 8l4 4-4 4" />
+      <path d="M8 12h10" />
+    </svg>
+  )
+}
 
 export default Profile

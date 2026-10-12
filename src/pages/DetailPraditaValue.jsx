@@ -298,7 +298,7 @@ function DetailPraditaValue() {
   return (
     <div className="pradita-detail-page">
 
-      <Navbar />
+      <Navbar variant="light" />
 
       <main className="pradita-detail-content">
 
