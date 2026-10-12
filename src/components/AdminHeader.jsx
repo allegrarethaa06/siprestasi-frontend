@@ -26,6 +26,9 @@ function AdminHeader({
   metaInfo = 'Batas verifikasi: 28 Februari 2026',
   showRankingButton = false,
   onRankingClick,
+
+  actionLabel,
+  onActionClick,
 }) {
   return (
     <section className="admin-header">
@@ -58,6 +61,16 @@ function AdminHeader({
         >
           <RankingIcon />
           Lihat Peringkat Tahap 1
+        </button>
+      )}
+
+      {actionLabel && (
+        <button
+          type="button"
+          className="admin-header-action"
+          onClick={onActionClick}
+        >
+          {actionLabel}
         </button>
       )}
 

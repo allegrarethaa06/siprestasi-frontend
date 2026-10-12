@@ -13,6 +13,7 @@
   --success-text: #287A5A;
 }
 
+
 /* =========================
    PAGE
 ========================= */
@@ -28,6 +29,7 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
+
 /* =========================
    CONTENT
 ========================= */
@@ -42,6 +44,7 @@
 
   padding: 0 28px 58px;
 }
+
 
 /* =========================
    STAT CARDS
@@ -123,6 +126,7 @@
   color: #7A1739;
 }
 
+
 /* =========================
    GENERAL SECTION
 ========================= */
@@ -168,6 +172,7 @@
 .heading-icon {
   color: var(--burgundy);
 }
+
 
 /* =========================
    STAGES
@@ -239,6 +244,7 @@
 
   font-weight: 700;
 }
+
 
 /* =========================
    ACTION LIST
@@ -328,6 +334,7 @@
   color: #ffffff;
 }
 
+
 /* =========================
    SUBMISSIONS
 ========================= */
@@ -372,6 +379,7 @@
 
   cursor: pointer;
 }
+
 
 /* =========================
    TABLE
@@ -437,6 +445,7 @@
   text-align: center !important;
 }
 
+
 /* =========================
    STATUS
 ========================= */
@@ -475,6 +484,7 @@
   color: #785966;
 }
 
+
 /* =========================
    TABLE ACTION
 ========================= */
@@ -504,6 +514,109 @@
   color: #ffffff;
 }
 
+
+/* =========================
+   LAST STUDENT UPLOAD
+   DITARUH SETELAH
+   PENGAJUAN TERBARU
+========================= */
+
+.last-upload-section {
+  width: 100%;
+
+  margin-top: 24px;
+}
+
+.last-upload-info {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #E2EFE9;
+  border-radius: 11px;
+
+  background: #F8FCFA;
+}
+
+.last-upload-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #EAF8F2;
+
+  color: #287A5A;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.last-upload-copy {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  gap: 3px;
+}
+
+.last-upload-copy strong {
+  color: #30292C;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.last-upload-copy span {
+  overflow: hidden;
+
+  color: #81777B;
+
+  font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.last-upload-result {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 3px;
+
+  flex-shrink: 0;
+}
+
+.last-upload-result span {
+  color: #287A5A;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.last-upload-result small {
+  color: #8A7F83;
+
+  font-size: 9px;
+}
+
+
 /* =========================
    FOOTER
 ========================= */
@@ -518,6 +631,7 @@
 
   font-size: 9px;
 }
+
 
 /* =========================
    RESPONSIVE
@@ -534,6 +648,7 @@
       repeat(2, 1fr);
   }
 }
+
 
 @media (max-width: 650px) {
   .admin-hero {
@@ -569,7 +684,21 @@
 
     width: fit-content;
   }
+
+  .last-upload-info {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .last-upload-result {
+    align-items: flex-start;
+  }
+
+  .last-upload-copy span {
+    white-space: normal;
+  }
 }
+
 
 /* =========================
    TYPOGRAPHY SCALE FIX

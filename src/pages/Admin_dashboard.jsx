@@ -1,6 +1,9 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import './Admin_dashboard.css'
 import AdminHeader from '../components/AdminHeader'
+import StudentUploadModal from '../components/StudentUploadModal'
+
 import {
   SubmissionIcon,
   ReviewIcon,
@@ -8,33 +11,52 @@ import {
   ApprovedIcon,
 } from '../components/SummaryIcons'
 
+import './Admin_dashboard.css'
+
+
 function AdminDashboard() {
-const stats = [
-  {
-    title: 'Total Pengajuan',
-    value: '42',
-    note: 'Mahasiswa',
-    icon: <SubmissionIcon />,
-  },
-  {
-    title: 'Perlu Ditinjau',
-    value: '18',
-    note: 'Menunggu verifikasi',
-    icon: <ReviewIcon />,
-  },
-  {
-    title: 'Perlu Revisi',
-    value: '6',
-    note: 'Menunggu perbaikan',
-    icon: <RevisionIcon />,
-  },
-  {
-    title: 'Disetujui',
-    value: '16',
-    note: 'Lolos verifikasi Tahap 1',
-    icon: <ApprovedIcon />,
-  },
-]
+  const navigate = useNavigate()
+
+  const [showStudentUpload, setShowStudentUpload] = useState(false)
+
+  const [lastUpload, setLastUpload] = useState(null)
+
+
+  /* =========================
+      STATISTICS
+  ========================= */
+
+  const stats = [
+    {
+      title: 'Total Pengajuan',
+      value: '42',
+      note: 'Mahasiswa',
+      icon: <SubmissionIcon />,
+    },
+    {
+      title: 'Perlu Ditinjau',
+      value: '18',
+      note: 'Menunggu verifikasi',
+      icon: <ReviewIcon />,
+    },
+    {
+      title: 'Perlu Revisi',
+      value: '6',
+      note: 'Menunggu perbaikan',
+      icon: <RevisionIcon />,
+    },
+    {
+      title: 'Disetujui',
+      value: '16',
+      note: 'Lolos verifikasi Tahap 1',
+      icon: <ApprovedIcon />,
+    },
+  ]
+
+
+  /* =========================
+      STAGES
+  ========================= */
 
   const stages = [
     {
@@ -64,6 +86,11 @@ const stats = [
     },
   ]
 
+
+  /* =========================
+      ACTIONS
+  ========================= */
+
   const actions = [
     {
       icon: '☑',
@@ -88,6 +115,11 @@ const stats = [
       button: 'Lihat',
     },
   ]
+
+
+  /* =========================
+      RECENT SUBMISSIONS
+  ========================= */
 
   const submissions = [
     {
@@ -127,26 +159,34 @@ const stats = [
     },
   ]
 
+
   return (
     <div className="admin-dashboard">
 
-      {/* NAVBAR */}
+      {/* =========================
+          NAVBAR + HEADER
+      ========================= */}
+
       <div className="admin-top-section">
 
         <Navbar />
 
         <AdminHeader
-        title="Selamat Datang di SIPRESTASI"
-        description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
-      />
+          title="Selamat Datang di SIPRESTASI"
+          description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
+          actionLabel="Upload Data Mahasiswa"
+          onActionClick={() => setShowStudentUpload(true)}
+        />
 
-    </div>
+      </div>
+
 
       {/* =========================
           CONTENT
       ========================= */}
 
       <main className="admin-content">
+
 
         {/* =========================
             STAT CARDS
@@ -176,6 +216,7 @@ const stats = [
 
               </div>
 
+
               <div className="stat-icon">
                 {item.icon}
               </div>
@@ -184,6 +225,7 @@ const stats = [
           ))}
 
         </section>
+
 
         {/* =========================
             TAHAP SELEKSI
@@ -194,18 +236,22 @@ const stats = [
           <div className="section-heading">
 
             <h2>
+
               <span className="heading-icon">
                 ⌘
               </span>
 
               Tahap Seleksi
+
             </h2>
+
 
             <span>
               18 dari 42 pengajuan telah diverifikasi
             </span>
 
           </div>
+
 
           <div className="stage-grid">
 
@@ -237,6 +283,7 @@ const stats = [
 
                 </div>
 
+
                 <p>
                   {stage.description}
                 </p>
@@ -248,6 +295,7 @@ const stats = [
 
         </section>
 
+
         {/* =========================
             PERLU TINDAKAN
         ========================= */}
@@ -257,18 +305,22 @@ const stats = [
           <div className="section-heading">
 
             <h2>
+
               <span className="heading-icon">
                 ✓
               </span>
 
               Perlu Tindakan
+
             </h2>
+
 
             <span>
               3 Tindakan Membutuhkan Respon
             </span>
 
           </div>
+
 
           <div className="action-list">
 
@@ -282,6 +334,7 @@ const stats = [
                   {item.icon}
                 </div>
 
+
                 <div className="action-text">
 
                   <strong>
@@ -294,13 +347,27 @@ const stats = [
 
                 </div>
 
-                <button
+
+               <button
                   type="button"
                   className={
                     item.primary
                       ? 'action-button primary'
                       : 'action-button'
                   }
+                  onClick={() => {
+                    if (item.button === 'Verifikasi') {
+                      navigate('/admin/daftar-mapres')
+                    }
+
+                    if (item.button === 'Tinjau Revisi') {
+                      navigate('/admin/daftar-mapres')
+                    }
+
+                    if (item.button === 'Lihat') {
+                      navigate('/admin/pradita-value')
+                    }
+                  }}
                 >
                   {item.button}
                 </button>
@@ -312,6 +379,7 @@ const stats = [
 
         </section>
 
+
         {/* =========================
             PENGAJUAN TERBARU
         ========================= */}
@@ -321,6 +389,7 @@ const stats = [
           <div className="submission-header">
 
             <div>
+
               <h2>
                 Pengajuan Terbaru
               </h2>
@@ -328,16 +397,20 @@ const stats = [
               <p>
                 Pengajuan mahasiswa terbaru yang masuk ke sistem.
               </p>
+
             </div>
+
 
             <button
               type="button"
               className="see-all-button"
+              onClick={() => navigate('/admin/daftar-mapres')}
             >
               Lihat Semua di Daftar Mapres →
             </button>
 
           </div>
+
 
           <div className="table-wrapper">
 
@@ -352,6 +425,7 @@ const stats = [
                   <th>AKSI</th>
                 </tr>
               </thead>
+
 
               <tbody>
 
@@ -371,6 +445,7 @@ const stats = [
                     </td>
 
                     <td>
+
                       <span
                         className={`status-pill ${
                           student.status === 'Disetujui'
@@ -382,9 +457,11 @@ const stats = [
                       >
                         {student.status}
                       </span>
+
                     </td>
 
                     <td>
+
                       <button
                         type="button"
                         className={
@@ -392,9 +469,29 @@ const stats = [
                             ? 'table-action primary'
                             : 'table-action'
                         }
+                        onClick={() => {
+                          if (student.action === 'Verifikasi') {
+                            navigate(
+                              `/admin/daftar-mapres/${student.nim}/verifikasi`
+                            )
+                          }
+
+                          if (student.action === 'Lihat Detail') {
+                            navigate(
+                              `/admin/daftar-mapres/${student.nim}/detail`
+                            )
+                          }
+
+                          if (student.action === 'Tinjau Revisi') {
+                            navigate(
+                              `/admin/daftar-mapres/${student.nim}/revisi`
+                            )
+                          }
+                        }}
                       >
                         {student.action}
                       </button>
+
                     </td>
 
                   </tr>
@@ -408,7 +505,56 @@ const stats = [
 
         </section>
 
+
+        {/* =========================
+            LAST STUDENT UPLOAD
+            MUNCUL SETELAH UPLOAD
+        ========================= */}
+
+        {lastUpload && (
+          <section className="last-upload-section">
+
+            <div className="last-upload-info">
+
+              <div className="last-upload-icon">
+                ✓
+              </div>
+
+
+              <div className="last-upload-copy">
+
+                <strong>
+                  Upload Data Mahasiswa Terakhir
+                </strong>
+
+                <span>
+                  {lastUpload.fileName} • {lastUpload.uploadedAt}
+                </span>
+
+              </div>
+
+
+              <div className="last-upload-result">
+
+                <span>
+                  {lastUpload.total} data diproses
+                </span>
+
+                <small>
+                  {lastUpload.success} berhasil •{' '}
+                  {lastUpload.duplicate} duplikat •{' '}
+                  {lastUpload.invalid} bermasalah
+                </small>
+
+              </div>
+
+            </div>
+
+          </section>
+        )}
+
       </main>
+
 
       {/* =========================
           FOOTER
@@ -418,8 +564,32 @@ const stats = [
         © SIPRESTASI - Sistem Seleksi Mahasiswa Berprestasi Universitas.
       </footer>
 
+
+      {/* =========================
+          STUDENT UPLOAD MODAL
+      ========================= */}
+
+      <StudentUploadModal
+        isOpen={showStudentUpload}
+        onClose={() => setShowStudentUpload(false)}
+        onUploadComplete={(result) => {
+          setLastUpload({
+            ...result,
+
+            uploadedAt: new Date().toLocaleString('id-ID', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            }),
+          })
+        }}
+      />
+
     </div>
   )
 }
+
 
 export default AdminDashboard
