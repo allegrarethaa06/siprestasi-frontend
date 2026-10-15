@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import AdminHeader from '../components/AdminHeader'
 
 import './HasilSeleksi.css'
+
 import {
   FinalistIcon,
   CohortIcon,
@@ -11,10 +12,12 @@ import {
   WinnerIcon,
 } from '../components/SummaryIcons'
 
-const resultData = [
-  // =========================
-  // 2024
-  // =========================
+
+/* =========================
+   9 FINALIS TAHAP 2
+========================= */
+
+const finalistData = [
   {
     id: 1,
     rank: 1,
@@ -23,11 +26,9 @@ const resultData = [
     nim: '13521012',
     prodi: 'S1 Sistem Informasi',
     angkatan: '2024',
-
     tahap1: 91.25,
     praditaValue: 89.2,
     finalScore: 90.23,
-
     status: 'Juara 1',
     statusType: 'winner',
   },
@@ -39,11 +40,9 @@ const resultData = [
     nim: '13520011',
     prodi: 'S1 Teknik Industri',
     angkatan: '2024',
-
     tahap1: 88.5,
     praditaValue: 87.4,
     finalScore: 87.95,
-
     status: 'Peringkat 2',
     statusType: 'ranked',
   },
@@ -55,18 +54,13 @@ const resultData = [
     nim: '13520037',
     prodi: 'S1 Manajemen Bisnis',
     angkatan: '2024',
-
     tahap1: 86.75,
     praditaValue: 86.1,
     finalScore: 86.43,
-
     status: 'Peringkat 3',
     statusType: 'ranked',
   },
 
-  // =========================
-  // 2025
-  // =========================
   {
     id: 4,
     rank: 1,
@@ -75,11 +69,9 @@ const resultData = [
     nim: '13521089',
     prodi: 'S1 Informatika',
     angkatan: '2025',
-
     tahap1: 90.75,
     praditaValue: 91.0,
     finalScore: 90.88,
-
     status: 'Juara 1',
     statusType: 'winner',
   },
@@ -91,11 +83,9 @@ const resultData = [
     nim: '13521048',
     prodi: 'S1 Informatika',
     angkatan: '2025',
-
     tahap1: 87.5,
     praditaValue: 88.25,
     finalScore: 87.88,
-
     status: 'Peringkat 2',
     statusType: 'ranked',
   },
@@ -107,18 +97,13 @@ const resultData = [
     nim: '13521066',
     prodi: 'S1 Sistem Informasi',
     angkatan: '2025',
-
     tahap1: 85.85,
     praditaValue: 85.5,
     finalScore: 85.68,
-
     status: 'Peringkat 3',
     statusType: 'ranked',
   },
 
-  // =========================
-  // 2026
-  // =========================
   {
     id: 7,
     rank: 1,
@@ -127,11 +112,9 @@ const resultData = [
     nim: '13522005',
     prodi: 'S1 Desain Komunikasi Visual',
     angkatan: '2026',
-
     tahap1: 84.75,
     praditaValue: 90.1,
     finalScore: 87.43,
-
     status: 'Juara 1',
     statusType: 'winner',
   },
@@ -143,37 +126,99 @@ const resultData = [
     nim: '13522033',
     prodi: 'S1 Teknik Industri',
     angkatan: '2026',
-
     tahap1: 83.9,
     praditaValue: 88.2,
     finalScore: 86.05,
-
     status: 'Peringkat 2',
     statusType: 'ranked',
   },
   {
     id: 9,
     rank: 3,
-    initials: 'NF',
-    name: 'Nadia Fitri',
-    nim: '13522047',
+    initials: 'NP',
+    name: 'Nadia Putri',
+    nim: '13522052',
     prodi: 'S1 Sistem Informasi',
     angkatan: '2026',
-
     tahap1: 82.75,
     praditaValue: 86.4,
     finalScore: 84.58,
-
     status: 'Peringkat 3',
     statusType: 'ranked',
   },
 ]
 
-function HasilSeleksi() {
-  const [selectedYear, setSelectedYear] = useState('2024')
 
-  const filteredResults = useMemo(() => {
-    return resultData
+/* =========================
+   PESERTA LAIN TAHAP 1
+   Prototype frontend
+========================= */
+
+const years = ['2024', '2025', '2026']
+
+const otherStudents = Array.from(
+  { length: 31 },
+  (_, index) => {
+    const number = index + 10
+
+    return {
+      id: 100 + index,
+      initials: `M${number}`,
+      name: `Mahasiswa ${number}`,
+      nim: `2410102${String(number).padStart(3, '0')}`,
+      prodi: 'S1 Sistem Informasi',
+      angkatan: years[index % years.length],
+
+      tahap1: Number(
+        (82.4 - index * 0.55).toFixed(2)
+      ),
+
+      praditaValue: null,
+      finalScore: null,
+    }
+  }
+)
+
+
+function HasilSeleksi() {
+  const [selectedYear, setSelectedYear] =
+    useState('2024')
+
+
+  /* =========================
+     DATA YANG DITAMPILKAN
+  ========================= */
+
+  const displayedResults = useMemo(() => {
+
+    /* SEMUA ANGKATAN */
+
+    if (selectedYear === 'all') {
+      const finalists = [...finalistData]
+        .sort(
+          (a, b) =>
+            b.finalScore - a.finalScore
+        )
+
+      const remainingStudents =
+        [...otherStudents].sort(
+          (a, b) =>
+            b.tahap1 - a.tahap1
+        )
+
+      return [
+        ...finalists,
+        ...remainingStudents,
+      ].map((student, index) => ({
+        ...student,
+        displayRank: index + 1,
+      }))
+    }
+
+
+    /* PER ANGKATAN */
+
+    return finalistData
       .filter(
         (student) =>
           student.angkatan === selectedYear
@@ -182,14 +227,23 @@ function HasilSeleksi() {
         (a, b) =>
           a.rank - b.rank
       )
+      .map((student) => ({
+        ...student,
+        displayRank: student.rank,
+      }))
+
   }, [selectedYear])
 
-  const winner = filteredResults.find(
-    (student) => student.rank === 1
-  )
+
+  const winner = displayedResults[0]
+
 
   return (
     <div className="hasil-page">
+
+      {/* =========================
+          HEADER
+      ========================= */}
 
       <div className="admin-top-section">
 
@@ -197,12 +251,13 @@ function HasilSeleksi() {
 
         <AdminHeader
           title="Hasil Seleksi"
-          description="Lihat hasil akhir dan peringkat Mahasiswa Berprestasi dari setiap angkatan."
+          description="Lihat hasil akhir dan peringkat Mahasiswa Berprestasi per angkatan maupun secara keseluruhan."
           metaStage="Seleksi Selesai"
-          metaInfo="Peringkat akhir per angkatan"
+          metaInfo="Peringkat per angkatan & seluruh peserta"
         />
 
       </div>
+
 
       <main className="hasil-content">
 
@@ -212,38 +267,39 @@ function HasilSeleksi() {
 
         <section className="hasil-summary-grid">
 
-            <SummaryCard
-              title="Total Finalis"
-              value="9"
-              description="3 finalis dari setiap angkatan"
-              icon={<FinalistIcon />}
-            />
+          <SummaryCard
+            title="Total Peserta"
+            value="40"
+            description="Seluruh peserta seleksi"
+            icon={<FinalistIcon />}
+          />
 
-            <SummaryCard
-              title="Angkatan"
-              value="3"
-              description="2024, 2025, dan 2026"
-              icon={<CohortIcon />}
-            />
+          <SummaryCard
+            title="Angkatan"
+            value="3"
+            description="2024, 2025, dan 2026"
+            icon={<CohortIcon />}
+          />
 
-            <SummaryCard
-              title="Penilaian Lengkap"
-              value="9"
-              description="Tahap 1 dan Pradita Value selesai"
-              icon={<ApprovedIcon />}
-            />
+          <SummaryCard
+            title="Finalis Tahap 2"
+            value="9"
+            description="3 finalis setiap angkatan"
+            icon={<ApprovedIcon />}
+          />
 
-            <SummaryCard
-              title="Pemenang"
-              value="3"
-              description="Juara 1 dari setiap angkatan"
-              icon={<WinnerIcon />}
-            />
+          <SummaryCard
+            title="Pemenang"
+            value="3"
+            description="Juara 1 setiap angkatan"
+            icon={<WinnerIcon />}
+          />
 
-          </section>
+        </section>
+
 
         {/* =========================
-            SECTION TITLE
+            RANKING
         ========================= */}
 
         <section className="hasil-ranking-section">
@@ -251,15 +307,18 @@ function HasilSeleksi() {
           <div className="hasil-section-heading">
 
             <div>
+
               <h2>
                 Peringkat Akhir
               </h2>
 
               <p>
-                Hasil akhir tiga finalis Mahasiswa
-                Berprestasi dari setiap angkatan.
+                Peringkat mahasiswa berdasarkan hasil
+                seleksi per angkatan dan seluruh peserta.
               </p>
+
             </div>
+
 
             <span className="hasil-period-badge">
               Periode 2026
@@ -267,35 +326,54 @@ function HasilSeleksi() {
 
           </div>
 
+
           {/* =========================
               TABS
           ========================= */}
 
           <div className="hasil-tabs">
 
-            {['2024', '2025', '2026'].map(
-              (year) => (
-                <button
-                  key={year}
-                  type="button"
-                  className={
-                    selectedYear === year
-                      ? 'hasil-tab active'
-                      : 'hasil-tab'
-                  }
-                  onClick={() =>
-                    setSelectedYear(year)
-                  }
-                >
-                  Angkatan {year}
-                </button>
-              )
-            )}
+            {[
+              {
+                value: '2024',
+                label: 'Angkatan 2024',
+              },
+              {
+                value: '2025',
+                label: 'Angkatan 2025',
+              },
+              {
+                value: '2026',
+                label: 'Angkatan 2026',
+              },
+              {
+                value: 'all',
+                label: 'Semua Angkatan',
+              },
+            ].map((tab) => (
+
+              <button
+                key={tab.value}
+                type="button"
+                className={
+                  selectedYear === tab.value
+                    ? 'hasil-tab active'
+                    : 'hasil-tab'
+                }
+                onClick={() =>
+                  setSelectedYear(tab.value)
+                }
+              >
+                {tab.label}
+              </button>
+
+            ))}
 
           </div>
 
+
           {/* =========================
-              WINNER CARD
+              WINNER
           ========================= */}
 
           {winner && (
@@ -307,29 +385,43 @@ function HasilSeleksi() {
                   ★
                 </div>
 
+
                 <div className="winner-avatar">
                   {winner.initials}
                 </div>
 
+
                 <div className="winner-copy">
 
                   <span>
-                    JUARA 1 ANGKATAN {selectedYear}
+                    {selectedYear === 'all'
+                      ? 'PERINGKAT 1 SEMUA ANGKATAN'
+                      : `JUARA 1 ANGKATAN ${selectedYear}`}
                   </span>
+
 
                   <h3>
                     {winner.name}
                   </h3>
 
+
                   <p>
                     {winner.nim}
                     {' • '}
                     {winner.prodi}
+
+                    {selectedYear === 'all' && (
+                      <>
+                        {' • '}
+                        Angkatan {winner.angkatan}
+                      </>
+                    )}
                   </p>
 
                 </div>
 
               </div>
+
 
               <div className="winner-score">
 
@@ -346,6 +438,7 @@ function HasilSeleksi() {
             </section>
           )}
 
+
           {/* =========================
               TABLE
           ========================= */}
@@ -355,29 +448,74 @@ function HasilSeleksi() {
             <table className="hasil-table">
 
               <thead>
+
                 <tr>
-                  <th>PERINGKAT</th>
-                  <th>MAHASISWA</th>
-                  <th>NILAI TAHAP 1</th>
-                  <th>PRADITA VALUE</th>
-                  <th>NILAI AKHIR</th>
-                  <th>HASIL</th>
+
+                  <th>
+                    PERINGKAT
+                  </th>
+
+                  <th>
+                    MAHASISWA
+                  </th>
+
+
+                  {selectedYear === 'all' && (
+                    <th>
+                      ANGKATAN
+                    </th>
+                  )}
+
+
+                  <th>
+                    NILAI TAHAP 1
+                  </th>
+
+                  <th>
+                    PRADITA VALUE
+                  </th>
+
+                  <th>
+                    NILAI AKHIR
+                  </th>
+
+
+                  {selectedYear !== 'all' && (
+                    <th>
+                      HASIL
+                    </th>
+                  )}
+
                 </tr>
+
               </thead>
+
 
               <tbody>
 
-                {filteredResults.map(
+                {displayedResults.map(
                   (student) => (
+
                     <tr key={student.id}>
 
+                      {/* RANK */}
+
                       <td>
+
                         <div
-                          className={`hasil-rank rank-${student.rank}`}
+                          className={`hasil-rank ${
+                            student.displayRank <= 3
+                              ? `rank-${student.displayRank}`
+                              : ''
+                          }`}
                         >
-                          {student.rank}
+                          {student.displayRank}
                         </div>
+
                       </td>
+
+
+                      {/* STUDENT */}
 
                       <td>
 
@@ -386,6 +524,7 @@ function HasilSeleksi() {
                           <div className="hasil-avatar">
                             {student.initials}
                           </div>
+
 
                           <div>
 
@@ -407,33 +546,81 @@ function HasilSeleksi() {
 
                       </td>
 
+
+                      {/* ANGKATAN */}
+
+                      {selectedYear === 'all' && (
+                        <td>
+                          <strong>
+                            {student.angkatan}
+                          </strong>
+                        </td>
+                      )}
+
+
+                      {/* TAHAP 1 */}
+
                       <td>
+
                         <span className="hasil-score">
                           {student.tahap1.toFixed(2)}
                         </span>
+
                       </td>
 
+
+                      {/* PRADITA VALUE */}
+
                       <td>
+
                         <span className="hasil-score">
-                          {student.praditaValue.toFixed(2)}
+                          {student.praditaValue !== null
+                            ? student.praditaValue.toFixed(2)
+                            : '—'}
                         </span>
+
                       </td>
 
-                      <td>
-                        <strong className="hasil-final-score">
-                          {student.finalScore.toFixed(2)}
-                        </strong>
-                      </td>
+
+                      {/* FINAL SCORE */}
 
                       <td>
-                        <span
-                          className={`hasil-status ${student.statusType}`}
-                        >
-                          {student.status}
-                        </span>
+
+                        {student.finalScore !== null ? (
+
+                          <strong className="hasil-final-score">
+                            {student.finalScore.toFixed(2)}
+                          </strong>
+
+                        ) : (
+
+                          <span className="hasil-score">
+                            —
+                          </span>
+
+                        )}
+
                       </td>
+
+
+                      {/* HASIL PER ANGKATAN */}
+
+                      {selectedYear !== 'all' && (
+
+                        <td>
+
+                          <span
+                            className={`hasil-status ${student.statusType}`}
+                          >
+                            {student.status}
+                          </span>
+
+                        </td>
+
+                      )}
 
                     </tr>
+
                   )
                 )}
 
@@ -445,6 +632,7 @@ function HasilSeleksi() {
 
         </section>
 
+
         {/* =========================
             INFORMATION
         ========================= */}
@@ -455,19 +643,20 @@ function HasilSeleksi() {
             i
           </div>
 
+
           <div>
 
             <strong>
               INFORMASI HASIL SELEKSI
             </strong>
 
+
             <p>
-              Peringkat akhir ditentukan setelah
-              seluruh proses Tahap 1 dan asesmen
-              Pradita Value selesai. Nilai pada
-              halaman ini masih menggunakan data
-              simulasi frontend dan akan disesuaikan
-              dengan rumus penilaian resmi sistem.
+              Peringkat per angkatan menampilkan tiga
+              finalis dari setiap angkatan. Pada tab
+              Semua Angkatan, seluruh peserta ditampilkan
+              dalam satu urutan peringkat tanpa pemisahan
+              status seleksi.
             </p>
 
           </div>
@@ -476,14 +665,22 @@ function HasilSeleksi() {
 
       </main>
 
+
       <footer className="hasil-footer">
+
         © SIPRESTASI - Sistem Seleksi Mahasiswa
         Berprestasi Universitas.
+
       </footer>
 
     </div>
   )
 }
+
+
+/* =========================
+   SUMMARY CARD
+========================= */
 
 function SummaryCard({
   title,
@@ -510,6 +707,7 @@ function SummaryCard({
 
       </div>
 
+
       <div className="hasil-summary-icon">
         {icon}
       </div>
@@ -517,5 +715,6 @@ function SummaryCard({
     </div>
   )
 }
+
 
 export default HasilSeleksi

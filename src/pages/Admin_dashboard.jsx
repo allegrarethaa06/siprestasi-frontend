@@ -96,7 +96,7 @@ function AdminDashboard() {
       icon: '☑',
       title: '18 Pengajuan Menunggu Verifikasi',
       description:
-        'Pengajuan baru membutuhkan pemeriksaan berkas Tahap 1.',
+        'Pengajuan baru membutuhkan pemeriksaan berkas Tahap 1',
       button: 'Verifikasi',
       primary: true,
     },
@@ -104,14 +104,14 @@ function AdminDashboard() {
       icon: '↻',
       title: '2 Revisi Telah Dikirim Ulang',
       description:
-        'Mahasiswa telah memperbarui data yang sebelumnya diminta untuk direvisi.',
+        'Mahasiswa telah memperbarui data yang sebelumnya diminta untuk direvisi',
       button: 'Tinjau Revisi',
     },
     {
       icon: '♙',
       title: 'Penugasan Pradita Value Belum Diselesaikan',
       description:
-        'Penugasan Kaprodi dan Dosen Penilai dapat disiapkan sebelum Tahap 2 dimulai.',
+        'Penugasan Kaprodi dan Dosen Penilai dapat disiapkan sebelum Tahap 2 dimulai',
       button: 'Lihat',
     },
   ]
@@ -173,7 +173,7 @@ function AdminDashboard() {
 
         <AdminHeader
           title="Selamat Datang di SIPRESTASI"
-          description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien."
+          description="Kelola proses seleksi Mahasiswa Berprestasi secara terstruktur dan efisien"
           actionLabel="Upload Data Mahasiswa"
           onActionClick={() => setShowStudentUpload(true)}
         />
