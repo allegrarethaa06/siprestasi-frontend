@@ -635,3 +635,78 @@
     padding: 40px 30px;
   }
 }
+
+/* =========================
+   ACCOUNT ACTIVATION
+========================= */
+
+.account-activation-switch {
+  margin-top: 14px;
+
+  text-align: center;
+}
+
+
+.account-activation-switch p {
+  margin: 0;
+
+  color: #81777B;
+
+  font-size: 11px;
+}
+
+
+.account-activation-switch button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #6D1735;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+.account-activation-switch button:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   ACTIVATION SUCCESS
+========================= */
+
+.activation-success {
+  margin-bottom: 16px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #CFE8DB;
+  border-radius: 7px;
+
+  background: #F2FBF6;
+
+  color: #287A5A;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   PASSWORD HELPER
+========================= */
+
+.password-helper {
+  margin: 5px 0 0;
+
+  color: #968B8F;
+
+  font-size: 10px;
+}

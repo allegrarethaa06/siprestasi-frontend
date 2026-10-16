@@ -155,41 +155,6 @@ function Profile() {
             SECURITY
         ========================= */}
 
-        <section className="profile-section">
-
-          <div className="profile-security-row">
-
-            <div className="profile-security-copy">
-
-              <div className="profile-security-icon">
-                <LockIcon />
-              </div>
-
-              <div>
-                <h3>
-                  Keamanan Akun
-                </h3>
-
-                <p>
-                  Kelola keamanan dan kata sandi akun administrator.
-                </p>
-              </div>
-
-            </div>
-
-
-            <button
-              type="button"
-              className="profile-password-button"
-              onClick={() => navigate('/forgot-password')}
-            >
-              Ubah Password
-            </button>
-
-          </div>
-
-        </section>
-
         <section className="profile-section profile-logout-section">
 
   <div className="profile-security-row">
@@ -274,33 +239,6 @@ function Profile() {
 /* =========================
    ICON
 ========================= */
-
-function LockIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect
-        x="5"
-        y="10"
-        width="14"
-        height="10"
-        rx="2"
-      />
-
-      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-
-      <path d="M12 14v2" />
-    </svg>
-  )
-}
 
 function LogoutIcon() {
   return (
