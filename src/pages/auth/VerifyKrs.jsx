@@ -421,10 +421,6 @@ function VerifyKrs() {
     ============================================
   */
 
-  const handleSendOtp = () => {
-    navigate('/register/verify-email')
-  }
-
   return (
     <main className="auth-page">
 
@@ -857,23 +853,14 @@ function VerifyKrs() {
                   </div>
 
                   <button
-                    type="button"
-                    className="primary-button krs-send-otp-button"
-                    onClick={
-                      handleSendOtp
-                    }
-                  >
-                    Kirim OTP
+  type="button"
+  className="primary-button krs-send-otp-button"
+  onClick={() => navigate('/register/success')}
+>
+  Selesaikan Registrasi
 
-                    <ArrowRight
-                      size={20}
-                    />
-                  </button>
-
-                  <p className="krs-otp-helper">
-                    OTP akan dikirim ke email
-                    student yang Anda daftarkan.
-                  </p>
+  <ArrowRight size={20} />
+</button>
 
                 </>
               )}

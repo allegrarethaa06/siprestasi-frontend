@@ -2,7 +2,11 @@ import { Check } from 'lucide-react'
 
 import logoSiPradita from '../../assets/branding/logo-si-pradita.png'
 
-function AuthSidebar({ activeStep = 1 }) {
+
+function AuthSidebar({
+  activeStep = 1,
+  completed = false,
+}) {
   const steps = [
     {
       number: 1,
@@ -14,12 +18,8 @@ function AuthSidebar({ activeStep = 1 }) {
       title: 'Verifikasi KRS',
       subtitle: 'Validasi Status Akademik',
     },
-    {
-      number: 3,
-      title: 'Verifikasi Email',
-      subtitle: 'Kode OTP Student',
-    },
   ]
+
 
   return (
     <aside className="auth-sidebar">
@@ -31,12 +31,15 @@ function AuthSidebar({ activeStep = 1 }) {
       <div className="sidebar-brand">
 
         <div className="brand-logo-badge">
+
           <img
             src={logoSiPradita}
             alt="Logo Sistem Informasi Pradita University"
             className="brand-logo"
           />
+
         </div>
+
 
         <div className="brand-copy">
 
@@ -51,6 +54,7 @@ function AuthSidebar({ activeStep = 1 }) {
         </div>
 
       </div>
+
 
       {/* =========================
           SIDEBAR CONTENT
@@ -67,6 +71,7 @@ function AuthSidebar({ activeStep = 1 }) {
           proses seleksi Mahasiswa Berprestasi.
         </p>
 
+
         {/* =========================
             STEPPER
         ========================== */}
@@ -75,30 +80,40 @@ function AuthSidebar({ activeStep = 1 }) {
 
           {steps.map((step) => {
             const isActive =
+              !completed &&
               activeStep === step.number
 
             const isCompleted =
+              completed ||
               activeStep > step.number
+
 
             return (
               <div
                 key={step.number}
                 className={[
                   'registration-step',
-                  isActive ? 'active' : '',
-                  isCompleted ? 'completed' : '',
+                  isActive
+                    ? 'active'
+                    : '',
+                  isCompleted
+                    ? 'completed'
+                    : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
               >
 
                 <div className="step-number">
+
                   {isCompleted ? (
                     <Check size={19} />
                   ) : (
                     step.number
                   )}
+
                 </div>
+
 
                 <div className="step-content">
 
@@ -108,6 +123,7 @@ function AuthSidebar({ activeStep = 1 }) {
                       {step.title}
                     </div>
 
+
                     {isCompleted && (
                       <span className="step-completed-badge">
                         Selesai
@@ -115,6 +131,7 @@ function AuthSidebar({ activeStep = 1 }) {
                     )}
 
                   </div>
+
 
                   <div className="step-subtitle">
                     {step.subtitle}
@@ -133,5 +150,6 @@ function AuthSidebar({ activeStep = 1 }) {
     </aside>
   )
 }
+
 
 export default AuthSidebar
