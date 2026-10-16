@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom'
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -16,107 +20,183 @@ import '../../styles/auth/register.css'
 function Register() {
   const navigate = useNavigate()
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    nim: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-  })
+  const [formData, setFormData] =
+    useState({
+      name: '',
+      email: '',
+      nim: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+    })
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] =
+    useState({})
 
-  const [showPassword, setShowPassword] = useState(false)
+  const [
+    showPassword,
+    setShowPassword,
+  ] = useState(false)
 
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false)
+  const [
+    showConfirmPassword,
+    setShowConfirmPassword,
+  ] = useState(false)
+
+  /* =========================
+     VALIDASI LANGSUNG
+  ========================= */
+
+  const nameValid =
+    formData.name.trim().length > 0
+
+  const emailValid =
+    /^[^\s@]+@student\.pradita\.ac\.id$/i.test(
+      formData.email.trim()
+    )
+
+  const nimValid =
+    /^\d{10}$/.test(
+      formData.nim
+    )
+
+  const phoneValid =
+    formData.phone.length > 0 &&
+    formData.phone.length <= 16
+
+  const passwordValid =
+    formData.password.length >= 8 &&
+    /[a-z]/.test(
+      formData.password
+    ) &&
+    /[A-Z]/.test(
+      formData.password
+    ) &&
+    /\d/.test(
+      formData.password
+    ) &&
+    /[^A-Za-z0-9]/.test(
+      formData.password
+    )
+
+  const confirmPasswordValid =
+    formData.confirmPassword.length > 0 &&
+    formData.confirmPassword ===
+      formData.password
+
+  const formValid =
+    nameValid &&
+    emailValid &&
+    nimValid &&
+    phoneValid &&
+    passwordValid &&
+    confirmPasswordValid
+
+  /* =========================
+     HANDLE CHANGE
+  ========================= */
 
   const handleChange = (event) => {
-    const { name, value } = event.target
+    const {
+      name,
+      value,
+    } = event.target
 
     let nextValue = value
 
-    // NIM hanya boleh angka dan maksimal 10 digit
+    /* NIM hanya angka,
+       maksimal 10 digit */
     if (name === 'nim') {
-      nextValue = value.replace(/\D/g, '').slice(0, 10)
+      nextValue = value
+        .replace(/\D/g, '')
+        .slice(0, 10)
     }
 
-    // Nomor telepon hanya boleh angka
+    /* Nomor telepon hanya angka,
+       maksimal 16 digit */
     if (name === 'phone') {
-      nextValue = value.replace(/\D/g, '')
+      nextValue = value
+        .replace(/\D/g, '')
+        .slice(0, 16)
     }
 
-    setFormData((previous) => ({
-      ...previous,
-      [name]: nextValue,
-    }))
-
-    // Hapus error ketika user mulai memperbaiki input
-    if (errors[name]) {
-      setErrors((previous) => ({
+    setFormData(
+      (previous) => ({
         ...previous,
-        [name]: '',
-      }))
+        [name]: nextValue,
+      })
+    )
+
+    if (errors[name]) {
+      setErrors(
+        (previous) => ({
+          ...previous,
+          [name]: '',
+        })
+      )
     }
   }
+
+  /* =========================
+     VALIDASI FORM
+  ========================= */
 
   const validateForm = () => {
     const newErrors = {}
 
-    // Nama Lengkap
+    /* NAMA */
+
     if (!formData.name.trim()) {
-      newErrors.name = 'Nama lengkap wajib diisi.'
+      newErrors.name =
+        'Nama lengkap wajib diisi.'
     }
 
-    // Email Student
+    /* EMAIL */
+
     if (!formData.email.trim()) {
-      newErrors.email = 'Email student wajib diisi.'
-    } else if (
-      !/^[^\s@]+@student\.pradita\.ac\.id$/i.test(
-        formData.email.trim()
-      )
-    ) {
+      newErrors.email =
+        'Email student wajib diisi.'
+    } else if (!emailValid) {
       newErrors.email =
         'Gunakan email @student.pradita.ac.id.'
     }
 
-    // NIM
+    /* NIM */
+
     if (!formData.nim) {
-      newErrors.nim = 'NIM wajib diisi.'
-    } else if (!/^\d{10}$/.test(formData.nim)) {
+      newErrors.nim =
+        'NIM wajib diisi.'
+    } else if (!nimValid) {
       newErrors.nim =
         'NIM harus terdiri dari 10 digit angka.'
     }
 
-    // Nomor Telepon
+    /* NOMOR TELEPON */
+
     if (!formData.phone) {
-      newErrors.phone = 'Nomor telepon wajib diisi.'
+      newErrors.phone =
+        'Nomor telepon wajib diisi.'
     }
 
-    // Password
+    /* PASSWORD */
+
     if (!formData.password) {
-      newErrors.password = 'Password wajib diisi.'
-    } else {
-      const passwordValid =
-        formData.password.length >= 8 &&
-        /[a-z]/.test(formData.password) &&
-        /[A-Z]/.test(formData.password) &&
-        /\d/.test(formData.password) &&
-        /[^A-Za-z0-9]/.test(formData.password)
-
-      if (!passwordValid) {
-        newErrors.password =
-          'Password harus memiliki minimal 8 karakter, huruf kecil, huruf kapital, angka, dan simbol.'
-      }
+      newErrors.password =
+        'Password wajib diisi.'
+    } else if (!passwordValid) {
+      newErrors.password =
+        'Password harus memiliki minimal 8 karakter, huruf kecil, huruf kapital, angka, dan simbol.'
     }
 
-    // Konfirmasi Password
-    if (!formData.confirmPassword) {
+    /* KONFIRMASI PASSWORD */
+
+    if (
+      !formData.confirmPassword
+    ) {
       newErrors.confirmPassword =
         'Konfirmasi password wajib diisi.'
     } else if (
-      formData.confirmPassword !== formData.password
+      !confirmPasswordValid
     ) {
       newErrors.confirmPassword =
         'Konfirmasi password belum cocok.'
@@ -124,68 +204,131 @@ function Register() {
 
     setErrors(newErrors)
 
-    return Object.keys(newErrors).length === 0
+    return (
+      Object.keys(
+        newErrors
+      ).length === 0
+    )
   }
 
-  const handleSubmit = (event) => {
+  /* =========================
+     SUBMIT
+  ========================= */
+
+  const handleSubmit = (
+    event
+  ) => {
     event.preventDefault()
+
+    if (!formValid) {
+      return
+    }
 
     if (!validateForm()) {
       return
     }
 
-    // Simpan data Step 1 sementara
-    // Data ini dipakai Step 2 untuk dibandingkan dengan data dari KRS
+    /*
+      Sementara simpan data
+      registrasi di sessionStorage.
+
+      Nanti bagian ini yang akan
+      kita sambungkan ke backend.
+    */
+
     sessionStorage.setItem(
       'registrationData',
-      JSON.stringify(formData)
+      JSON.stringify(
+        formData
+      )
     )
 
-    // Pindah ke Step 2 Verifikasi KRS
-    navigate('/register/krs')
+    navigate(
+      '/register/krs'
+    )
   }
 
+  /* =========================
+     PASSWORD MATCH
+  ========================= */
+
   const passwordsMatch =
-    formData.confirmPassword.length > 0 &&
-    formData.confirmPassword === formData.password
+    formData.confirmPassword
+      .length > 0 &&
+    formData.confirmPassword ===
+      formData.password
 
   const passwordsDoNotMatch =
-    formData.confirmPassword.length > 0 &&
-    formData.confirmPassword !== formData.password
+    formData.confirmPassword
+      .length > 0 &&
+    formData.confirmPassword !==
+      formData.password
 
   return (
     <main className="auth-page">
+
       <div className="auth-card">
-        <AuthSidebar activeStep={1} />
+
+        {/* SIDEBAR */}
+
+        <AuthSidebar
+          activeStep={1}
+        />
+
+        {/* MAIN */}
 
         <section className="auth-main">
+
           <div className="register-container">
+
+            {/* HEADING */}
+
             <div className="form-heading">
-              <h2>Daftar Akun</h2>
+
+              <h2>
+                Daftar Akun
+              </h2>
 
               <p>
-                Lengkapi data berikut untuk membuat akun SIPRESTASI.
+                Lengkapi data berikut untuk
+                membuat akun SIPRESTASI.
               </p>
+
             </div>
 
-            <form onSubmit={handleSubmit} noValidate>
+            <form
+              onSubmit={
+                handleSubmit
+              }
+              noValidate
+            >
+
               <div className="form-grid">
 
                 {/* NAMA LENGKAP */}
+
                 <div className="form-group">
+
                   <label htmlFor="name">
-                    Nama Lengkap <span>*</span>
+                    Nama Lengkap
+                    <span>*</span>
                   </label>
 
                   <input
                     id="name"
                     name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={handleChange}
+                    value={
+                      formData.name
+                    }
+                    onChange={
+                      handleChange
+                    }
                     placeholder="Masukkan Nama Lengkap"
                     className={
-                      errors.name ? 'input-error' : ''
+                      errors.name
+                        ? 'input-error'
+                        : ''
                     }
                   />
 
@@ -195,26 +338,37 @@ function Register() {
                     </p>
                   ) : (
                     <p className="field-helper">
-                      Gunakan nama sesuai data akademik.
+                      Gunakan nama sesuai
+                      data akademik.
                     </p>
                   )}
+
                 </div>
 
-                {/* EMAIL STUDENT */}
+                {/* EMAIL */}
+
                 <div className="form-group">
+
                   <label htmlFor="email">
-                    Email Student <span>*</span>
+                    Email Student
+                    <span>*</span>
                   </label>
 
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={
+                      formData.email
+                    }
+                    onChange={
+                      handleChange
+                    }
                     placeholder="Masukkan Email Student"
                     className={
-                      errors.email ? 'input-error' : ''
+                      errors.email
+                        ? 'input-error'
+                        : ''
                     }
                   />
 
@@ -224,15 +378,20 @@ function Register() {
                     </p>
                   ) : (
                     <p className="field-helper">
-                      Gunakan email @student.pradita.ac.id
+                      Gunakan email
+                      @student.pradita.ac.id
                     </p>
                   )}
+
                 </div>
 
                 {/* NIM */}
+
                 <div className="form-group">
+
                   <label htmlFor="nim">
-                    NIM <span>*</span>
+                    NIM
+                    <span>*</span>
                   </label>
 
                   <input
@@ -240,12 +399,18 @@ function Register() {
                     name="nim"
                     type="text"
                     inputMode="numeric"
-                    value={formData.nim}
-                    onChange={handleChange}
-                    placeholder="Masukkan NIM"
                     maxLength={10}
+                    value={
+                      formData.nim
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    placeholder="Masukkan NIM"
                     className={
-                      errors.nim ? 'input-error' : ''
+                      errors.nim
+                        ? 'input-error'
+                        : ''
                     }
                   />
 
@@ -254,12 +419,16 @@ function Register() {
                       {errors.nim}
                     </p>
                   )}
+
                 </div>
 
                 {/* NOMOR TELEPON */}
+
                 <div className="form-group">
+
                   <label htmlFor="phone">
-                    Nomor Telepon <span>*</span>
+                    Nomor Telepon
+                    <span>*</span>
                   </label>
 
                   <input
@@ -267,11 +436,18 @@ function Register() {
                     name="phone"
                     type="tel"
                     inputMode="numeric"
-                    value={formData.phone}
-                    onChange={handleChange}
+                    maxLength={16}
+                    value={
+                      formData.phone
+                    }
+                    onChange={
+                      handleChange
+                    }
                     placeholder="Masukkan Nomor Aktif"
                     className={
-                      errors.phone ? 'input-error' : ''
+                      errors.phone
+                        ? 'input-error'
+                        : ''
                     }
                   />
 
@@ -280,12 +456,16 @@ function Register() {
                       {errors.phone}
                     </p>
                   )}
+
                 </div>
 
                 {/* PASSWORD */}
+
                 <div className="form-group password-group">
+
                   <label htmlFor="password">
-                    Password <span>*</span>
+                    Password
+                    <span>*</span>
                   </label>
 
                   <div
@@ -295,6 +475,7 @@ function Register() {
                         : ''
                     }`}
                   >
+
                     <input
                       id="password"
                       name="password"
@@ -303,8 +484,12 @@ function Register() {
                           ? 'text'
                           : 'password'
                       }
-                      value={formData.password}
-                      onChange={handleChange}
+                      value={
+                        formData.password
+                      }
+                      onChange={
+                        handleChange
+                      }
                       placeholder="Masukkan Password"
                     />
 
@@ -313,7 +498,8 @@ function Register() {
                       className="password-toggle"
                       onClick={() =>
                         setShowPassword(
-                          (previous) => !previous
+                          (previous) =>
+                            !previous
                         )
                       }
                       aria-label={
@@ -323,15 +509,22 @@ function Register() {
                       }
                     >
                       {showPassword ? (
-                        <EyeOff size={19} />
+                        <EyeOff
+                          size={19}
+                        />
                       ) : (
-                        <Eye size={19} />
+                        <Eye
+                          size={19}
+                        />
                       )}
                     </button>
+
                   </div>
 
                   <PasswordStrength
-                    password={formData.password}
+                    password={
+                      formData.password
+                    }
                   />
 
                   {errors.password && (
@@ -339,12 +532,16 @@ function Register() {
                       {errors.password}
                     </p>
                   )}
+
                 </div>
 
                 {/* KONFIRMASI PASSWORD */}
+
                 <div className="form-group password-group">
+
                   <label htmlFor="confirmPassword">
-                    Konfirmasi Password <span>*</span>
+                    Konfirmasi Password
+                    <span>*</span>
                   </label>
 
                   <div
@@ -354,6 +551,7 @@ function Register() {
                         : ''
                     }`}
                   >
+
                     <input
                       id="confirmPassword"
                       name="confirmPassword"
@@ -362,8 +560,12 @@ function Register() {
                           ? 'text'
                           : 'password'
                       }
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
+                      value={
+                        formData.confirmPassword
+                      }
+                      onChange={
+                        handleChange
+                      }
                       placeholder="Masukkan Password"
                     />
 
@@ -372,7 +574,8 @@ function Register() {
                       className="password-toggle"
                       onClick={() =>
                         setShowConfirmPassword(
-                          (previous) => !previous
+                          (previous) =>
+                            !previous
                         )
                       }
                       aria-label={
@@ -381,18 +584,30 @@ function Register() {
                           : 'Tampilkan password'
                       }
                     >
+
                       {showConfirmPassword ? (
-                        <EyeOff size={19} />
+                        <EyeOff
+                          size={19}
+                        />
                       ) : (
-                        <Eye size={19} />
+                        <Eye
+                          size={19}
+                        />
                       )}
+
                     </button>
+
                   </div>
 
                   {passwordsMatch && (
                     <p className="password-match">
-                      <CheckCircle2 size={16} />
+
+                      <CheckCircle2
+                        size={16}
+                      />
+
                       Password cocok
+
                     </p>
                   )}
 
@@ -405,32 +620,50 @@ function Register() {
                   {errors.confirmPassword &&
                     !passwordsDoNotMatch && (
                       <p className="field-error">
-                        {errors.confirmPassword}
+                        {
+                          errors.confirmPassword
+                        }
                       </p>
                     )}
+
                 </div>
+
               </div>
 
               {/* BUTTON */}
+
               <button
                 className="primary-button"
                 type="submit"
+                disabled={!formValid}
               >
                 Lanjutkan
-                <ArrowRight size={20} />
+
+                <ArrowRight
+                  size={20}
+                />
               </button>
 
-              {/* LINK LOGIN */}
+              {/* LOGIN */}
+
               <div className="auth-bottom-link">
+
                 Sudah punya akun?{' '}
+
                 <Link to="/login">
                   Masuk
                 </Link>
+
               </div>
+
             </form>
+
           </div>
+
         </section>
+
       </div>
+
     </main>
   )
 }

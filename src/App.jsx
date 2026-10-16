@@ -1,8 +1,9 @@
 import {
-  Navigate,
   Route,
   Routes,
 } from 'react-router-dom'
+
+import LandingPage from './pages/student/LandingPage'
 
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -25,15 +26,19 @@ function App() {
   return (
     <Routes>
 
+      {/* =========================
+          LANDING PAGE
+      ========================== */}
+
       <Route
         path="/"
-        element={
-          <Navigate
-            to="/login"
-            replace
-          />
-        }
+        element={<LandingPage />}
       />
+
+
+      {/* =========================
+          AUTH
+      ========================== */}
 
       <Route
         path="/login"
@@ -60,6 +65,11 @@ function App() {
         element={<RegisterSuccess />}
       />
 
+
+      {/* =========================
+          DASHBOARD MAHASISWA
+      ========================== */}
+
       <Route
         path="/dashboard"
         element={<Dashboard />}
@@ -75,6 +85,11 @@ function App() {
         element={<DashboardFinalis />}
       />
 
+
+      {/* =========================
+          PENDAFTARAN TAHAP 1
+      ========================== */}
+
       <Route
         path="/pendaftaran-mapres"
         element={<PendaftaranTahap1 />}
@@ -89,6 +104,11 @@ function App() {
         path="/pendaftaran-mapres/status"
         element={<StatusVerifikasiTahap1 />}
       />
+
+
+      {/* =========================
+          PRADITA VALUE
+      ========================== */}
 
       <Route
         path="/pradita-value/rekan-sejawat"

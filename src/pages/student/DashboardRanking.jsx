@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   FileText,
   GraduationCap,
+  Info,
   Languages,
   LockKeyhole,
   Trophy,
@@ -130,10 +131,7 @@ function DashboardRanking() {
     SIMULASI HASIL RANKING
     ============================================
 
-    Ini hanya dipakai untuk demo frontend.
-
-    Nanti status lolos, ranking, dan nilai
-    berasal dari backend.
+    Hanya untuk demo frontend.
   */
 
   const handleSimulateRankingResult = () => {
@@ -252,7 +250,7 @@ function DashboardRanking() {
     if (status === 'verified') {
       return (
         <span className="ranking-indicator-status ranking-status-verified">
-          <CheckCircle2 size={13} />
+          <CheckCircle2 size={14} />
           Terverifikasi
         </span>
       )
@@ -267,353 +265,465 @@ function DashboardRanking() {
 
   return (
     <div className="ranking-dashboard-page">
-      <div className="ranking-dashboard-container">
 
-        {/* =========================
-            HEADER
-        ========================== */}
+      {/* =========================
+          HERO
+      ========================== */}
 
-        <header className="ranking-page-header">
-          <div>
-            <span className="ranking-page-eyebrow">
-              MAHASISWA BERPRESTASI
+      <section className="ranking-page-header">
+
+        <div className="ranking-dashboard-container">
+
+          <span className="ranking-page-eyebrow">
+            MAHASISWA BERPRESTASI
+          </span>
+
+          <h1>
+            Seleksi Mahasiswa Berprestasi
+          </h1>
+
+          <p>
+            Pantau status pendaftaran dan tahapan seleksi Anda.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================
+          MAIN
+      ========================== */}
+
+      <main className="ranking-dashboard-main">
+
+        <div className="ranking-dashboard-container">
+
+
+          {/* =========================
+              STATUS UTAMA
+          ========================== */}
+
+          <section className="ranking-main-status-card">
+
+            <div className="ranking-main-status-content">
+
+              <div className="ranking-main-status-icon">
+                <CheckCircle2 size={23} />
+              </div>
+
+              <div>
+
+                <span className="ranking-main-status-label">
+                  TAHAP 1 SELESAI
+                </span>
+
+                <h2>
+                  Ranking Tahap 1 Sedang Diproses
+                </h2>
+
+                <p>
+                  Verifikasi data Anda telah selesai.
+                  Sistem sedang memproses ranking
+                  berdasarkan angkatan.
+                </p>
+
+              </div>
+
+            </div>
+
+            <button
+              type="button"
+              className="ranking-detail-button"
+              onClick={handleViewDetail}
+            >
+              Lihat Detail Tahap 1
+              <ArrowRight size={16} />
+            </button>
+
+          </section>
+
+
+          {/* =========================
+              DEMO FRONTEND
+          ========================== */}
+
+          <div className="ranking-demo-area">
+
+            <span>
+              Demo Frontend
             </span>
 
-            <h1>
-              Seleksi Mahasiswa Berprestasi
-            </h1>
-
-            <p>
-              Pantau status pendaftaran dan
-              tahapan seleksi Anda.
-            </p>
-          </div>
-        </header>
-
-        {/* =========================
-            STATUS UTAMA
-        ========================== */}
-
-        <section className="ranking-main-status-card">
-          <div className="ranking-main-status-content">
-
-            <div className="ranking-main-status-icon">
-              <CheckCircle2 size={21} />
-            </div>
-
-            <div>
-              <span className="ranking-main-status-label">
-                TAHAP 1 SELESAI
-              </span>
-
-              <h2>
-                Ranking Tahap 1 Sedang Diproses
-              </h2>
-
-              <p>
-                Verifikasi data Anda telah selesai.
-                Sistem sedang memproses ranking
-                berdasarkan angkatan.
-              </p>
-            </div>
+            <button
+              type="button"
+              onClick={
+                handleSimulateRankingResult
+              }
+            >
+              Simulasikan Hasil Ranking
+            </button>
 
           </div>
 
-          <button
-            type="button"
-            className="ranking-detail-button"
-            onClick={handleViewDetail}
-          >
-            Lihat Detail Tahap 1
-            <ArrowRight size={15} />
-          </button>
-        </section>
-
-        {/* =========================
-            DEMO FRONTEND
-        ========================== */}
-
-        <div className="ranking-demo-area">
-          <span>
-            Demo Frontend
-          </span>
-
-          <button
-            type="button"
-            onClick={
-              handleSimulateRankingResult
-            }
-          >
-            Simulasikan Hasil Ranking
-          </button>
-        </div>
-
-        {/* =========================
-            CONTENT GRID
-        ========================== */}
-
-        <div className="ranking-dashboard-grid">
 
           {/* =========================
-              RINGKASAN TAHAP 1
+              CONTENT GRID
           ========================== */}
 
-          <section className="ranking-summary-card">
+          <div className="ranking-dashboard-grid">
 
-            <div className="ranking-card-heading">
-              <div>
-                <h2>
-                  Ringkasan Tahap 1
-                </h2>
 
-                <p>
-                  Data yang digunakan dalam
-                  penilaian Tahap 1.
-                </p>
+            {/* =========================
+                RINGKASAN TAHAP 1
+            ========================== */}
+
+            <section className="ranking-summary-card">
+
+              <div className="ranking-card-heading">
+
+                <div>
+
+                  <h2>
+                    Ringkasan Tahap 1
+                  </h2>
+
+                  <p>
+                    Data yang digunakan dalam
+                    penilaian Tahap 1.
+                  </p>
+
+                </div>
+
               </div>
-            </div>
 
-            <div className="ranking-indicator-list">
 
-              {indicators.map((item) => {
-                const Icon = item.Icon
+              <div className="ranking-indicator-list">
 
-                return (
-                  <article
-                    className="ranking-indicator-row"
-                    key={item.id}
-                  >
+                {indicators.map((item) => {
+                  const Icon = item.Icon
 
-                    <div className="ranking-indicator-icon">
-                      <Icon size={18} />
+                  return (
+                    <article
+                      className="ranking-indicator-row"
+                      key={item.id}
+                    >
+
+                      <div className="ranking-indicator-icon">
+                        <Icon size={19} />
+                      </div>
+
+                      <div className="ranking-indicator-content">
+
+                        <span>
+                          {item.title}
+                        </span>
+
+                        <strong>
+                          {item.value}
+                        </strong>
+
+                        {item.detail && (
+                          <small>
+                            {item.detail}
+                          </small>
+                        )}
+
+                      </div>
+
+                      <div className="ranking-indicator-action">
+                        {renderIndicatorStatus(
+                          item.status
+                        )}
+                      </div>
+
+                    </article>
+                  )
+                })}
+
+              </div>
+
+            </section>
+
+
+            {/* =========================
+                TAHAP SELEKSI
+            ========================== */}
+
+            <section className="ranking-selection-card">
+
+              <div className="ranking-card-heading">
+
+                <div>
+
+                  <span className="ranking-section-label">
+                    PROSES SELEKSI
+                  </span>
+
+                  <h2>
+                    Tahap Seleksi
+                  </h2>
+
+                  <p>
+                    Posisi Anda dalam proses seleksi.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div className="ranking-selection-timeline">
+
+
+                {/* TAHAP 1 */}
+
+                <div className="ranking-selection-step is-complete">
+
+                  <div className="ranking-selection-marker-column">
+
+                    <div className="ranking-selection-marker">
+                      <CheckCircle2 size={16} />
                     </div>
 
-                    <div className="ranking-indicator-content">
-                      <span>
-                        {item.title}
-                      </span>
+                    <div className="ranking-selection-line is-complete" />
+
+                  </div>
+
+                  <div className="ranking-selection-copy">
+
+                    <div className="ranking-selection-title-row">
 
                       <strong>
-                        {item.value}
+                        Tahap 1
                       </strong>
 
-                      {item.detail && (
-                        <small>
-                          {item.detail}
-                        </small>
-                      )}
                     </div>
 
-                    <div className="ranking-indicator-action">
-                      {renderIndicatorStatus(
-                        item.status
-                      )}
+                    <p>
+                      Selesai
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* RANKING */}
+
+                <div className="ranking-selection-step is-current">
+
+                  <div className="ranking-selection-marker-column">
+
+                    <div className="ranking-selection-marker">
+                      2
                     </div>
 
-                  </article>
-                )
-              })}
+                    <div className="ranking-selection-line" />
 
-            </div>
-          </section>
+                  </div>
+
+                  <div className="ranking-selection-copy">
+
+                    <div className="ranking-selection-title-row">
+
+                      <strong>
+                        Ranking per Angkatan
+                      </strong>
+
+                      <span>
+                        Sekarang
+                      </span>
+
+                    </div>
+
+                    <p>
+                      Sedang diproses
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* PRADITA VALUE */}
+
+                <div className="ranking-selection-step">
+
+                  <div className="ranking-selection-marker-column">
+
+                    <div className="ranking-selection-marker">
+                      3
+                    </div>
+
+                    <div className="ranking-selection-line" />
+
+                  </div>
+
+                  <div className="ranking-selection-copy">
+
+                    <div className="ranking-selection-title-row">
+
+                      <strong>
+                        Pradita Value
+                      </strong>
+
+                    </div>
+
+                    <p>
+                      Belum tersedia
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* FINAL */}
+
+                <div className="ranking-selection-step">
+
+                  <div className="ranking-selection-marker-column">
+
+                    <div className="ranking-selection-marker">
+                      4
+                    </div>
+
+                  </div>
+
+                  <div className="ranking-selection-copy">
+
+                    <div className="ranking-selection-title-row">
+
+                      <strong>
+                        Pengumuman Final
+                      </strong>
+
+                    </div>
+
+                    <p>
+                      Belum tersedia
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+          </div>
+
 
           {/* =========================
-              TAHAP SELEKSI
+              PRADITA VALUE
           ========================== */}
 
-          <section className="ranking-selection-card">
+          <section className="ranking-pradita-card">
 
-            <div className="ranking-card-heading">
-              <div>
+            <div className="ranking-pradita-main">
+
+              <div className="ranking-pradita-icon">
+                <LockKeyhole size={20} />
+              </div>
+
+              <div className="ranking-pradita-copy">
+
+                <span>
+                  TAHAP LANJUTAN
+                </span>
+
                 <h2>
-                  Tahap Seleksi
+                  Pradita Value
                 </h2>
 
                 <p>
-                  Posisi Anda dalam proses
-                  seleksi.
+                  Tahap ini tersedia jika Anda
+                  masuk Top 3 pada ranking angkatan.
                 </p>
-              </div>
-            </div>
-
-            <div className="ranking-selection-timeline">
-
-              {/* TAHAP 1 */}
-
-              <div className="ranking-selection-step is-complete">
-
-                <div className="ranking-selection-marker">
-                  <CheckCircle2 size={16} />
-                </div>
-
-                <div className="ranking-selection-copy">
-                  <strong>
-                    Tahap 1
-                  </strong>
-
-                  <span>
-                    Selesai
-                  </span>
-                </div>
-
-              </div>
-
-              <div className="ranking-selection-line is-complete" />
-
-              {/* RANKING */}
-
-              <div className="ranking-selection-step is-current">
-
-                <div className="ranking-selection-marker">
-                  2
-                </div>
-
-                <div className="ranking-selection-copy">
-                  <strong>
-                    Ranking per Angkatan
-                  </strong>
-
-                  <span>
-                    Sedang diproses
-                  </span>
-                </div>
-
-              </div>
-
-              <div className="ranking-selection-line" />
-
-              {/* PRADITA VALUE */}
-
-              <div className="ranking-selection-step">
-
-                <div className="ranking-selection-marker">
-                  3
-                </div>
-
-                <div className="ranking-selection-copy">
-                  <strong>
-                    Pradita Value
-                  </strong>
-
-                  <span>
-                    Belum tersedia
-                  </span>
-                </div>
-
-              </div>
-
-              <div className="ranking-selection-line" />
-
-              {/* FINAL */}
-
-              <div className="ranking-selection-step">
-
-                <div className="ranking-selection-marker">
-                  4
-                </div>
-
-                <div className="ranking-selection-copy">
-                  <strong>
-                    Pengumuman Final
-                  </strong>
-
-                  <span>
-                    Belum tersedia
-                  </span>
-                </div>
 
               </div>
 
             </div>
+
+            <span className="ranking-pradita-status">
+              <LockKeyhole size={14} />
+              Terkunci
+            </span>
+
+          </section>
+
+
+          {/* =========================
+              INFORMASI PENTING
+          ========================== */}
+
+          <section className="ranking-information-card">
+
+            <div className="ranking-information-heading">
+
+              <div className="ranking-information-icon">
+                <Info size={18} />
+              </div>
+
+              <div>
+
+                <h2>
+                  Informasi Penting
+                </h2>
+
+                <p>
+                  Informasi yang perlu diketahui
+                  selama proses ranking.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div className="ranking-information-list">
+
+              <div className="ranking-information-item">
+
+                <span />
+
+                <p>
+                  Ranking dilakukan berdasarkan angkatan.
+                </p>
+
+              </div>
+
+              <div className="ranking-information-item">
+
+                <span />
+
+                <p>
+                  Top 3 dari setiap angkatan akan
+                  lanjut ke tahap Pradita Value.
+                </p>
+
+              </div>
+
+              <div className="ranking-information-item">
+
+                <span />
+
+                <p>
+                  Hasil ranking akan tampil di dashboard
+                  setelah proses selesai.
+                </p>
+
+              </div>
+
+            </div>
+
           </section>
 
         </div>
 
-        {/* =========================
-            PRADITA VALUE
-        ========================== */}
+      </main>
 
-        <section className="ranking-pradita-card">
-
-          <div className="ranking-pradita-content">
-
-            <div className="ranking-pradita-icon">
-              <LockKeyhole size={20} />
-            </div>
-
-            <div>
-              <h2>
-                Pradita Value
-              </h2>
-
-              <p>
-                Tahap ini tersedia jika Anda
-                masuk Top 3 pada ranking
-                angkatan.
-              </p>
-            </div>
-
-          </div>
-
-          <span className="ranking-pradita-status">
-            <LockKeyhole size={13} />
-            Terkunci
-          </span>
-
-        </section>
-
-        {/* =========================
-            INFORMASI PENTING
-        ========================== */}
-
-        <section className="ranking-information-card">
-
-          <div className="ranking-card-heading">
-            <div>
-              <h2>
-                Informasi Penting
-              </h2>
-
-              <p>
-                Informasi yang perlu diketahui
-                selama proses ranking.
-              </p>
-            </div>
-          </div>
-
-          <div className="ranking-information-list">
-
-            <div className="ranking-information-item">
-              <span className="ranking-information-dot" />
-
-              <p>
-                Ranking dilakukan berdasarkan
-                angkatan.
-              </p>
-            </div>
-
-            <div className="ranking-information-item">
-              <span className="ranking-information-dot" />
-
-              <p>
-                Top 3 dari setiap angkatan akan
-                lanjut ke tahap Pradita Value.
-              </p>
-            </div>
-
-            <div className="ranking-information-item">
-              <span className="ranking-information-dot" />
-
-              <p>
-                Hasil ranking akan tampil di
-                dashboard setelah proses selesai.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-      </div>
     </div>
   )
 }

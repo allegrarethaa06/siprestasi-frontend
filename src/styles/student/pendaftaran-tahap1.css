@@ -1232,3 +1232,309 @@
     width: 100%;
   }
 }
+/* =========================
+   TYPOGRAPHY READABILITY FIX
+========================= */
+
+/* HEADER */
+
+.registration-header-title-row h1 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.registration-header-card > div:first-child > p {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.registration-header-status {
+  font-size: 12px;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.registration-progress-title {
+  font-size: 13px;
+}
+
+.registration-progress-title span {
+  font-size: 13px;
+}
+
+.registration-progress-title strong {
+  font-size: 12px;
+}
+
+.registration-progress-text {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   SECTION HEADING
+========================= */
+
+.registration-section-number {
+  width: 28px;
+  height: 28px;
+
+  font-size: 13px;
+}
+
+.registration-section-heading {
+  gap: 12px;
+}
+
+.registration-section-heading h2 {
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.registration-section-heading p {
+  margin-top: 5px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.registration-section-status {
+  font-size: 12px;
+}
+
+
+/* =========================
+   DATA MAHASISWA
+========================= */
+
+.readonly-field label {
+  font-size: 13px;
+}
+
+.readonly-value {
+  min-height: 46px;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   DATA AKADEMIK
+========================= */
+
+.academic-sync-header > div span {
+  font-size: 13px;
+}
+
+.academic-sync-badge {
+  font-size: 11px;
+}
+
+.academic-data-label {
+  font-size: 11px;
+}
+
+.academic-data-item strong {
+  font-size: 16px;
+}
+
+.academic-data-status {
+  font-size: 10px;
+}
+
+.academic-sync-note {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   QUESTION BOX
+========================= */
+
+.registration-question-box strong {
+  font-size: 14px;
+}
+
+.registration-question-box span {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+
+/* =========================
+   RADIO
+========================= */
+
+.registration-radio-group label {
+  min-width: 90px;
+
+  padding: 8px 13px;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   INFO BOX
+========================= */
+
+.registration-info-box {
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* =========================
+   FORM LABEL
+========================= */
+
+.registration-field label,
+.registration-upload-label {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+
+/* =========================
+   FORM INPUT
+========================= */
+
+.registration-field input,
+.registration-field select {
+  height: 46px;
+
+  padding: 0 14px;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   FORM HELPER
+========================= */
+
+.registration-field small {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+
+/* =========================
+   UPLOAD BOX
+========================= */
+
+.registration-upload-box strong {
+  font-size: 14px;
+}
+
+.registration-upload-box span {
+  font-size: 12px;
+}
+
+.registration-upload-button {
+  padding: 8px 16px;
+
+  font-size: 13px;
+}
+
+.registration-upload-wrapper > small {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   UPLOADED FILE
+========================= */
+
+.uploaded-file-content > strong {
+  font-size: 14px;
+}
+
+.uploaded-file-content > span {
+  font-size: 12px;
+}
+
+.uploaded-file-success {
+  font-size: 11px;
+}
+
+.file-view-button {
+  font-size: 12px;
+}
+
+.registration-file-error {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   VERIFICATION NOTICE
+========================= */
+
+.verification-notice strong {
+  font-size: 14px;
+}
+
+.verification-notice span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   BOTTOM ACTIONS
+========================= */
+
+.save-draft-button {
+  min-height: 44px;
+
+  font-size: 13px;
+}
+
+.registration-next-area > span {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.registration-next-button {
+  min-width: 175px;
+  height: 46px;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  .registration-header-title-row h1 {
+    font-size: 24px;
+  }
+
+  .registration-section-heading h2 {
+    font-size: 19px;
+  }
+
+  .registration-section-heading p {
+    font-size: 13px;
+  }
+
+  .registration-field label,
+  .registration-upload-label {
+    font-size: 13px;
+  }
+
+  .registration-field input,
+  .registration-field select {
+    font-size: 14px;
+  }
+}

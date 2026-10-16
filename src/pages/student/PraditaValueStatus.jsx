@@ -8,145 +8,615 @@ import {
   CheckCircle2,
   Clock3,
   Mail,
-  ShieldCheck,
   UserRound,
   Users,
 } from 'lucide-react'
 
+import {
+  REVIEW_STATUS,
+  SELECTION_STATUS,
+} from '../../data/mockSelectionData'
+
 import '../../styles/student/pradita-value-status.css'
+
 
 function PraditaValueStatus() {
   const navigate = useNavigate()
   const location = useLocation()
 
+
+  /* =========================================================
+     ROUTE STATE
+  ========================================================= */
+
+  const routeState =
+    location.state || {}
+
+  const selectionData =
+    routeState.selectionData || null
+
   const registrationData =
-    location.state?.registrationData
+    routeState.registrationData || null
 
   const rankingResult =
-    location.state?.rankingResult || {
-      rank: 2,
-      tahap1Score: '86.40',
-    }
+    routeState.rankingResult || null
 
   const peerInvitations =
-    location.state?.peerInvitations || [
-      {
-        id: 1,
-        email:
-          'rekan.satu@student.pradita.ac.id',
-        status: 'sent',
-      },
-      {
-        id: 2,
-        email:
-          'rekan.dua@student.pradita.ac.id',
-        status: 'sent',
-      },
-      {
-        id: 3,
-        email:
-          'rekan.tiga@student.pradita.ac.id',
-        status: 'sent',
-      },
-    ]
+    routeState.peerInvitations || []
 
   const praditaStage =
-    location.state?.praditaStage ||
-    'waiting-admin'
+    routeState.praditaStage || null
 
   const reviewerProgress =
-    location.state?.reviewerProgress || {
-      completed: 3,
-      total: 5,
+    routeState.reviewerProgress || null
+
+  const finalResult =
+    routeState.finalResult || null
+
+
+  /* =========================================================
+     HELPER STATUS
+  ========================================================= */
+
+  const mapLegacyStageToStatus = (stage) => {
+    const mapping = {
+      'need-peers':
+        SELECTION_STATUS.NEED_PEERS,
+
+      'waiting-admin':
+        SELECTION_STATUS.WAITING_LECTURER,
+
+      'in-progress':
+        SELECTION_STATUS.PRADITA_IN_PROGRESS,
+
+      completed:
+        SELECTION_STATUS.PRADITA_COMPLETED,
+
+      'final-announced':
+        SELECTION_STATUS.FINAL_ANNOUNCED,
     }
 
-  const student =
-    registrationData?.student || {
-      name: 'Allegra Aretha Putri',
-      nim: '2410102004',
-      angkatan: '2024',
-    }
+    return mapping[stage] || null
+  }
+
+
+  const status =
+    selectionData?.status ||
+    mapLegacyStageToStatus(praditaStage) ||
+    SELECTION_STATUS.WAITING_LECTURER
+
+
+  const isNeedPeers =
+    status ===
+    SELECTION_STATUS.NEED_PEERS
+
+
+  const isWaitingLecturer =
+    status ===
+    SELECTION_STATUS.WAITING_LECTURER
+
 
   const isInProgress =
-    praditaStage === 'in-progress'
+    status ===
+    SELECTION_STATUS.PRADITA_IN_PROGRESS
+
 
   const isCompleted =
-    praditaStage === 'completed'
+    status ===
+      SELECTION_STATUS.PRADITA_COMPLETED ||
+    status ===
+      SELECTION_STATUS.FINAL_ANNOUNCED
+
 
   const assessmentStarted =
     isInProgress || isCompleted
 
-  const progressPercentage =
-    (
-      reviewerProgress.completed /
-      reviewerProgress.total
-    ) * 100
 
-  const reviewerStatuses = {
-    peers: isCompleted
-      ? [
-          { status: 'completed' },
-          { status: 'completed' },
-          { status: 'completed' },
-        ]
-      : [
-          { status: 'completed' },
-          { status: 'waiting' },
-          { status: 'completed' },
-        ],
+  /* =========================================================
+     STUDENT
+  ========================================================= */
 
-    kaprodi: {
-      name: 'Kaprodi Sistem Informasi',
+  const student =
+    selectionData?.student ||
+    registrationData?.student || {
+      name: 'Allegra Aretha Putri',
+      nim: '2410102004',
+      angkatan: '2024',
+      email:
+        '2410102004@student.pradita.ac.id',
+    }
+
+
+  /* =========================================================
+     REVIEWER DATA
+  ========================================================= */
+
+  const selectionReviewers =
+    selectionData?.reviewers || {}
+
+
+  const rawPeers =
+    selectionReviewers.peers?.length
+      ? selectionReviewers.peers
+      : peerInvitations
+
+
+  const peers = [0, 1, 2].map(
+    (index) => {
+      const source =
+        rawPeers?.[index] || {}
+
+      return {
+        id:
+          source.id ||
+          index + 1,
+
+        email:
+          source.email ||
+          'Belum diisi',
+
+        invitationStatus:
+          source.invitationStatus ||
+          source.status ||
+          null,
+
+        reviewStatus:
+          source.reviewStatus ||
+          null,
+      }
+    }
+  )
+
+
+  const kaprodi =
+    selectionReviewers.kaprodi || {
+      id: 'kaprodi-si',
+
+      name:
+        'Kaprodi Sistem Informasi',
+
       status:
+        REVIEW_STATUS.READY,
+
+      reviewStatus:
         isCompleted
-          ? 'completed'
-          : 'waiting',
-    },
+          ? REVIEW_STATUS.COMPLETED
+          : REVIEW_STATUS.WAITING,
+    }
 
-    dosen: {
-      name: 'Dosen Penilai',
-      status: 'completed',
-    },
-  }
 
-  const handleBack = () => {
-    navigate('/dashboard/finalis', {
-      state: {
-        registrationData,
-        rankingResult,
-        peerInvitations,
-        praditaStage,
-        reviewerProgress,
-      },
-    })
-  }
+  const lecturer =
+    selectionReviewers.lecturer || {
+      id:
+        isWaitingLecturer ||
+        isNeedPeers
+          ? null
+          : 'lecturer-demo',
 
-  const renderAssessmentStatus = (
-    status
+      name:
+        isWaitingLecturer ||
+        isNeedPeers
+          ? null
+          : 'Dosen Penilai',
+
+      status:
+        isWaitingLecturer ||
+        isNeedPeers
+          ? REVIEW_STATUS.WAITING
+          : REVIEW_STATUS.READY,
+
+      reviewStatus:
+        isCompleted
+          ? REVIEW_STATUS.COMPLETED
+          : isInProgress
+            ? REVIEW_STATUS.WAITING
+            : null,
+    }
+
+
+  /* =========================================================
+     REVIEWER STATUS HELPERS
+  ========================================================= */
+
+  const isReviewCompleted = (
+    reviewer
   ) => {
-    if (status === 'completed') {
+    return (
+      reviewer?.reviewStatus ===
+        REVIEW_STATUS.COMPLETED ||
+      reviewer?.reviewStatus ===
+        'completed' ||
+      reviewer?.status ===
+        'completed'
+    )
+  }
+
+
+  const isInvitationSent = (
+    reviewer
+  ) => {
+    return (
+      reviewer?.invitationStatus ===
+        REVIEW_STATUS.INVITED ||
+      reviewer?.invitationStatus ===
+        'invited' ||
+      reviewer?.invitationStatus ===
+        'sent' ||
+      reviewer?.status ===
+        'sent'
+    )
+  }
+
+
+  const completedPeers =
+    peers.filter(
+      (peer) =>
+        isReviewCompleted(peer)
+    ).length
+
+
+  const kaprodiCompleted =
+    isReviewCompleted(kaprodi)
+
+
+  const lecturerCompleted =
+    isReviewCompleted(lecturer)
+
+
+  const completedAcademic =
+    Number(kaprodiCompleted) +
+    Number(lecturerCompleted)
+
+
+  /* =========================================================
+     PROGRESS
+  ========================================================= */
+
+  const progressData =
+    selectionReviewers.progress ||
+    reviewerProgress || {
+      completed:
+        isCompleted
+          ? 5
+          : isInProgress
+            ? 3
+            : 0,
+
+      total: 5,
+    }
+
+
+  const progressCompleted =
+    Math.min(
+      Number(
+        progressData.completed || 0
+      ),
+      5
+    )
+
+
+  const progressTotal =
+    Number(
+      progressData.total || 5
+    )
+
+
+  const progressPercentage =
+    progressTotal > 0
+      ? Math.min(
+          100,
+          Math.round(
+            (
+              progressCompleted /
+              progressTotal
+            ) * 100
+          )
+        )
+      : 0
+
+
+  /* =========================================================
+     PEER STATUS
+  ========================================================= */
+
+  const renderPeerStatus = (
+    peer
+  ) => {
+    if (
+      isCompleted ||
+      isReviewCompleted(peer)
+    ) {
       return (
         <span className="pv-status-pill pv-status-completed">
-          <CheckCircle2 size={13} />
-          Sudah Mengisi
+          <CheckCircle2 size={14} />
+          Penilaian Selesai
         </span>
       )
     }
 
+
+    if (isInProgress) {
+      return (
+        <span className="pv-status-pill pv-status-waiting">
+          <Clock3 size={14} />
+          Menunggu Penilaian
+        </span>
+      )
+    }
+
+
+    if (isInvitationSent(peer)) {
+      return (
+        <span className="pv-status-pill pv-status-sent">
+          <CheckCircle2 size={14} />
+          Undangan Terkirim
+        </span>
+      )
+    }
+
+
     return (
       <span className="pv-status-pill pv-status-waiting">
-        <Clock3 size={13} />
-        Menunggu
+        Belum Diisi
       </span>
     )
   }
 
+
+  /* =========================================================
+     KAPRODI STATUS
+  ========================================================= */
+
+  const renderKaprodiStatus = () => {
+    if (
+      isCompleted ||
+      kaprodiCompleted
+    ) {
+      return (
+        <span className="pv-status-pill pv-status-completed">
+          <CheckCircle2 size={14} />
+          Selesai
+        </span>
+      )
+    }
+
+
+    if (isInProgress) {
+      return (
+        <span className="pv-status-pill pv-status-waiting">
+          <Clock3 size={14} />
+          Menunggu Penilaian
+        </span>
+      )
+    }
+
+
+    return (
+      <span className="pv-status-pill pv-status-fixed">
+        <CheckCircle2 size={14} />
+        Sudah Ditentukan
+      </span>
+    )
+  }
+
+
+  /* =========================================================
+     LECTURER STATUS
+  ========================================================= */
+
+  const renderLecturerStatus = () => {
+    if (
+      !lecturer?.id ||
+      !lecturer?.name
+    ) {
+      return (
+        <span className="pv-status-pill pv-status-admin">
+          <Clock3 size={14} />
+          Menunggu Admin
+        </span>
+      )
+    }
+
+
+    if (
+      isCompleted ||
+      lecturerCompleted
+    ) {
+      return (
+        <span className="pv-status-pill pv-status-completed">
+          <CheckCircle2 size={14} />
+          Selesai
+        </span>
+      )
+    }
+
+
+    if (isInProgress) {
+      return (
+        <span className="pv-status-pill pv-status-waiting">
+          <Clock3 size={14} />
+          Menunggu Penilaian
+        </span>
+      )
+    }
+
+
+    return (
+      <span className="pv-status-pill pv-status-fixed">
+        <CheckCircle2 size={14} />
+        Sudah Ditentukan
+      </span>
+    )
+  }
+
+
+  /* =========================================================
+     SUMMARY BADGE
+  ========================================================= */
+
+  const getPeerSummary = () => {
+    if (isCompleted) {
+      return {
+        text: '3/3 Selesai',
+        success: true,
+      }
+    }
+
+
+    if (isInProgress) {
+      return {
+        text:
+          `${completedPeers}/3 Selesai`,
+        success:
+          completedPeers === 3,
+      }
+    }
+
+
+    const sentCount =
+      peers.filter(
+        (peer) =>
+          isInvitationSent(peer)
+      ).length
+
+
+    return {
+      text:
+        `${sentCount}/3 Terkirim`,
+      success:
+        sentCount === 3,
+    }
+  }
+
+
+  const getAcademicSummary = () => {
+    if (isCompleted) {
+      return {
+        text: '2/2 Selesai',
+        success: true,
+      }
+    }
+
+
+    if (isInProgress) {
+      return {
+        text:
+          `${completedAcademic}/2 Selesai`,
+        success:
+          completedAcademic === 2,
+      }
+    }
+
+
+    if (
+      !lecturer?.id ||
+      !lecturer?.name
+    ) {
+      return {
+        text:
+          '1 Siap • 1 Menunggu',
+        success: false,
+      }
+    }
+
+
+    return {
+      text: '2/2 Siap',
+      success: true,
+    }
+  }
+
+
+  const peerSummary =
+    getPeerSummary()
+
+
+  const academicSummary =
+    getAcademicSummary()
+
+
+  /* =========================================================
+     INFORMATION
+  ========================================================= */
+
+  const getInformationText = () => {
+    if (isNeedPeers) {
+      return (
+        'Lengkapi 3 rekan sejawat ' +
+        'sebelum proses penilaian dimulai.'
+      )
+    }
+
+
+    if (isWaitingLecturer) {
+      return (
+        'Tidak ada tindakan tambahan dari mahasiswa. ' +
+        'Penilaian dimulai setelah admin menentukan dosen penilai.'
+      )
+    }
+
+
+    if (isInProgress) {
+      return (
+        'Penilaian sedang berlangsung. ' +
+        'Status akan diperbarui ketika penilai mengirimkan hasil.'
+      )
+    }
+
+
+    return (
+      'Seluruh penilai telah menyelesaikan penilaian. ' +
+      'Hasil akhir akan tampil setelah pengumuman dirilis.'
+    )
+  }
+
+
+  /* =========================================================
+     BACK
+  ========================================================= */
+
+  const handleBack = () => {
+    navigate(
+      '/dashboard/finalis',
+      {
+        state: {
+          selectionData,
+
+          registrationData,
+
+          rankingResult,
+
+          peerInvitations,
+
+          praditaStage,
+
+          reviewerProgress,
+
+          finalResult,
+        },
+      }
+    )
+  }
+
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
+
   return (
     <div className="pv-status-page">
+
       <div className="pv-status-container">
 
+
+        {/* =====================================================
+            HEADER
+        ====================================================== */}
+
         <header className="pv-status-header">
+
           <div>
+
             <span className="pv-status-eyebrow">
               PRADITA VALUE
             </span>
@@ -159,8 +629,15 @@ function PraditaValueStatus() {
               Pantau status penilai dan proses
               penilaian Pradita Value.
             </p>
+
           </div>
+
         </header>
+
+
+        {/* =====================================================
+            BACK
+        ====================================================== */}
 
         <button
           type="button"
@@ -168,155 +645,61 @@ function PraditaValueStatus() {
           onClick={handleBack}
         >
           <ArrowLeft size={17} />
+
           Kembali ke Dashboard
         </button>
 
-        {!assessmentStarted && (
-          <section className="pv-main-status-card">
 
-            <div className="pv-main-status-content">
+        {/* =====================================================
+            MAIN STATUS
 
-              <div className="pv-main-status-icon">
-                <Clock3 size={22} />
-              </div>
+            Ini sengaja cuma SATU.
+            Gak ada lagi 3 section berdasarkan state.
+        ====================================================== */}
 
-              <div className="pv-main-status-copy">
+        <section className="pv-main-status-card">
 
-                <span className="pv-main-status-label">
-                  PRADITA VALUE
-                </span>
+          <div className="pv-main-status-copy">
 
-                <h2>
-                  Menunggu Dosen Penilai
-                </h2>
+            <span className="pv-main-status-label">
+              PRADITA VALUE
+            </span>
 
-                <p>
-                  Undangan untuk 3 rekan sejawat
-                  telah dikirim dan Kaprodi Sistem
-                  Informasi sudah tersedia.
-                  Admin masih menentukan 1 dosen
-                  penilai.
-                </p>
+            <h2>
+              Status Penilaian
+            </h2>
 
-                <div className="pv-main-student">
-                  <strong>
-                    {student.name}
-                  </strong>
+            <p>
+              Pantau ketersediaan dan progres
+              penilai Pradita Value.
+            </p>
 
-                  <span>
-                    {student.nim}
-                    {' • '}
-                    Angkatan {student.angkatan}
-                  </span>
-                </div>
 
-              </div>
+            <div className="pv-main-student">
+
+              <strong>
+                {student.name}
+              </strong>
+
+              <span>
+                {student.nim}
+                {' • '}
+                Angkatan {student.angkatan}
+              </span>
 
             </div>
 
-            <span className="pv-main-status-badge">
-              Menunggu Dosen
-            </span>
+          </div>
 
-          </section>
-        )}
+        </section>
 
-        {isInProgress && (
-          <section className="pv-main-status-card">
 
-            <div className="pv-main-status-content">
+        {/* =====================================================
+            PROGRESS
 
-              <div className="pv-main-status-icon">
-                <ShieldCheck size={22} />
-              </div>
-
-              <div className="pv-main-status-copy">
-
-                <span className="pv-main-status-label">
-                  PRADITA VALUE
-                </span>
-
-                <h2>
-                  Penilaian Sedang Berlangsung
-                </h2>
-
-                <p>
-                  Seluruh 5 penilai sudah tersedia.
-                  Status diperbarui saat penilai
-                  mengirimkan hasil.
-                </p>
-
-                <div className="pv-main-student">
-                  <strong>
-                    {student.name}
-                  </strong>
-
-                  <span>
-                    {student.nim}
-                    {' • '}
-                    Angkatan {student.angkatan}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-            <span className="pv-main-status-badge">
-              Sedang Berlangsung
-            </span>
-
-          </section>
-        )}
-
-        {isCompleted && (
-          <section className="pv-main-status-card">
-
-            <div className="pv-main-status-content">
-
-              <div className="pv-main-status-icon">
-                <CheckCircle2 size={22} />
-              </div>
-
-              <div className="pv-main-status-copy">
-
-                <span className="pv-main-status-label">
-                  PRADITA VALUE
-                </span>
-
-                <h2>
-                  Penilaian Selesai
-                </h2>
-
-                <p>
-                  Seluruh 5 penilai telah
-                  mengirimkan hasil. Proses
-                  selanjutnya menunggu pengumuman
-                  final.
-                </p>
-
-                <div className="pv-main-student">
-                  <strong>
-                    {student.name}
-                  </strong>
-
-                  <span>
-                    {student.nim}
-                    {' • '}
-                    Angkatan {student.angkatan}
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
-            <span className="pv-main-status-badge">
-              5/5 Selesai
-            </span>
-
-          </section>
-        )}
+            Tidak ditampilkan sebelum penilaian mulai.
+            Jadi state waiting admin tidak punya 0/5.
+        ====================================================== */}
 
         {assessmentStarted && (
           <section className="pv-progress-card">
@@ -324,23 +707,28 @@ function PraditaValueStatus() {
             <div className="pv-progress-heading">
 
               <div>
+
                 <h2>
                   Progress Penilaian
                 </h2>
 
                 <p>
-                  Status pengisian dari seluruh
-                  penilai Pradita Value.
+                  Perkembangan pengisian
+                  Pradita Value dari seluruh penilai.
                 </p>
+
               </div>
 
+
               <strong>
-                {reviewerProgress.completed} dari{' '}
-                {reviewerProgress.total} penilai
-                telah mengisi
+                {progressCompleted}
+                {' dari '}
+                {progressTotal}
+                {' penilai selesai'}
               </strong>
 
             </div>
+
 
             <div className="pv-progress-track">
 
@@ -354,16 +742,29 @@ function PraditaValueStatus() {
 
             </div>
 
+
             <span className="pv-progress-note">
+
               {isCompleted
-                ? 'Seluruh penilaian telah selesai.'
-                : 'Penilaian selesai setelah seluruh penilai mengirimkan hasil.'}
+                ? 'Seluruh penilaian Pradita Value telah selesai.'
+                : 'Penilaian masih berlangsung.'}
+
             </span>
 
           </section>
         )}
 
+
+        {/* =====================================================
+            REVIEWER GRID
+        ====================================================== */}
+
         <div className="pv-reviewer-grid">
+
+
+          {/* ===================================================
+              REKAN SEJAWAT
+          ==================================================== */}
 
           <section className="pv-reviewer-card">
 
@@ -372,6 +773,7 @@ function PraditaValueStatus() {
               <div className="pv-reviewer-heading-icon">
                 <Users size={19} />
               </div>
+
 
               <div className="pv-reviewer-heading-copy">
 
@@ -385,73 +787,68 @@ function PraditaValueStatus() {
 
               </div>
 
+
               <span
                 className={
-                  isCompleted ||
-                  !assessmentStarted
+                  peerSummary.success
                     ? 'pv-reviewer-summary pv-reviewer-summary-success'
                     : 'pv-reviewer-summary'
                 }
               >
-                {isCompleted
-                  ? '3/3 Selesai'
-                  : assessmentStarted
-                    ? '3 Penilai'
-                    : '3/3 Terkirim'}
+                {peerSummary.text}
               </span>
 
             </div>
 
+
             <div className="pv-reviewer-list">
 
-              {peerInvitations.map(
-                (peer, index) => {
-                  const currentStatus =
-                    reviewerStatuses
-                      .peers[index]
-                      ?.status || 'waiting'
+              {peers.map(
+                (peer, index) => (
 
-                  return (
-                    <div
-                      className="pv-reviewer-item"
-                      key={peer.id}
-                    >
+                  <div
+                    className="pv-reviewer-item"
+                    key={
+                      peer.id ||
+                      index
+                    }
+                  >
 
-                      <div className="pv-reviewer-number">
-                        {index + 1}
-                      </div>
+                    <div className="pv-reviewer-number">
+                      {index + 1}
+                    </div>
 
-                      <div className="pv-reviewer-copy">
 
-                        <span>
-                          Rekan {index + 1}
-                        </span>
+                    <div className="pv-reviewer-copy">
 
-                        <strong>
-                          {peer.email}
-                        </strong>
+                      <span>
+                        Rekan {index + 1}
+                      </span>
 
-                      </div>
-
-                      {!assessmentStarted ? (
-                        <span className="pv-status-pill pv-status-sent">
-                          <CheckCircle2 size={13} />
-                          Undangan Terkirim
-                        </span>
-                      ) : (
-                        renderAssessmentStatus(
-                          currentStatus
-                        )
-                      )}
+                      <strong>
+                        {peer.email}
+                      </strong>
 
                     </div>
-                  )
-                }
+
+
+                    {renderPeerStatus(
+                      peer
+                    )}
+
+                  </div>
+
+                )
               )}
 
             </div>
 
           </section>
+
+
+          {/* ===================================================
+              PENILAI AKADEMIK
+          ==================================================== */}
 
           <section className="pv-reviewer-card">
 
@@ -461,6 +858,7 @@ function PraditaValueStatus() {
                 <UserRound size={19} />
               </div>
 
+
               <div className="pv-reviewer-heading-copy">
 
                 <h2>
@@ -468,35 +866,37 @@ function PraditaValueStatus() {
                 </h2>
 
                 <p>
-                  Kaprodi sudah tetap, dosen
-                  ditentukan oleh admin.
+                  Kaprodi sudah tetap,
+                  dosen ditentukan oleh admin.
                 </p>
 
               </div>
 
+
               <span
                 className={
-                  isCompleted
+                  academicSummary.success
                     ? 'pv-reviewer-summary pv-reviewer-summary-success'
                     : 'pv-reviewer-summary'
                 }
               >
-                {isCompleted
-                  ? '2/2 Selesai'
-                  : assessmentStarted
-                    ? '2 Penilai'
-                    : '1 Siap · 1 Menunggu'}
+                {academicSummary.text}
               </span>
 
             </div>
 
+
             <div className="pv-reviewer-list">
+
+
+              {/* KAPRODI */}
 
               <div className="pv-reviewer-item">
 
                 <div className="pv-reviewer-number">
                   4
                 </div>
+
 
                 <div className="pv-reviewer-copy">
 
@@ -505,31 +905,26 @@ function PraditaValueStatus() {
                   </span>
 
                   <strong>
-                    {reviewerStatuses.kaprodi.name}
+                    {kaprodi?.name ||
+                      'Kaprodi Sistem Informasi'}
                   </strong>
 
                 </div>
 
-                {!assessmentStarted ? (
-                  <span className="pv-status-pill pv-status-fixed">
-                    <CheckCircle2 size={13} />
-                    Sudah Ditentukan
-                  </span>
-                ) : (
-                  renderAssessmentStatus(
-                    reviewerStatuses
-                      .kaprodi
-                      .status
-                  )
-                )}
+
+                {renderKaprodiStatus()}
 
               </div>
+
+
+              {/* DOSEN PENILAI */}
 
               <div className="pv-reviewer-item">
 
                 <div className="pv-reviewer-number">
                   5
                 </div>
+
 
                 <div className="pv-reviewer-copy">
 
@@ -538,27 +933,14 @@ function PraditaValueStatus() {
                   </span>
 
                   <strong>
-                    {assessmentStarted
-                      ? reviewerStatuses
-                          .dosen
-                          .name
-                      : 'Belum ditentukan'}
+                    {lecturer?.name ||
+                      'Belum ditentukan'}
                   </strong>
 
                 </div>
 
-                {!assessmentStarted ? (
-                  <span className="pv-status-pill pv-status-admin">
-                    <Clock3 size={13} />
-                    Menunggu Admin
-                  </span>
-                ) : (
-                  renderAssessmentStatus(
-                    reviewerStatuses
-                      .dosen
-                      .status
-                  )
-                )}
+
+                {renderLecturerStatus()}
 
               </div>
 
@@ -568,48 +950,37 @@ function PraditaValueStatus() {
 
         </div>
 
+
+        {/* =====================================================
+            INFORMATION
+        ====================================================== */}
+
         <section className="pv-information-card">
 
           <div className="pv-information-icon">
-            <Mail size={18} />
+            <Mail size={17} />
           </div>
 
+
           <div>
+
             <h2>
               Informasi Penilaian
             </h2>
 
-            {!assessmentStarted && (
-              <p>
-                Tidak ada tindakan tambahan dari
-                mahasiswa. Pradita Value dimulai
-                setelah admin menentukan dosen
-                penilai.
-              </p>
-            )}
+            <p>
+              {getInformationText()}
+            </p>
 
-            {isInProgress && (
-              <p>
-                Pradita Value dinilai oleh
-                3 rekan sejawat, Kaprodi Sistem
-                Informasi, dan 1 dosen penilai.
-              </p>
-            )}
-
-            {isCompleted && (
-              <p>
-                Seluruh penilaian Pradita Value
-                telah selesai. Hasil final masih
-                menunggu pengumuman.
-              </p>
-            )}
           </div>
 
         </section>
 
       </div>
+
     </div>
   )
 }
+
 
 export default PraditaValueStatus

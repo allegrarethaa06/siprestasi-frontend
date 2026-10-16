@@ -13,6 +13,7 @@
   --success: #2f855a;
 }
 
+
 /* =========================
    PAGE
 ========================= */
@@ -30,6 +31,11 @@
   background: #fbfbfb;
 }
 
+
+/* =========================
+   CARD
+========================= */
+
 .auth-card {
   width: min(1260px, 100%);
   min-height: 754px;
@@ -44,11 +50,13 @@
   border: 1px solid #eadfe3;
   border-radius: 24px;
 
-  box-shadow: 0 25px 55px rgba(58, 24, 39, 0.13);
+  box-shadow:
+    0 25px 55px rgba(58, 24, 39, 0.13);
 }
 
+
 /* =========================
-   PANEL KIRI
+   SIDEBAR
 ========================= */
 
 .auth-sidebar {
@@ -65,28 +73,30 @@
 
   background:
     radial-gradient(
-      circle at 78% 16%,
-      rgba(196, 135, 166, 0.82) 0%,
-      rgba(196, 135, 166, 0.3) 23%,
-      transparent 46%
+      circle at 12% 7%,
+      rgba(225, 156, 188, 0.55) 0%,
+      rgba(196, 135, 166, 0.28) 20%,
+      transparent 42%
     ),
     radial-gradient(
-      circle at 15% 48%,
-      rgba(140, 57, 98, 0.78) 0%,
-      transparent 47%
-    ),
-    radial-gradient(
-      circle at 90% 92%,
-      rgba(126, 31, 78, 0.95) 0%,
-      transparent 52%
+      circle at 92% 18%,
+      rgba(168, 75, 117, 0.24) 0%,
+      transparent 38%
     ),
     linear-gradient(
       155deg,
-      #c487a6 0%,
-      #8c3962 43%,
-      #7e1f4e 100%
+      #a04370 0%,
+      #8c2f5d 24%,
+      #7e1f4e 50%,
+      #6b173d 76%,
+      #55102f 100%
     );
 }
+
+
+/* =========================
+   PATTERN
+========================= */
 
 .auth-sidebar::after {
   content: '';
@@ -97,19 +107,25 @@
   pointer-events: none;
 
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.12) 1px,
+    rgba(255, 255, 255, 0.10) 1px,
     transparent 1px
   );
 
   background-size: 20px 20px;
 
-  opacity: 0.25;
+  opacity: 0.14;
 }
+
+
+/* =========================
+   CONTENT ABOVE PATTERN
+========================= */
 
 .auth-sidebar > * {
   position: relative;
   z-index: 1;
 }
+
 
 /* =========================
    BRAND
@@ -119,26 +135,65 @@
   display: flex;
   align-items: center;
 
-  gap: 14px;
+  gap: 16px;
 }
 
-.brand-icon {
-  width: 50px;
-  height: 50px;
 
+/* =========================
+   LOGO BADGE
+========================= */
+
+.brand-logo-badge {
   display: flex;
   align-items: center;
   justify-content: center;
 
   flex-shrink: 0;
 
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
+  padding: 0;
 
-  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+.brand-logo {
+  width: 90px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.brand-logo {
+  width: 90px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* =========================
+   BRAND COPY
+========================= */
+
+.brand-copy {
+  min-width: 0;
 }
 
 .brand-name {
+  color: #ffffff;
+
   font-size: 25px;
   font-weight: 700;
   line-height: 1;
@@ -147,27 +202,32 @@
 .brand-subtitle {
   margin-top: 6px;
 
+  color:
+    rgba(255, 255, 255, 0.91);
+
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.4px;
 
-  opacity: 0.85;
+  letter-spacing: 0.4px;
 }
+
 
 /* =========================
    SIDEBAR CONTENT
 ========================= */
 
 .sidebar-content {
-  margin-top: 105px;
+  margin-top: 96px;
 }
 
 .sidebar-content h1 {
   margin: 0;
 
+  color: #ffffff;
+
   font-size: 32px;
-  line-height: 1.15;
   font-weight: 700;
+  line-height: 1.15;
 }
 
 .sidebar-content > p {
@@ -175,11 +235,13 @@
 
   margin: 14px 0 36px;
 
+  color:
+    rgba(255, 255, 255, 0.88);
+
   font-size: 17px;
   line-height: 1.55;
-
-  color: rgba(255, 255, 255, 0.8);
 }
+
 
 /* =========================
    STEPPER
@@ -192,6 +254,11 @@
   gap: 15px;
 }
 
+
+/* =========================
+   STEP DEFAULT
+========================= */
+
 .registration-step {
   min-height: 76px;
 
@@ -202,19 +269,44 @@
 
   padding: 14px 17px;
 
-  color: rgba(255, 255, 255, 0.83);
+  color:
+    rgba(255, 255, 255, 0.88);
 
-  border: 1px solid rgba(255, 255, 255, 0.17);
+  border: 1px solid
+    rgba(255, 255, 255, 0.19);
+
   border-radius: 14px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background:
+    rgba(255, 255, 255, 0.065);
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
+
+
+/* =========================
+   STEP ACTIVE
+========================= */
 
 .registration-step.active {
-  color: #231f20;
+  color: var(--text-primary);
+
+  border-color: #ffffff;
 
   background: #ffffff;
+
+  box-shadow:
+    0 9px 22px
+    rgba(51, 9, 29, 0.13);
 }
+
+
+/* =========================
+   STEP NUMBER
+========================= */
 
 .step-number {
   width: 43px;
@@ -226,19 +318,48 @@
 
   flex-shrink: 0;
 
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  color: #ffffff;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.38);
+
   border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
 
   font-size: 18px;
   font-weight: 700;
 }
 
-.registration-step.active .step-number {
+
+/* =========================
+   ACTIVE NUMBER
+========================= */
+
+.registration-step.active
+.step-number {
   color: #ffffff;
 
   border-color: var(--burgundy);
 
   background: var(--burgundy);
+}
+
+
+/* =========================
+   STEP CONTENT
+========================= */
+
+.step-content {
+  min-width: 0;
+}
+
+.step-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
 }
 
 .step-title {
@@ -251,11 +372,60 @@
 
   font-size: 13px;
 
-  opacity: 0.7;
+  opacity: 0.72;
 }
 
+
 /* =========================
-   PANEL KANAN
+   ACTIVE TEXT
+========================= */
+
+.registration-step.active
+.step-title {
+  color: var(--text-primary);
+}
+
+.registration-step.active
+.step-subtitle {
+  color: var(--text-secondary);
+
+  opacity: 1;
+}
+
+
+/* =========================
+   COMPLETED STEP
+========================= */
+
+.registration-step.completed
+.step-number {
+  color: #ffffff;
+
+  border-color:
+    rgba(255, 255, 255, 0.28);
+
+  background:
+    rgba(255, 255, 255, 0.18);
+}
+
+.step-completed-badge {
+  padding: 2px 7px;
+
+  color:
+    rgba(255, 255, 255, 0.94);
+
+  border-radius: 5px;
+
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   MAIN
 ========================= */
 
 .auth-main {
@@ -269,12 +439,18 @@
   background: #ffffff;
 }
 
+
+/* =========================
+   REGISTER CONTAINER
+========================= */
+
 .register-container {
   width: 100%;
   max-width: 640px;
 
   margin: 0 auto;
 }
+
 
 /* =========================
    HEADING
@@ -290,8 +466,8 @@
   color: var(--text-primary);
 
   font-size: 34px;
-  line-height: 1.1;
   font-weight: 700;
+  line-height: 1.1;
 }
 
 .form-heading p {
@@ -302,8 +478,9 @@
   font-size: 16px;
 }
 
+
 /* =========================
-   ERROR UMUM
+   ERROR
 ========================= */
 
 .field-error {
@@ -316,11 +493,13 @@
 }
 
 .input-error {
-  border-color: var(--error) !important;
+  border-color:
+    var(--error) !important;
 }
 
+
 /* =========================
-   BUTTON UTAMA
+   PRIMARY BUTTON
 ========================= */
 
 .primary-button {
@@ -342,12 +521,16 @@
 
   color: #ffffff;
 
+  font-family: inherit;
+
   font-size: 16px;
   font-weight: 700;
 
   cursor: pointer;
 
-  box-shadow: 0 5px 12px rgba(126, 31, 78, 0.16);
+  box-shadow:
+    0 5px 12px
+    rgba(126, 31, 78, 0.16);
 
   transition:
     background 0.15s ease,
@@ -355,47 +538,91 @@
     box-shadow 0.15s ease;
 }
 
-.primary-button:hover {
+.primary-button:hover:not(:disabled) {
   background: #6d173f;
 
-  box-shadow: 0 7px 16px rgba(126, 31, 78, 0.2);
+  box-shadow:
+    0 7px 16px
+    rgba(126, 31, 78, 0.20);
 }
 
-.primary-button:active {
+.primary-button:active:not(:disabled) {
   transform: translateY(1px);
 }
+
+
+/* =========================
+   BUTTON DISABLED
+========================= */
+
+.primary-button:disabled {
+  color: #ffffff;
+
+  background: #d8d3d6;
+
+  box-shadow: none;
+
+  cursor: not-allowed;
+
+  opacity: 1;
+}
+
 
 /* =========================
    TABLET
 ========================= */
 
 @media (max-width: 1050px) {
+
   .auth-page {
     padding: 24px;
   }
 
   .auth-card {
-    grid-template-columns: 40% 60%;
+    grid-template-columns:
+      40% 60%;
   }
 
   .auth-sidebar {
     padding: 34px;
   }
 
+  .brand-logo-badge {
+    min-width: 102px;
+    min-height: 60px;
+
+    padding: 7px 9px;
+  }
+
+  .brand-logo {
+    width: 80px;
+  }
+
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-subtitle {
+    font-size: 10px;
+  }
+
   .sidebar-content {
-    margin-top: 80px;
+    margin-top: 76px;
   }
 
   .auth-main {
     padding: 60px 42px;
   }
+
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 800px) {
+
   .auth-page {
     padding: 0;
 
@@ -415,6 +642,43 @@
 
   .auth-sidebar {
     padding: 30px 24px;
+
+    background:
+      radial-gradient(
+        circle at 90% 8%,
+        rgba(211, 137, 169, 0.20)
+        0%,
+        transparent 38%
+      ),
+      linear-gradient(
+        155deg,
+        #8b2053 0%,
+        #771b47 46%,
+        #58102f 100%
+      );
+  }
+
+  .sidebar-brand {
+    gap: 12px;
+  }
+
+  .brand-logo-badge {
+    min-width: 90px;
+    min-height: 55px;
+
+    padding: 6px 8px;
+  }
+
+  .brand-logo {
+    width: 72px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-subtitle {
+    font-size: 9px;
   }
 
   .sidebar-content {
@@ -446,39 +710,5 @@
   .form-heading h2 {
     font-size: 30px;
   }
-}
-/* =========================
-   STEPPER COMPLETED
-========================= */
 
-.step-content {
-  min-width: 0;
-}
-
-.step-title-row {
-  display: flex;
-  align-items: center;
-
-  gap: 7px;
-}
-
-.step-completed-badge {
-  padding: 2px 7px;
-
-  color: rgba(255, 255, 255, 0.9);
-
-  border-radius: 5px;
-
-  background: rgba(255, 255, 255, 0.14);
-
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.registration-step.completed .step-number {
-  color: #ffffff;
-
-  border-color: rgba(255, 255, 255, 0.25);
-
-  background: rgba(255, 255, 255, 0.18);
 }

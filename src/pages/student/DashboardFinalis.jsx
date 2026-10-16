@@ -5,15 +5,10 @@ import {
 
 import {
   ArrowRight,
-  Award,
   CheckCircle2,
-  Clock3,
   FileText,
   GraduationCap,
   Languages,
-  Mail,
-  Medal,
-  ShieldCheck,
   Trophy,
   Users,
 } from 'lucide-react'
@@ -25,18 +20,15 @@ import mockSelectionData, {
 
 import '../../styles/student/dashboard-finalis.css'
 
+
 function DashboardFinalis() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  /*
-    =========================================================
-    LEGACY DATA
 
-    Masih dipakai sementara supaya halaman lama
-    tetap bisa terhubung selama proses refactor.
-    =========================================================
-  */
+  /* =========================================================
+     LEGACY ROUTE STATE
+  ========================================================= */
 
   const registrationData =
     location.state?.registrationData || null
@@ -56,11 +48,10 @@ function DashboardFinalis() {
   const legacyFinalResult =
     location.state?.finalResult || null
 
-  /*
-    =========================================================
-    HELPER
-    =========================================================
-  */
+
+  /* =========================================================
+     HELPERS
+  ========================================================= */
 
   const formatScore = (value) => {
     if (
@@ -79,6 +70,31 @@ function DashboardFinalis() {
 
     return numberValue.toFixed(2)
   }
+
+
+  const getInitials = (name = '') => {
+    const parts =
+      name
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+
+    if (parts.length === 0) {
+      return 'MB'
+    }
+
+    if (parts.length === 1) {
+      return parts[0]
+        .slice(0, 2)
+        .toUpperCase()
+    }
+
+    return (
+      parts[0][0] +
+      parts[parts.length - 1][0]
+    ).toUpperCase()
+  }
+
 
   const mapLegacyStageToStatus = (stage) => {
     const mapping = {
@@ -101,14 +117,6 @@ function DashboardFinalis() {
     return mapping[stage] || null
   }
 
-  /*
-    =========================================================
-    FIX UTAMA
-
-    Kalau field ya/tidak dari form lama tidak tersedia,
-    gunakan nilai dari mockSelectionData.
-    =========================================================
-  */
 
   const resolveSubmittedValue = (
     legacyValue,
@@ -125,11 +133,10 @@ function DashboardFinalis() {
     return fallbackValue
   }
 
-  /*
-    =========================================================
-    CREATE DATA FROM OLD ROUTER STATE
-    =========================================================
-  */
+
+  /* =========================================================
+     LEGACY DATA CONVERTER
+  ========================================================= */
 
   const createSelectionDataFromLegacy = () => {
     const hasLegacyData =
@@ -168,32 +175,38 @@ function DashboardFinalis() {
       }
     }
 
-    /*
-      =========================================================
-      TAHAP 1 FALLBACK
 
-      Ini bagian yang memperbaiki Prestasi,
-      Organisasi, dan Bahasa Asing.
-      =========================================================
-    */
+    /* =========================
+       TAHAP 1
+    ========================= */
 
     const prestasiSubmitted =
       resolveSubmittedValue(
         oldFormData.hasPrestasi,
-        mockSelectionData.tahap1.prestasi.submitted
+        mockSelectionData
+          .tahap1
+          .prestasi
+          .submitted
       )
 
     const organisasiSubmitted =
       resolveSubmittedValue(
         oldFormData.hasOrganisasi,
-        mockSelectionData.tahap1.organisasi.submitted
+        mockSelectionData
+          .tahap1
+          .organisasi
+          .submitted
       )
 
     const bahasaSubmitted =
       resolveSubmittedValue(
         oldFormData.hasBahasa,
-        mockSelectionData.tahap1.bahasaAsing.submitted
+        mockSelectionData
+          .tahap1
+          .bahasaAsing
+          .submitted
       )
+
 
     const prestasiData = {
       submitted:
@@ -226,6 +239,7 @@ function DashboardFinalis() {
           ? 'verified'
           : null,
     }
+
 
     const organisasiData = {
       submitted:
@@ -270,6 +284,7 @@ function DashboardFinalis() {
           : null,
     }
 
+
     const bahasaData = {
       submitted:
         bahasaSubmitted,
@@ -313,11 +328,10 @@ function DashboardFinalis() {
           : null,
     }
 
-    /*
-      =========================================================
-      REVIEWERS
-      =========================================================
-    */
+
+    /* =========================
+       REVIEWERS
+    ========================= */
 
     let peers = []
 
@@ -348,13 +362,15 @@ function DashboardFinalis() {
       SELECTION_STATUS.NEED_PEERS
     ) {
       peers =
-        mockSelectionData
-          .reviewers
-          .peers
-          .map((peer) => ({
-            ...peer,
-          }))
+        (
+          mockSelectionData
+            .reviewers
+            ?.peers || []
+        ).map((peer) => ({
+          ...peer,
+        }))
     }
+
 
     const lecturerReady =
       status ===
@@ -364,11 +380,13 @@ function DashboardFinalis() {
       status ===
         SELECTION_STATUS.FINAL_ANNOUNCED
 
+
     const allCompleted =
       status ===
         SELECTION_STATUS.PRADITA_COMPLETED ||
       status ===
         SELECTION_STATUS.FINAL_ANNOUNCED
+
 
     if (allCompleted) {
       peers =
@@ -379,6 +397,7 @@ function DashboardFinalis() {
             REVIEW_STATUS.COMPLETED,
         }))
     }
+
 
     return {
       ...mockSelectionData,
@@ -411,6 +430,11 @@ function DashboardFinalis() {
         skpi:
           oldStudent.skpi ??
           mockSelectionData.student.skpi,
+
+        photo:
+          oldStudent.photo ||
+          oldStudent.photoUrl ||
+          null,
       },
 
       tahap1: {
@@ -530,11 +554,10 @@ function DashboardFinalis() {
     }
   }
 
-  /*
-    =========================================================
-    MAIN DATA SOURCE
-    =========================================================
-  */
+
+  /* =========================================================
+     MAIN DATA
+  ========================================================= */
 
   const selectionData =
     location.state?.selectionData ||
@@ -556,11 +579,10 @@ function DashboardFinalis() {
   const status =
     selectionData.status
 
-  /*
-    =========================================================
-    STATUS
-    =========================================================
-  */
+
+  /* =========================================================
+     STATUS
+  ========================================================= */
 
   const isNeedPeers =
     status ===
@@ -586,11 +608,10 @@ function DashboardFinalis() {
     isPraditaCompleted ||
     isFinalAnnounced
 
-  /*
-    =========================================================
-    LABEL HELPERS
-    =========================================================
-  */
+
+  /* =========================================================
+     LABEL HELPERS
+  ========================================================= */
 
   const getPrestasiLevelLabel = (
     value
@@ -613,6 +634,7 @@ function DashboardFinalis() {
     )
   }
 
+
   const getOrganisasiLevelLabel = (
     value
   ) => {
@@ -634,6 +656,7 @@ function DashboardFinalis() {
     )
   }
 
+
   const getJabatanLabel = (
     value
   ) => {
@@ -654,6 +677,7 @@ function DashboardFinalis() {
       '-'
     )
   }
+
 
   const getBahasaLabel = (
     value
@@ -679,11 +703,10 @@ function DashboardFinalis() {
     )
   }
 
-  /*
-    =========================================================
-    INDICATORS
-    =========================================================
-  */
+
+  /* =========================================================
+     INDICATORS
+  ========================================================= */
 
   const indicators = [
     {
@@ -803,6 +826,7 @@ function DashboardFinalis() {
     },
   ]
 
+
   const renderIndicatorStatus = (
     indicatorStatus
   ) => {
@@ -811,8 +835,11 @@ function DashboardFinalis() {
     ) {
       return (
         <span className="finalis-indicator-status finalis-status-verified">
+
           <CheckCircle2 size={13} />
+
           Terverifikasi
+
         </span>
       )
     }
@@ -824,11 +851,162 @@ function DashboardFinalis() {
     )
   }
 
-  /*
-    =========================================================
-    NAVIGATION
-    =========================================================
-  */
+
+  /* =========================================================
+     FINALISTS
+  ========================================================= */
+
+  const fallbackScores = {
+    1: 92.40,
+    2: 88.80,
+    3: 86.75,
+  }
+
+
+  const createFallbackFinalist = (
+    rank
+  ) => {
+    const isCurrentStudent =
+      Number(finalResult.rank) === rank
+
+    if (isCurrentStudent) {
+      return {
+        rank,
+
+        name:
+          student.name,
+
+        nim:
+          student.nim,
+
+        angkatan:
+          student.angkatan,
+
+        photo:
+          student.photo ||
+          student.photoUrl ||
+          null,
+
+        finalScore:
+          finalResult.finalScore,
+
+        isCurrent:
+          true,
+      }
+    }
+
+    return {
+      rank,
+
+      name:
+        `Finalis Peringkat ${rank}`,
+
+      nim:
+        '241010XXXX',
+
+      angkatan:
+        student.angkatan,
+
+      photo:
+        null,
+
+      finalScore:
+        fallbackScores[rank],
+
+      isCurrent:
+        false,
+    }
+  }
+
+
+  const sourceFinalists =
+    Array.isArray(
+      selectionData.finalists
+    ) &&
+    selectionData.finalists.length >= 3
+      ? selectionData.finalists
+      : [
+          createFallbackFinalist(1),
+          createFallbackFinalist(2),
+          createFallbackFinalist(3),
+        ]
+
+
+  const finalists =
+    [1, 2, 3].map(
+      (rank) => {
+        const source =
+          sourceFinalists.find(
+            (item) =>
+              Number(item.rank) === rank
+          ) ||
+          createFallbackFinalist(rank)
+
+        const isCurrent =
+          String(source.nim) ===
+            String(student.nim) ||
+          (
+            Number(finalResult.rank) === rank &&
+            source.name === student.name
+          )
+
+        return {
+          rank,
+
+          name:
+            source.name ||
+            `Finalis Peringkat ${rank}`,
+
+          nim:
+            source.nim ||
+            '-',
+
+          angkatan:
+            source.angkatan ||
+            '-',
+
+          photo:
+            source.photo ||
+            source.photoUrl ||
+            null,
+
+          finalScore:
+            source.finalScore ??
+            source.score ??
+            fallbackScores[rank],
+
+          isCurrent,
+        }
+      }
+    )
+
+
+  const winnerRank1 =
+    finalists.find(
+      (item) => item.rank === 1
+    )
+
+  const winnerRank2 =
+    finalists.find(
+      (item) => item.rank === 2
+    )
+
+  const winnerRank3 =
+    finalists.find(
+      (item) => item.rank === 3
+    )
+
+
+  const leaderboardDisplay = [
+    winnerRank2,
+    winnerRank1,
+    winnerRank3,
+  ]
+
+
+  /* =========================================================
+     NAVIGATION
+  ========================================================= */
 
   const handleOpenPeerForm = () => {
     navigate(
@@ -855,6 +1033,7 @@ function DashboardFinalis() {
       }
     )
   }
+
 
   const handleViewPraditaStatus = () => {
     navigate(
@@ -898,11 +1077,10 @@ function DashboardFinalis() {
     )
   }
 
-  /*
-    =========================================================
-    DEMO ONLY
-    =========================================================
-  */
+
+  /* =========================================================
+     DEMO
+  ========================================================= */
 
   const handleSimulateLecturerReady = () => {
     const updatedSelectionData = {
@@ -966,6 +1144,7 @@ function DashboardFinalis() {
       }
     )
   }
+
 
   const handleSimulateAllCompleted = () => {
     const updatedSelectionData = {
@@ -1032,6 +1211,7 @@ function DashboardFinalis() {
     )
   }
 
+
   const handleSimulateFinalResult = () => {
     const updatedSelectionData = {
       ...selectionData,
@@ -1081,11 +1261,10 @@ function DashboardFinalis() {
     )
   }
 
-  /*
-    =========================================================
-    PROGRESS
-    =========================================================
-  */
+
+  /* =========================================================
+     REVIEWER PROGRESS
+  ========================================================= */
 
   const progressPercentage =
     reviewers.progress.total > 0
@@ -1095,10 +1274,131 @@ function DashboardFinalis() {
         ) * 100
       : 0
 
+
+  const completedPeerCount =
+    reviewers.peers.filter(
+      (peer) =>
+        peer.reviewStatus ===
+        REVIEW_STATUS.COMPLETED
+    ).length
+
+
+  const kaprodiCompleted =
+    reviewers.kaprodi
+      ?.reviewStatus ===
+    REVIEW_STATUS.COMPLETED
+
+
+  const lecturerCompleted =
+    reviewers.lecturer
+      ?.reviewStatus ===
+    REVIEW_STATUS.COMPLETED
+
+
+  /* =========================================================
+     WINNER COMPONENT
+  ========================================================= */
+
+  const renderWinner = (
+    winner
+  ) => {
+    if (!winner) {
+      return null
+    }
+
+    return (
+      <article
+        key={winner.rank}
+        className={
+          `final-winner final-winner-rank-${winner.rank}`
+        }
+      >
+
+        <div className="final-winner-rank-heading">
+
+          <span className="final-winner-rank-number">
+            {String(
+              winner.rank
+            ).padStart(2, '0')}
+          </span>
+
+
+          <div className="final-winner-position-row">
+
+            <span className="final-winner-position">
+              Peringkat {winner.rank}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div className="final-winner-avatar">
+
+          {winner.photo ? (
+            <img
+              src={winner.photo}
+              alt={winner.name}
+            />
+          ) : (
+            <span>
+              {getInitials(
+                winner.name
+              )}
+            </span>
+          )}
+
+        </div>
+
+
+        <h3>
+          {winner.name}
+        </h3>
+
+
+        <p className="final-winner-nim">
+          {winner.nim}
+        </p>
+
+
+        <p className="final-winner-generation">
+          Angkatan {winner.angkatan}
+        </p>
+
+
+        <div className="final-winner-score">
+
+          <strong>
+            {formatScore(
+              winner.finalScore
+            )}
+          </strong>
+
+          <span>
+            Nilai Akhir
+          </span>
+
+        </div>
+
+      </article>
+    )
+  }
+
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
+
   return (
     <div className="finalis-dashboard-page">
 
       <div className="finalis-dashboard-container">
+
+
+        {/* =====================================================
+            HERO
+        ====================================================== */}
 
         <header className="finalis-page-header">
 
@@ -1121,134 +1421,322 @@ function DashboardFinalis() {
 
         </header>
 
-        {!isFinalAnnounced && (
-          <section className="finalis-result-card">
 
-            <div className="finalis-result-main">
-
-              <div className="finalis-result-icon">
-                <Trophy size={22} />
-              </div>
-
-              <div>
-
-                <span className="finalis-result-label">
-                  LOLOS TAHAP 1
-                </span>
-
-                <h2>
-                  Selamat, Anda Masuk Top 3 Angkatan{' '}
-                  {student.angkatan}
-                </h2>
-
-                <p>
-                  Anda berhasil melanjutkan ke tahap
-                  Pradita Value.
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="finalis-result-stats">
-
-              <div>
-
-                <span>
-                  Peringkat Tahap 1
-                </span>
-
-                <strong>
-                  #{tahap1.rank}
-                </strong>
-
-              </div>
-
-              <div>
-
-                <span>
-                  Nilai Tahap 1
-                </span>
-
-                <strong>
-                  {formatScore(
-                    tahap1.score
-                  )}
-                </strong>
-
-              </div>
-
-            </div>
-
-          </section>
-        )}
+        {/* =====================================================
+            FINAL ANNOUNCEMENT
+        ====================================================== */}
 
         {isFinalAnnounced &&
           finalResult.announced && (
-            <section className="final-result-card">
+            <>
 
-              <div className="final-result-top">
+              <section className="final-winners-section">
 
-                <div className="final-result-main">
-
-                  <div className="final-result-icon">
-                    <Medal size={26} />
-                  </div>
+                <div className="final-winners-heading">
 
                   <div>
 
-                    <span className="final-result-label">
+                    <span className="final-winners-eyebrow">
                       PENGUMUMAN FINAL
                     </span>
 
                     <h2>
-                      Hasil Seleksi Mahasiswa
-                      Berprestasi
+                      Pemenang Mahasiswa Berprestasi
                     </h2>
 
                     <p>
-                      Seluruh rangkaian seleksi
-                      Mahasiswa Berprestasi telah
-                      selesai.
+                      Program Studi Sistem Informasi
                     </p>
 
                   </div>
 
                 </div>
 
-                <span className="final-result-badge">
-                  Hasil Dirilis
-                </span>
 
-              </div>
+                <div className="final-winners-board">
 
-              <div className="final-result-ranking">
+                  {leaderboardDisplay.map(
+                    (winner) =>
+                      renderWinner(winner)
+                  )}
 
-                <div className="final-result-ranking-icon">
-                  <Award size={28} />
                 </div>
+
+              </section>
+
+
+              {/* ===============================================
+                  HASIL ANDA
+              =============================================== */}
+
+              <section className="final-personal-result">
+
+                <div className="final-personal-heading">
+
+                  <div>
+
+                    <span>
+                      HASIL ANDA
+                    </span>
+
+                    <h2>
+                      Ringkasan Hasil Final
+                    </h2>
+
+                  </div>
+
+
+                  <strong className="final-personal-rank">
+                    #{finalResult.rank}
+                  </strong>
+
+                </div>
+
+
+                <div className="final-personal-scores">
+
+                  <div>
+
+                    <span>
+                      Peringkat Final
+                    </span>
+
+                    <strong>
+                      Peringkat {finalResult.rank}
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <span>
+                      Nilai Tahap 1
+                    </span>
+
+                    <strong>
+                      {formatScore(
+                        finalResult.tahap1Score
+                      )}
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <span>
+                      Nilai Pradita Value
+                    </span>
+
+                    <strong>
+                      {formatScore(
+                        finalResult.praditaValueScore
+                      )}
+                    </strong>
+
+                  </div>
+
+
+                  <div className="final-personal-score-primary">
+
+                    <span>
+                      Nilai Akhir
+                    </span>
+
+                    <strong>
+                      {formatScore(
+                        finalResult.finalScore
+                      )}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <div className="final-personal-actions">
+
+                  <button
+                    type="button"
+                    onClick={
+                      handleViewPraditaStatus
+                    }
+                  >
+                    Lihat Riwayat Penilaian
+
+                    <ArrowRight size={15} />
+                  </button>
+
+                </div>
+
+              </section>
+
+
+              {/* ===============================================
+                  TAHAP SELEKSI
+              =============================================== */}
+
+              <section className="final-stage-card">
+
+                <div className="finalis-card-heading">
+
+                  <h2>
+                    Tahap Seleksi
+                  </h2>
+
+                  <p>
+                    Seluruh proses seleksi telah selesai.
+                  </p>
+
+                </div>
+
+
+                <div className="final-stage-list">
+
+                  <div className="final-stage-item">
+
+                    <CheckCircle2 size={18} />
+
+                    <div>
+
+                      <strong>
+                        Tahap 1
+                      </strong>
+
+                      <span>
+                        Selesai
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="final-stage-divider" />
+
+
+                  <div className="final-stage-item">
+
+                    <CheckCircle2 size={18} />
+
+                    <div>
+
+                      <strong>
+                        Ranking per Angkatan
+                      </strong>
+
+                      <span>
+                        Lolos Top 3
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="final-stage-divider" />
+
+
+                  <div className="final-stage-item">
+
+                    <CheckCircle2 size={18} />
+
+                    <div>
+
+                      <strong>
+                        Pradita Value
+                      </strong>
+
+                      <span>
+                        Selesai
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="final-stage-divider" />
+
+
+                  <div className="final-stage-item">
+
+                    <CheckCircle2 size={18} />
+
+                    <div>
+
+                      <strong>
+                        Pengumuman Final
+                      </strong>
+
+                      <span>
+                        Hasil dirilis
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+            </>
+          )}
+
+
+        {/* =====================================================
+            NON FINAL
+        ====================================================== */}
+
+        {!isFinalAnnounced && (
+          <>
+
+            <section className="finalis-result-card">
+
+              <div className="finalis-result-main">
+
+                <div className="finalis-result-icon">
+                  <Trophy size={22} />
+                </div>
+
 
                 <div>
 
-                  <span>
-                    Peringkat Final
+                  <span className="finalis-result-label">
+                    LOLOS TAHAP 1
                   </span>
 
-                  <strong>
-                    Peringkat{' '}
-                    {finalResult.rank}
-                  </strong>
+                  <h2>
+                    Selamat, Anda Masuk Top 3 Angkatan{' '}
+                    {student.angkatan}
+                  </h2>
 
                   <p>
-                    Mahasiswa Berprestasi
-                    Sistem Informasi
+                    Anda berhasil melanjutkan ke tahap
+                    Pradita Value.
                   </p>
 
                 </div>
 
               </div>
 
-              <div className="final-result-score-grid">
+
+              <div className="finalis-result-stats">
+
+                <div>
+
+                  <span>
+                    Peringkat Tahap 1
+                  </span>
+
+                  <strong>
+                    #{tahap1.rank}
+                  </strong>
+
+                </div>
+
 
                 <div>
 
@@ -1258,35 +1746,7 @@ function DashboardFinalis() {
 
                   <strong>
                     {formatScore(
-                      finalResult.tahap1Score
-                    )}
-                  </strong>
-
-                </div>
-
-                <div>
-
-                  <span>
-                    Nilai Pradita Value
-                  </span>
-
-                  <strong>
-                    {formatScore(
-                      finalResult.praditaValueScore
-                    )}
-                  </strong>
-
-                </div>
-
-                <div className="final-result-score-primary">
-
-                  <span>
-                    Nilai Akhir
-                  </span>
-
-                  <strong>
-                    {formatScore(
-                      finalResult.finalScore
+                      tahap1.score
                     )}
                   </strong>
 
@@ -1295,965 +1755,822 @@ function DashboardFinalis() {
               </div>
 
             </section>
-          )}
 
-        <div className="finalis-dashboard-grid">
 
-          <section className="finalis-summary-card">
+            <div className="finalis-dashboard-grid">
 
-            <div className="finalis-card-heading">
+              <section className="finalis-summary-card">
 
-              <div>
+                <div className="finalis-card-heading">
 
-                <h2>
-                  Ringkasan Tahap 1
-                </h2>
+                  <h2>
+                    Ringkasan Tahap 1
+                  </h2>
 
-                <p>
-                  Data yang digunakan dalam
-                  penilaian Tahap 1.
-                </p>
+                  <p>
+                    Data yang digunakan dalam
+                    penilaian Tahap 1.
+                  </p>
 
-              </div>
+                </div>
+
+
+                <div className="finalis-indicator-list">
+
+                  {indicators.map(
+                    (item) => {
+                      const Icon =
+                        item.Icon
+
+                      return (
+                        <article
+                          className="finalis-indicator-row"
+                          key={item.id}
+                        >
+
+                          <div className="finalis-indicator-icon">
+
+                            <Icon size={18} />
+
+                          </div>
+
+
+                          <div className="finalis-indicator-content">
+
+                            <span>
+                              {item.title}
+                            </span>
+
+                            <strong>
+                              {item.value}
+                            </strong>
+
+                            {item.detail && (
+                              <small>
+                                {item.detail}
+                              </small>
+                            )}
+
+                          </div>
+
+
+                          <div className="finalis-indicator-action">
+
+                            {renderIndicatorStatus(
+                              item.status
+                            )}
+
+                          </div>
+
+                        </article>
+                      )
+                    }
+                  )}
+
+                </div>
+
+              </section>
+
+
+              <section className="finalis-selection-card">
+
+                <div className="finalis-card-heading">
+
+                  <h2>
+                    Tahap Seleksi
+                  </h2>
+
+                  <p>
+                    Posisi Anda dalam proses seleksi.
+                  </p>
+
+                </div>
+
+
+                <div className="finalis-selection-timeline">
+
+                  <div className="finalis-selection-step is-complete">
+
+                    <div className="finalis-selection-marker">
+                      <CheckCircle2 size={16} />
+                    </div>
+
+                    <div className="finalis-selection-copy">
+
+                      <strong>
+                        Tahap 1
+                      </strong>
+
+                      <span>
+                        Selesai
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="finalis-selection-line is-complete" />
+
+
+                  <div className="finalis-selection-step is-complete">
+
+                    <div className="finalis-selection-marker">
+                      <CheckCircle2 size={16} />
+                    </div>
+
+                    <div className="finalis-selection-copy">
+
+                      <strong>
+                        Ranking per Angkatan
+                      </strong>
+
+                      <span>
+                        Lolos Top 3
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="finalis-selection-line is-complete" />
+
+
+                  <div
+                    className={
+                      praditaCompleted
+                        ? 'finalis-selection-step is-complete'
+                        : 'finalis-selection-step is-current'
+                    }
+                  >
+
+                    <div className="finalis-selection-marker">
+
+                      {praditaCompleted ? (
+                        <CheckCircle2 size={16} />
+                      ) : (
+                        3
+                      )}
+
+                    </div>
+
+
+                    <div className="finalis-selection-copy">
+
+                      <strong>
+                        Pradita Value
+                      </strong>
+
+                      <span>
+
+                        {isNeedPeers &&
+                          'Lengkapi rekan sejawat'}
+
+                        {isWaitingLecturer &&
+                          'Persiapan penilaian'}
+
+                        {isPraditaInProgress &&
+                          'Sedang berlangsung'}
+
+                        {praditaCompleted &&
+                          'Selesai'}
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    className={
+                      praditaCompleted
+                        ? 'finalis-selection-line is-complete'
+                        : 'finalis-selection-line'
+                    }
+                  />
+
+
+                  <div
+                    className={
+                      isPraditaCompleted
+                        ? 'finalis-selection-step is-current'
+                        : 'finalis-selection-step'
+                    }
+                  >
+
+                    <div className="finalis-selection-marker">
+                      4
+                    </div>
+
+                    <div className="finalis-selection-copy">
+
+                      <strong>
+                        Pengumuman Final
+                      </strong>
+
+                      <span>
+                        {isPraditaCompleted
+                          ? 'Menunggu hasil'
+                          : 'Belum tersedia'}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
 
             </div>
 
-            <div className="finalis-indicator-list">
 
-              {indicators.map((item) => {
-                const Icon =
-                  item.Icon
+            {/* NEED PEERS */}
 
-                return (
-                  <article
-                    className="finalis-indicator-row"
-                    key={item.id}
+            {isNeedPeers && (
+              <section className="finalis-pradita-card">
+
+                <div className="finalis-pradita-simple-heading">
+
+                  <span className="finalis-pradita-label">
+                    PRADITA VALUE
+                  </span>
+
+                  <h2>
+                    Lengkapi Rekan Sejawat
+                  </h2>
+
+                  <p>
+                    Masukkan email 3 rekan sejawat untuk
+                    melengkapi penilai Pradita Value.
+                  </p>
+
+                </div>
+
+
+                <div className="finalis-pradita-info">
+
+                  <div>
+
+                    <span>
+                      Rekan Sejawat
+                    </span>
+
+                    <strong>
+                      3 mahasiswa
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <span>
+                      Kaprodi Sistem Informasi
+                    </span>
+
+                    <strong className="finalis-success-text">
+                      Sudah Ditentukan
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <span>
+                      Dosen Penilai
+                    </span>
+
+                    <strong>
+                      Ditentukan Admin
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                <div className="finalis-pradita-bottom">
+
+                  <p>
+                    Anda hanya perlu mengisi email
+                    3 rekan sejawat.
+                  </p>
+
+                  <button
+                    type="button"
+                    className="finalis-peer-button"
+                    onClick={
+                      handleOpenPeerForm
+                    }
                   >
+                    Isi Email Rekan Sejawat
 
-                    <div className="finalis-indicator-icon">
-                      <Icon size={18} />
-                    </div>
+                    <ArrowRight size={15} />
+                  </button>
 
-                    <div className="finalis-indicator-content">
+                </div>
+
+              </section>
+            )}
+
+
+            {/* WAITING LECTURER */}
+
+            {isWaitingLecturer && (
+              <>
+
+                <section className="finalis-pradita-card">
+
+                  <div className="finalis-pradita-simple-heading">
+
+                    <span className="finalis-pradita-label">
+                      PRADITA VALUE
+                    </span>
+
+                    <h2>
+                      Pradita Value
+                    </h2>
+
+                    <p>
+                      Pantau status penilai untuk proses
+                      Pradita Value.
+                    </p>
+
+                  </div>
+
+
+                  <div className="finalis-pradita-info">
+
+                    <div>
 
                       <span>
-                        {item.title}
+                        Rekan Sejawat
+                      </span>
+
+                      <strong className="finalis-success-text">
+                        3 Undangan Terkirim
+                      </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Kaprodi Sistem Informasi
+                      </span>
+
+                      <strong className="finalis-success-text">
+                        Sudah Ditentukan
+                      </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Dosen Penilai
+                      </span>
+
+                      <strong className="finalis-waiting-text">
+                        Menunggu Admin
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="finalis-pradita-bottom finalis-pradita-bottom-action-only">
+
+                    <button
+                      type="button"
+                      className="finalis-peer-button"
+                      onClick={
+                        handleViewPraditaStatus
+                      }
+                    >
+                      Lihat Status Penilaian
+
+                      <ArrowRight size={15} />
+                    </button>
+
+                  </div>
+
+                </section>
+
+
+                {import.meta.env.DEV && (
+                  <div className="finalis-demo-area">
+
+                    <span>
+                      Demo Frontend
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={
+                        handleSimulateLecturerReady
+                      }
+                    >
+                      Simulasikan Dosen Siap
+                    </button>
+
+                  </div>
+                )}
+
+              </>
+            )}
+
+
+            {/* IN PROGRESS */}
+
+            {isPraditaInProgress && (
+              <>
+
+                <section className="finalis-pradita-card">
+
+                  <div className="finalis-pradita-simple-heading">
+
+                    <span className="finalis-pradita-label">
+                      PRADITA VALUE
+                    </span>
+
+                    <h2>
+                      Penilaian Sedang Berlangsung
+                    </h2>
+
+                    <p>
+                      {reviewers.progress.completed} dari{' '}
+                      {reviewers.progress.total} penilai telah
+                      menyelesaikan penilaian.
+                    </p>
+
+                  </div>
+
+
+                  <div className="finalis-pradita-info">
+
+                    <div>
+
+                      <span>
+                        Rekan Sejawat
+                      </span>
+
+                      <strong
+                        className={
+                          completedPeerCount === 3
+                            ? 'finalis-success-text'
+                            : ''
+                        }
+                      >
+                        {completedPeerCount} dari 3 selesai
+                      </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Kaprodi Sistem Informasi
+                      </span>
+
+                      <strong
+                        className={
+                          kaprodiCompleted
+                            ? 'finalis-success-text'
+                            : 'finalis-waiting-text'
+                        }
+                      >
+                        {kaprodiCompleted
+                          ? 'Selesai'
+                          : 'Menunggu'}
+                      </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Dosen Penilai
+                      </span>
+
+                      <strong
+                        className={
+                          lecturerCompleted
+                            ? 'finalis-success-text'
+                            : 'finalis-waiting-text'
+                        }
+                      >
+                        {lecturerCompleted
+                          ? 'Selesai'
+                          : 'Menunggu'}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="finalis-progress-section">
+
+                    <div className="finalis-progress-heading">
+
+                      <span>
+                        Progress Penilaian
                       </span>
 
                       <strong>
-                        {item.value}
+                        {reviewers.progress.completed}
+                        {' / '}
+                        {reviewers.progress.total}
                       </strong>
 
-                      {item.detail && (
-                        <small>
-                          {item.detail}
-                        </small>
-                      )}
+                    </div>
+
+
+                    <div className="finalis-progress-track">
+
+                      <div
+                        className="finalis-progress-fill"
+                        style={{
+                          width:
+                            `${progressPercentage}%`,
+                        }}
+                      />
 
                     </div>
 
-                    <div className="finalis-indicator-action">
 
-                      {renderIndicatorStatus(
-                        item.status
-                      )}
+                    <p>
+                      Penilaian selesai setelah seluruh
+                      penilai mengirimkan hasil.
+                    </p>
+
+                  </div>
+
+
+                  <div className="finalis-pradita-bottom finalis-pradita-bottom-action-only">
+
+                    <button
+                      type="button"
+                      className="finalis-peer-button"
+                      onClick={
+                        handleViewPraditaStatus
+                      }
+                    >
+                      Lihat Status Penilaian
+
+                      <ArrowRight size={15} />
+                    </button>
+
+                  </div>
+
+                </section>
+
+
+                {import.meta.env.DEV && (
+                  <div className="finalis-demo-area">
+
+                    <span>
+                      Demo Frontend
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={
+                        handleSimulateAllCompleted
+                      }
+                    >
+                      Simulasikan Semua Penilai Selesai
+                    </button>
+
+                  </div>
+                )}
+
+              </>
+            )}
+
+
+            {/* PRADITA COMPLETED */}
+
+            {isPraditaCompleted && (
+              <>
+
+                <section className="finalis-pradita-card finalis-pradita-completed-card">
+
+                  <div className="finalis-pradita-completed-main">
+
+                    <div className="finalis-pradita-completed-icon">
+
+                      <CheckCircle2 size={19} />
 
                     </div>
 
-                  </article>
-                )
-              })}
 
-            </div>
+                    <div>
 
-          </section>
+                      <span className="finalis-pradita-label">
+                        PRADITA VALUE
+                      </span>
 
-          <section className="finalis-selection-card">
+                      <h2>
+                        Penilaian Pradita Value Selesai
+                      </h2>
 
-            <div className="finalis-card-heading">
+                      <p>
+                        Seluruh 5 penilai telah menyelesaikan
+                        penilaian. Hasil final belum dirilis.
+                      </p>
 
-              <div>
+                    </div>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    className="finalis-peer-button"
+                    onClick={
+                      handleViewPraditaStatus
+                    }
+                  >
+                    Lihat Status Penilaian
+
+                    <ArrowRight size={15} />
+                  </button>
+
+                </section>
+
+
+                {import.meta.env.DEV && (
+                  <div className="finalis-demo-area">
+
+                    <span>
+                      Demo Frontend
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={
+                        handleSimulateFinalResult
+                      }
+                    >
+                      Simulasikan Pengumuman Final
+                    </button>
+
+                  </div>
+                )}
+
+              </>
+            )}
+
+
+            {/* INFORMATION */}
+
+            <section className="finalis-information-card">
+
+              <div className="finalis-card-heading">
 
                 <h2>
-                  Tahap Seleksi
+                  Informasi Penting
                 </h2>
 
                 <p>
-                  Posisi Anda dalam proses seleksi.
+                  Informasi untuk proses seleksi
+                  Mahasiswa Berprestasi.
                 </p>
 
               </div>
 
-            </div>
 
-            <div className="finalis-selection-timeline">
-
-              <div className="finalis-selection-step is-complete">
-
-                <div className="finalis-selection-marker">
-                  <CheckCircle2 size={16} />
-                </div>
-
-                <div className="finalis-selection-copy">
-
-                  <strong>
-                    Tahap 1
-                  </strong>
-
-                  <span>
-                    Selesai
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div className="finalis-selection-line is-complete" />
-
-              <div className="finalis-selection-step is-complete">
-
-                <div className="finalis-selection-marker">
-                  <CheckCircle2 size={16} />
-                </div>
-
-                <div className="finalis-selection-copy">
-
-                  <strong>
-                    Ranking per Angkatan
-                  </strong>
-
-                  <span>
-                    Lolos Top 3
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div className="finalis-selection-line is-complete" />
-
-              <div
-                className={
-                  praditaCompleted
-                    ? 'finalis-selection-step is-complete'
-                    : 'finalis-selection-step is-current'
-                }
-              >
-
-                <div className="finalis-selection-marker">
-
-                  {praditaCompleted ? (
-                    <CheckCircle2 size={16} />
-                  ) : (
-                    3
-                  )}
-
-                </div>
-
-                <div className="finalis-selection-copy">
-
-                  <strong>
-                    Pradita Value
-                  </strong>
-
-                  <span>
-
-                    {isNeedPeers &&
-                      'Lengkapi rekan sejawat'}
-
-                    {isWaitingLecturer &&
-                      'Menunggu dosen penilai'}
-
-                    {isPraditaInProgress &&
-                      'Sedang berlangsung'}
-
-                    {praditaCompleted &&
-                      'Selesai'}
-
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div
-                className={
-                  praditaCompleted
-                    ? 'finalis-selection-line is-complete'
-                    : 'finalis-selection-line'
-                }
-              />
-
-              <div
-                className={
-                  isFinalAnnounced
-                    ? 'finalis-selection-step is-complete'
-                    : isPraditaCompleted
-                      ? 'finalis-selection-step is-current'
-                      : 'finalis-selection-step'
-                }
-              >
-
-                <div className="finalis-selection-marker">
-
-                  {isFinalAnnounced ? (
-                    <CheckCircle2 size={16} />
-                  ) : (
-                    4
-                  )}
-
-                </div>
-
-                <div className="finalis-selection-copy">
-
-                  <strong>
-                    Pengumuman Final
-                  </strong>
-
-                  <span>
-
-                    {isFinalAnnounced
-                      ? 'Hasil dirilis'
-                      : isPraditaCompleted
-                        ? 'Menunggu hasil'
-                        : 'Belum tersedia'}
-
-                  </span>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </section>
-
-        </div>
-
-        {isNeedPeers && (
-          <section className="finalis-pradita-card">
-
-            <div className="finalis-pradita-top">
-
-              <div className="finalis-pradita-content">
-
-                <div className="finalis-pradita-icon">
-                  <Mail size={20} />
-                </div>
-
-                <div>
-
-                  <span className="finalis-pradita-label">
-                    TAHAP BERIKUTNYA
-                  </span>
-
-                  <h2>
-                    Pradita Value
-                  </h2>
-
-                  <p>
-                    Masukkan email 3 rekan sejawat
-                    untuk melengkapi penilai
-                    Pradita Value.
-                  </p>
-
-                </div>
-
-              </div>
-
-              <span className="finalis-pradita-status">
-                Perlu Dilengkapi
-              </span>
-
-            </div>
-
-            <div className="finalis-pradita-info">
-
-              <div>
-                <span>
-                  Rekan Sejawat
-                </span>
-
-                <strong>
-                  3 mahasiswa
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Kaprodi SI
-                </span>
-
-                <strong className="finalis-success-text">
-                  Sudah Ditentukan
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Dosen Penilai
-                </span>
-
-                <strong>
-                  Ditentukan Admin
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="finalis-pradita-bottom">
-
-              <p>
-                Anda hanya perlu mengisi email
-                3 rekan sejawat. Kaprodi Sistem
-                Informasi sudah tetap, sedangkan
-                dosen penilai ditentukan oleh admin.
-              </p>
-
-              <button
-                type="button"
-                className="finalis-peer-button"
-                onClick={
-                  handleOpenPeerForm
-                }
-              >
-                Isi Email Rekan Sejawat
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-          </section>
-        )}
-
-        {isWaitingLecturer && (
-          <section className="finalis-pradita-card finalis-pradita-card-sent">
-
-            <div className="finalis-pradita-top">
-
-              <div className="finalis-pradita-content">
-
-                <div className="finalis-pradita-icon finalis-pradita-icon-success">
-                  <CheckCircle2 size={20} />
-                </div>
-
-                <div>
-
-                  <span className="finalis-pradita-label finalis-pradita-label-success">
-                    PRADITA VALUE
-                  </span>
-
-                  <h2>
-                    Menunggu Dosen Penilai
-                  </h2>
-
-                  <p>
-                    Rekan sejawat sudah diundang dan
-                    Kaprodi Sistem Informasi sudah
-                    tersedia. Admin masih menentukan
-                    1 dosen penilai.
-                  </p>
-
-                </div>
-
-              </div>
-
-              <span className="finalis-pradita-status">
-                Menunggu Dosen
-              </span>
-
-            </div>
-
-            <div className="finalis-pradita-info">
-
-              <div>
-                <span>
-                  Rekan Sejawat
-                </span>
-
-                <strong className="finalis-success-text">
-                  3 Undangan Terkirim
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Kaprodi Sistem Informasi
-                </span>
-
-                <strong className="finalis-success-text">
-                  Sudah Ditentukan
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Dosen Penilai
-                </span>
-
-                <strong className="finalis-waiting-text">
-                  Menunggu Admin
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="finalis-pradita-bottom">
-
-              <div className="finalis-waiting-admin">
-
-                <Clock3 size={15} />
-
-                <p>
-                  Menunggu admin menentukan
-                  1 dosen penilai.
-                </p>
-
-              </div>
-
-              <button
-                type="button"
-                className="finalis-peer-button"
-                onClick={
-                  handleViewPraditaStatus
-                }
-              >
-                Lihat Status Penilaian
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-            {import.meta.env.DEV && (
-              <div className="finalis-demo-area">
-
-                <span>
-                  Demo Frontend
-                </span>
-
-                <button
-                  type="button"
-                  onClick={
-                    handleSimulateLecturerReady
-                  }
-                >
-                  Simulasikan Dosen Siap
-                </button>
-
-              </div>
-            )}
-
-          </section>
-        )}
-
-        {isPraditaInProgress && (
-          <section className="finalis-pradita-card finalis-pradita-progress-card">
-
-            <div className="finalis-pradita-top">
-
-              <div className="finalis-pradita-content">
-
-                <div className="finalis-pradita-icon">
-                  <ShieldCheck size={20} />
-                </div>
-
-                <div>
-
-                  <span className="finalis-pradita-label">
-                    PRADITA VALUE
-                  </span>
-
-                  <h2>
-                    Penilaian Pradita Value Sedang
-                    Berlangsung
-                  </h2>
-
-                  <p>
-                    Penilaian dilakukan oleh
-                    3 rekan sejawat, Kaprodi Sistem
-                    Informasi, dan 1 dosen penilai.
-                  </p>
-
-                </div>
-
-              </div>
-
-              <span className="finalis-pradita-status finalis-pradita-status-active">
-                Sedang Berlangsung
-              </span>
-
-            </div>
-
-            <div className="finalis-pradita-info">
-
-              <div>
-                <span>
-                  Rekan Sejawat
-                </span>
-
-                <strong>
-                  3 penilai
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Kaprodi SI
-                </span>
-
-                <strong>
-                  1 penilai
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Dosen
-                </span>
-
-                <strong>
-                  1 penilai
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="finalis-progress-section">
-
-              <div className="finalis-progress-heading">
-
-                <span>
-                  Progress Penilaian
-                </span>
-
-                <strong>
-                  {reviewers.progress.completed}
-                  {' '}
-                  dari
-                  {' '}
-                  {reviewers.progress.total}
-                  {' '}
-                  penilai telah mengisi
-                </strong>
-
-              </div>
-
-              <div className="finalis-progress-track">
-
-                <div
-                  className="finalis-progress-fill"
-                  style={{
-                    width:
-                      `${progressPercentage}%`,
-                  }}
-                />
-
-              </div>
-
-              <p>
-                Penilaian selesai setelah seluruh
-                penilai mengirimkan hasil.
-              </p>
-
-            </div>
-
-            <div className="finalis-pradita-bottom">
-
-              <p>
-                Status diperbarui ketika penilai
-                mengirimkan penilaian.
-              </p>
-
-              <button
-                type="button"
-                className="finalis-peer-button"
-                onClick={
-                  handleViewPraditaStatus
-                }
-              >
-                Lihat Status Pradita Value
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-            {import.meta.env.DEV && (
-              <div className="finalis-demo-area">
-
-                <span>
-                  Demo Frontend
-                </span>
-
-                <button
-                  type="button"
-                  onClick={
-                    handleSimulateAllCompleted
-                  }
-                >
-                  Simulasikan Semua Penilai Selesai
-                </button>
-
-              </div>
-            )}
-
-          </section>
-        )}
-
-        {isPraditaCompleted && (
-          <section className="finalis-pradita-card finalis-pradita-card-sent">
-
-            <div className="finalis-pradita-top">
-
-              <div className="finalis-pradita-content">
-
-                <div className="finalis-pradita-icon finalis-pradita-icon-success">
-                  <CheckCircle2 size={20} />
-                </div>
-
-                <div>
-
-                  <span className="finalis-pradita-label finalis-pradita-label-success">
-                    PRADITA VALUE
-                  </span>
-
-                  <h2>
-                    Penilaian Pradita Value Selesai
-                  </h2>
-
-                  <p>
-                    Seluruh penilai telah mengirimkan
-                    hasil penilaian. Hasil akhir
-                    sedang menunggu pengumuman.
-                  </p>
-
-                </div>
-
-              </div>
-
-              <span className="finalis-pradita-status finalis-pradita-status-success">
-
-                <CheckCircle2 size={13} />
-                5/5 Selesai
-
-              </span>
-
-            </div>
-
-            <div className="finalis-pradita-info">
-
-              <div>
-                <span>
-                  Rekan Sejawat
-                </span>
-
-                <strong className="finalis-success-text">
-                  3/3 Selesai
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Kaprodi SI
-                </span>
-
-                <strong className="finalis-success-text">
-                  Selesai
-                </strong>
-              </div>
-
-              <div>
-                <span>
-                  Dosen Penilai
-                </span>
-
-                <strong className="finalis-success-text">
-                  Selesai
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="finalis-progress-section">
-
-              <div className="finalis-progress-heading">
-
-                <span>
-                  Progress Penilaian
-                </span>
-
-                <strong>
-                  5 dari 5 penilai telah mengisi
-                </strong>
-
-              </div>
-
-              <div className="finalis-progress-track">
-
-                <div
-                  className="finalis-progress-fill"
-                  style={{
-                    width: '100%',
-                  }}
-                />
-
-              </div>
-
-              <p>
-                Seluruh penilaian Pradita Value
-                telah selesai.
-              </p>
-
-            </div>
-
-            <div className="finalis-pradita-bottom">
-
-              <div className="finalis-waiting-admin">
-
-                <Clock3 size={15} />
-
-                <p>
-                  Menunggu pengumuman hasil final.
-                </p>
-
-              </div>
-
-              <button
-                type="button"
-                className="finalis-peer-button"
-                onClick={
-                  handleViewPraditaStatus
-                }
-              >
-                Lihat Status Pradita Value
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-            {import.meta.env.DEV && (
-              <div className="finalis-demo-area">
-
-                <span>
-                  Demo Frontend
-                </span>
-
-                <button
-                  type="button"
-                  onClick={
-                    handleSimulateFinalResult
-                  }
-                >
-                  Simulasikan Pengumuman Final
-                </button>
-
-              </div>
-            )}
-
-          </section>
-        )}
-
-        {isFinalAnnounced && (
-          <section className="finalis-pradita-card finalis-pradita-card-sent">
-
-            <div className="finalis-pradita-top">
-
-              <div className="finalis-pradita-content">
-
-                <div className="finalis-pradita-icon finalis-pradita-icon-success">
-                  <CheckCircle2 size={20} />
-                </div>
-
-                <div>
-
-                  <span className="finalis-pradita-label finalis-pradita-label-success">
-                    PRADITA VALUE
-                  </span>
-
-                  <h2>
-                    Pradita Value Selesai
-                  </h2>
-
-                  <p>
-                    Seluruh penilaian telah selesai
-                    dan hasil final telah dirilis.
-                  </p>
-
-                </div>
-
-              </div>
-
-              <span className="finalis-pradita-status finalis-pradita-status-success">
-
-                <CheckCircle2 size={13} />
-                Selesai
-
-              </span>
-
-            </div>
-
-            <div className="finalis-pradita-bottom">
-
-              <p>
-                Seluruh 5 penilai telah
-                menyelesaikan penilaian.
-              </p>
-
-              <button
-                type="button"
-                className="finalis-peer-button"
-                onClick={
-                  handleViewPraditaStatus
-                }
-              >
-                Lihat Riwayat Penilaian
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-          </section>
-        )}
-
-        <section className="finalis-information-card">
-
-          <div className="finalis-card-heading">
-
-            <div>
-
-              <h2>
-                Informasi Penting
-              </h2>
-
-              <p>
-                Informasi untuk proses seleksi
-                Mahasiswa Berprestasi.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div className="finalis-information-list">
-
-            {isFinalAnnounced ? (
-              <>
-                <div className="finalis-information-item">
-                  <span className="finalis-information-dot" />
-
-                  <p>
-                    Seluruh tahap seleksi telah
-                    selesai.
-                  </p>
-                </div>
-
-                <div className="finalis-information-item">
-                  <span className="finalis-information-dot" />
-
-                  <p>
-                    Hasil final Mahasiswa Berprestasi
-                    telah dirilis.
-                  </p>
-                </div>
-
-                <div className="finalis-information-item">
-                  <span className="finalis-information-dot" />
-
-                  <p>
-                    Nilai akhir berasal dari
-                    penilaian Tahap 1 dan
-                    Pradita Value.
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="finalis-information-item">
-                  <span className="finalis-information-dot" />
-
-                  <p>
-                    Anda telah lolos Tahap 1 dan
-                    melanjutkan ke Pradita Value.
-                  </p>
-                </div>
+              <div className="finalis-information-list">
 
                 {isNeedPeers && (
-                  <div className="finalis-information-item">
+                  <>
+                    <div className="finalis-information-item">
 
-                    <span className="finalis-information-dot" />
+                      <span className="finalis-information-dot" />
 
-                    <p>
-                      Masukkan 3 email rekan sejawat
-                      dengan domain
-                      @student.pradita.ac.id.
-                    </p>
+                      <p>
+                        Masukkan 3 email rekan sejawat
+                        dengan domain @student.pradita.ac.id.
+                      </p>
 
-                  </div>
+                    </div>
+
+                    <div className="finalis-information-item">
+
+                      <span className="finalis-information-dot" />
+
+                      <p>
+                        Hasil akhir tersedia setelah seluruh
+                        proses seleksi selesai.
+                      </p>
+
+                    </div>
+                  </>
                 )}
+
 
                 {isWaitingLecturer && (
-                  <div className="finalis-information-item">
+                  <>
+                    <div className="finalis-information-item">
 
-                    <span className="finalis-information-dot" />
+                      <span className="finalis-information-dot" />
 
-                    <p>
-                      Kaprodi Sistem Informasi sudah
-                      tersedia dan proses sedang
-                      menunggu dosen penilai.
-                    </p>
+                      <p>
+                        Dosen penilai ditentukan oleh admin.
+                      </p>
 
-                  </div>
+                    </div>
+
+                    <div className="finalis-information-item">
+
+                      <span className="finalis-information-dot" />
+
+                      <p>
+                        Penilaian dimulai setelah seluruh
+                        penilai tersedia.
+                      </p>
+
+                    </div>
+                  </>
                 )}
+
 
                 {isPraditaInProgress && (
-                  <div className="finalis-information-item">
+                  <>
+                    <div className="finalis-information-item">
 
-                    <span className="finalis-information-dot" />
+                      <span className="finalis-information-dot" />
 
-                    <p>
-                      Pradita Value sedang dinilai
-                      oleh 3 rekan sejawat,
-                      Kaprodi Sistem Informasi,
-                      dan 1 dosen.
-                    </p>
+                      <p>
+                        Nilai Pradita Value belum ditampilkan
+                        selama proses penilaian berlangsung.
+                      </p>
 
-                  </div>
+                    </div>
+
+                    <div className="finalis-information-item">
+
+                      <span className="finalis-information-dot" />
+
+                      <p>
+                        Hasil akhir tersedia setelah
+                        pengumuman final dirilis.
+                      </p>
+
+                    </div>
+                  </>
                 )}
+
 
                 {isPraditaCompleted && (
-                  <div className="finalis-information-item">
+                  <>
+                    <div className="finalis-information-item">
 
-                    <span className="finalis-information-dot" />
+                      <span className="finalis-information-dot" />
 
-                    <p>
-                      Seluruh penilaian Pradita Value
-                      telah selesai. Hasil final belum
-                      diumumkan.
-                    </p>
+                      <p>
+                        Seluruh penilaian Pradita Value
+                        telah selesai.
+                      </p>
 
-                  </div>
+                    </div>
+
+                    <div className="finalis-information-item">
+
+                      <span className="finalis-information-dot" />
+
+                      <p>
+                        Hasil final masih menunggu
+                        pengumuman.
+                      </p>
+
+                    </div>
+                  </>
                 )}
 
-                <div className="finalis-information-item">
+              </div>
 
-                  <span className="finalis-information-dot" />
+            </section>
 
-                  <p>
-                    Hasil akhir ditampilkan setelah
-                    pengumuman final dirilis.
-                  </p>
-
-                </div>
-              </>
-            )}
-
-          </div>
-
-        </section>
+          </>
+        )}
 
       </div>
 
     </div>
   )
 }
+
 
 export default DashboardFinalis
