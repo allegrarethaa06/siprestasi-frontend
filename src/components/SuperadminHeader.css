@@ -11,16 +11,28 @@
 
   background:
     radial-gradient(
-      circle at 88% 8%,
-      rgba(255, 255, 255, 0.16),
-      transparent 30%
+      circle at 92% 8%,
+      rgba(109, 23, 53, 0.18) 0%,
+      rgba(109, 23, 53, 0.10) 12%,
+      transparent 28%
     ),
     linear-gradient(
-      115deg,
-      #6D1735 0%,
-      #913654 48%,
-      #D69CAF 100%
+      90deg,
+      #8E365D 0%,
+      #A65276 32%,
+      #C58AA3 58%,
+      #E7CDD9 80%,
+      #F8F3F6 100%
     );
+}
+
+.admin-top-section::before,
+.admin-top-section::after {
+  display: none;
+}
+
+.admin-header-art {
+  display: none;
 }
 
 .admin-top-section::before {

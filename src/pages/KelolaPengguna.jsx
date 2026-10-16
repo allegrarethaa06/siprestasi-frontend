@@ -1,113 +1,159 @@
 import { useMemo, useState } from 'react'
 
 import SuperadminNavbar from '../components/SuperadminNavbar'
+import SuperadminHeader from '../components/SuperadminHeader'
 
 import './KelolaPengguna.css'
-import SuperadminHeader from '../components/SuperadminHeader'
+
+
+const initialUsers = [
+  {
+    id: 1,
+    initials: 'AP',
+    name: 'Allegra Aretha Putri',
+    email: 'allegra.aretha@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '12 Okt 2026, 17:20',
+    accountCode: null,
+  },
+  {
+    id: 2,
+    initials: 'AS',
+    name: 'Afifah Seruni',
+    email: 'afifah.seruni@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '12 Okt 2026, 15:42',
+    accountCode: null,
+  },
+  {
+    id: 3,
+    initials: 'RD',
+    name: 'Raka Dharma',
+    email: 'raka.dharma@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '12 Okt 2026, 13:10',
+    accountCode: null,
+  },
+  {
+    id: 4,
+    initials: 'MN',
+    name: 'Maya Nirmala',
+    email: 'maya.nirmala@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '11 Okt 2026, 16:30',
+    accountCode: null,
+  },
+  {
+    id: 5,
+    initials: 'BS',
+    name: 'Bima Saputra',
+    email: 'bima.saputra@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '11 Okt 2026, 09:12',
+    accountCode: null,
+  },
+  {
+    id: 6,
+    initials: 'CN',
+    name: 'Citra Nabila',
+    email: 'citra.nabila@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Nonaktif',
+    lastActive: '05 Okt 2026, 14:25',
+    accountCode: null,
+  },
+  {
+    id: 7,
+    initials: 'DF',
+    name: 'Dimas Fajar',
+    email: 'dimas.fajar@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '10 Okt 2026, 11:18',
+    accountCode: null,
+  },
+  {
+    id: 8,
+    initials: 'SR',
+    name: 'Salsa Rahma',
+    email: 'salsa.rahma@pradita.ac.id',
+    role: 'Administrator',
+    status: 'Aktif',
+    lastActive: '09 Okt 2026, 13:40',
+    accountCode: null,
+  },
+  {
+    id: 9,
+    initials: 'SA',
+    name: 'Super Administrator',
+    email: 'superadmin@pradita.ac.id',
+    role: 'Superadmin',
+    status: 'Aktif',
+    lastActive: '12 Okt 2026, 18:40',
+    accountCode: null,
+  },
+]
 
 
 function KelolaPengguna() {
-  const initialUsers = [
-    {
-      id: 1,
-      initials: 'AP',
-      name: 'Allegra Aretha Putri',
-      email: 'allegra.aretha@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '12 Okt 2026, 17:20',
-    },
-    {
-      id: 2,
-      initials: 'AS',
-      name: 'Afifah Seruni',
-      email: 'afifah.seruni@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '12 Okt 2026, 15:42',
-    },
-    {
-      id: 3,
-      initials: 'RD',
-      name: 'Raka Dharma',
-      email: 'raka.dharma@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '12 Okt 2026, 13:10',
-    },
-    {
-      id: 4,
-      initials: 'MN',
-      name: 'Maya Nirmala',
-      email: 'maya.nirmala@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '11 Okt 2026, 16:30',
-    },
-    {
-      id: 5,
-      initials: 'BS',
-      name: 'Bima Saputra',
-      email: 'bima.saputra@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '11 Okt 2026, 09:12',
-    },
-    {
-      id: 6,
-      initials: 'CN',
-      name: 'Citra Nabila',
-      email: 'citra.nabila@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Nonaktif',
-      lastActive: '05 Okt 2026, 14:25',
-    },
-    {
-      id: 7,
-      initials: 'DF',
-      name: 'Dimas Fajar',
-      email: 'dimas.fajar@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '10 Okt 2026, 11:18',
-    },
-    {
-      id: 8,
-      initials: 'SR',
-      name: 'Salsa Rahma',
-      email: 'salsa.rahma@pradita.ac.id',
-      role: 'Administrator',
-      status: 'Aktif',
-      lastActive: '09 Okt 2026, 13:40',
-    },
-    {
-      id: 9,
-      initials: 'SA',
-      name: 'Super Administrator',
-      email: 'superadmin@pradita.ac.id',
-      role: 'Superadmin',
-      status: 'Aktif',
-      lastActive: '12 Okt 2026, 18:40',
-    },
-  ]
-
-
   const [users, setUsers] = useState(initialUsers)
 
   const [search, setSearch] = useState('')
-  const [roleFilter, setRoleFilter] = useState('Semua Role')
-  const [statusFilter, setStatusFilter] = useState('Semua Status')
-
-  const [showUserModal, setShowUserModal] = useState(false)
-  const [modalMode, setModalMode] = useState('add')
-  const [editingUser, setEditingUser] = useState(null)
-
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [selectedUser, setSelectedUser] = useState(null)
+  const [roleFilter, setRoleFilter] =
+    useState('Semua Role')
+  const [statusFilter, setStatusFilter] =
+    useState('Semua Status')
 
 
   /* =========================
-      FORM
+     USER FORM MODAL
+  ========================= */
+
+  const [showUserModal, setShowUserModal] =
+    useState(false)
+
+  const [modalMode, setModalMode] =
+    useState('add')
+
+  const [editingUser, setEditingUser] =
+    useState(null)
+
+
+  /* =========================
+     STATUS MODAL
+  ========================= */
+
+  const [showConfirmModal, setShowConfirmModal] =
+    useState(false)
+
+  const [selectedUser, setSelectedUser] =
+    useState(null)
+
+
+  /* =========================
+     ACCOUNT CODE MODAL
+  ========================= */
+
+  const [showCodeModal, setShowCodeModal] =
+    useState(false)
+
+  const [codeUser, setCodeUser] =
+    useState(null)
+
+  const [codeModalMode, setCodeModalMode] =
+    useState('created')
+
+  const [codeCopied, setCodeCopied] =
+    useState(false)
+
+
+  /* =========================
+     FORM
   ========================= */
 
   const [formData, setFormData] = useState({
@@ -118,45 +164,61 @@ function KelolaPengguna() {
 
 
   /* =========================
-      SUMMARY
+     SUMMARY
   ========================= */
 
   const totalUsers = users.length
+
 
   const adminCount = users.filter(
     (user) => user.role === 'Administrator'
   ).length
 
-  const superadminCount = users.filter(
-    (user) => user.role === 'Superadmin'
-  ).length
 
   const activeCount = users.filter(
     (user) => user.status === 'Aktif'
   ).length
 
 
+  const pendingCount = users.filter(
+    (user) =>
+      user.status === 'Menunggu Aktivasi'
+  ).length
+
+
   /* =========================
-      FILTER
+     FILTER
   ========================= */
 
   const filteredUsers = useMemo(() => {
-    const keyword = search.toLowerCase().trim()
+    const keyword =
+      search.toLowerCase().trim()
 
     return users.filter((user) => {
       const matchSearch =
-        user.name.toLowerCase().includes(keyword) ||
-        user.email.toLowerCase().includes(keyword)
+        user.name
+          .toLowerCase()
+          .includes(keyword) ||
+        user.email
+          .toLowerCase()
+          .includes(keyword)
+
 
       const matchRole =
         roleFilter === 'Semua Role' ||
         user.role === roleFilter
 
+
       const matchStatus =
         statusFilter === 'Semua Status' ||
         user.status === statusFilter
 
-      return matchSearch && matchRole && matchStatus
+
+      return (
+        matchSearch &&
+        matchRole &&
+        matchStatus
+      )
     })
   }, [
     users,
@@ -167,7 +229,59 @@ function KelolaPengguna() {
 
 
   /* =========================
-      ADD USER
+     ACCOUNT CODE
+  ========================= */
+
+  const generateAccountCode = (role) => {
+    const prefix =
+      role === 'Superadmin'
+        ? 'SA'
+        : 'ADM'
+
+    const randomNumber =
+      Math.floor(
+        100000 +
+        Math.random() * 900000
+      )
+
+    return `${prefix}-${randomNumber}`
+  }
+
+
+  const openCodeModal = (user) => {
+    setCodeUser(user)
+    setCodeModalMode('view')
+    setCodeCopied(false)
+    setShowCodeModal(true)
+  }
+
+
+  const closeCodeModal = () => {
+    setShowCodeModal(false)
+    setCodeUser(null)
+    setCodeCopied(false)
+  }
+
+
+  const handleCopyCode = async () => {
+    if (!codeUser?.accountCode) {
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(
+        codeUser.accountCode
+      )
+
+      setCodeCopied(true)
+    } catch {
+      setCodeCopied(false)
+    }
+  }
+
+
+  /* =========================
+     ADD USER
   ========================= */
 
   const openAddModal = () => {
@@ -185,7 +299,7 @@ function KelolaPengguna() {
 
 
   /* =========================
-      EDIT USER
+     EDIT USER
   ========================= */
 
   const openEditModal = (user) => {
@@ -203,7 +317,7 @@ function KelolaPengguna() {
 
 
   /* =========================
-      SAVE USER
+     SAVE USER
   ========================= */
 
   const handleSaveUser = () => {
@@ -215,68 +329,134 @@ function KelolaPengguna() {
     }
 
 
+    /* ADD */
+
     if (modalMode === 'add') {
-      const initials = formData.name
-        .split(' ')
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((word) => word.charAt(0))
-        .join('')
-        .toUpperCase()
+      const initials =
+        formData.name
+          .split(' ')
+          .filter(Boolean)
+          .slice(0, 2)
+          .map(
+            (word) =>
+              word.charAt(0)
+          )
+          .join('')
+          .toUpperCase()
+
+
+      const accountCode =
+        generateAccountCode(
+          formData.role
+        )
+
 
       const newUser = {
         id: Date.now(),
+
         initials,
-        name: formData.name,
-        email: formData.email,
-        role: formData.role,
-        status: 'Aktif',
-        lastActive: 'Belum pernah login',
+
+        name:
+          formData.name.trim(),
+
+        email:
+          formData.email.trim(),
+
+        role:
+          formData.role,
+
+        status:
+          'Menunggu Aktivasi',
+
+        lastActive:
+          'Belum pernah login',
+
+        accountCode,
       }
 
-      setUsers((currentUsers) => [
-        ...currentUsers,
-        newUser,
-      ])
+
+      setUsers(
+        (currentUsers) => [
+          ...currentUsers,
+          newUser,
+        ]
+      )
+
+
+      setShowUserModal(false)
+
+      setCodeUser(newUser)
+      setCodeModalMode('created')
+      setCodeCopied(false)
+      setShowCodeModal(true)
+
+      return
     }
 
 
-    if (modalMode === 'edit') {
-      setUsers((currentUsers) =>
-        currentUsers.map((user) => {
-          if (user.id !== editingUser.id) {
-            return user
-          }
+    /* EDIT */
 
-          const initials = formData.name
-            .split(' ')
-            .filter(Boolean)
-            .slice(0, 2)
-            .map((word) => word.charAt(0))
-            .join('')
-            .toUpperCase()
+    if (
+      modalMode === 'edit' &&
+      editingUser
+    ) {
+      setUsers(
+        (currentUsers) =>
+          currentUsers.map(
+            (user) => {
+              if (
+                user.id !==
+                editingUser.id
+              ) {
+                return user
+              }
 
-          return {
-            ...user,
-            initials,
-            name: formData.name,
-            email: formData.email,
-            role: formData.role,
-          }
-        })
+
+              const initials =
+                formData.name
+                  .split(' ')
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .map(
+                    (word) =>
+                      word.charAt(0)
+                  )
+                  .join('')
+                  .toUpperCase()
+
+
+              return {
+                ...user,
+
+                initials,
+
+                name:
+                  formData.name.trim(),
+
+                email:
+                  formData.email.trim(),
+
+                role:
+                  formData.role,
+              }
+            }
+          )
       )
     }
 
 
     setShowUserModal(false)
+    setEditingUser(null)
   }
 
 
   /* =========================
-      STATUS
+     STATUS
   ========================= */
 
-  const openStatusConfirm = (user) => {
+  const openStatusConfirm = (
+    user
+  ) => {
     setSelectedUser(user)
     setShowConfirmModal(true)
   }
@@ -287,19 +467,43 @@ function KelolaPengguna() {
       return
     }
 
-    setUsers((currentUsers) =>
-      currentUsers.map((user) =>
-        user.id === selectedUser.id
-          ? {
-              ...user,
-              status:
-                user.status === 'Aktif'
-                  ? 'Nonaktif'
-                  : 'Aktif',
-            }
-          : user
-      )
+
+    /*
+      Menunggu Aktivasi tidak
+      diubah manual menjadi Aktif.
+      Aktivasi dilakukan oleh
+      pengguna melalui Login.
+    */
+
+    if (
+      selectedUser.status ===
+      'Menunggu Aktivasi'
+    ) {
+      return
+    }
+
+
+    setUsers(
+      (currentUsers) =>
+        currentUsers.map(
+          (user) =>
+            user.id ===
+            selectedUser.id
+
+              ? {
+                  ...user,
+
+                  status:
+                    user.status ===
+                    'Aktif'
+                      ? 'Nonaktif'
+                      : 'Aktif',
+                }
+
+              : user
+        )
     )
+
 
     setShowConfirmModal(false)
     setSelectedUser(null)
@@ -307,7 +511,7 @@ function KelolaPengguna() {
 
 
   /* =========================
-      RESET FILTER
+     RESET FILTER
   ========================= */
 
   const resetFilters = () => {
@@ -321,7 +525,7 @@ function KelolaPengguna() {
     <div className="manage-users-page">
 
       {/* =========================
-          TOP
+          HEADER
       ========================= */}
 
       <div className="admin-top-section">
@@ -334,17 +538,19 @@ function KelolaPengguna() {
           metaStage="Manajemen Akun"
           metaInfo={`${totalUsers} pengguna terdaftar`}
           actionLabel="Tambah Pengguna"
-          onActionClick={openAddModal}
+          onActionClick={
+            openAddModal
+          }
         />
 
       </div>
+
 
       {/* =========================
           CONTENT
       ========================= */}
 
       <main className="manage-users-content">
-
 
         {/* SUMMARY */}
 
@@ -357,6 +563,7 @@ function KelolaPengguna() {
             icon={<UsersIcon />}
           />
 
+
           <SummaryCard
             title="Administrator"
             value={adminCount}
@@ -364,18 +571,20 @@ function KelolaPengguna() {
             icon={<AdminIcon />}
           />
 
-          <SummaryCard
-            title="Superadmin"
-            value={superadminCount}
-            description="Akses penuh sistem"
-            icon={<ShieldIcon />}
-          />
 
           <SummaryCard
             title="Akun Aktif"
             value={activeCount}
             description="Pengguna aktif"
             icon={<ActiveIcon />}
+          />
+
+
+          <SummaryCard
+            title="Menunggu Aktivasi"
+            value={pendingCount}
+            description="Akun belum diaktifkan"
+            icon={<PendingIcon />}
           />
 
         </section>
@@ -421,8 +630,11 @@ function KelolaPengguna() {
                 type="text"
                 placeholder="Cari nama atau email..."
                 value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
+                onChange={
+                  (event) =>
+                    setSearch(
+                      event.target.value
+                    )
                 }
               />
 
@@ -431,10 +643,14 @@ function KelolaPengguna() {
 
             <select
               value={roleFilter}
-              onChange={(event) =>
-                setRoleFilter(event.target.value)
+              onChange={
+                (event) =>
+                  setRoleFilter(
+                    event.target.value
+                  )
               }
             >
+
               <option>
                 Semua Role
               </option>
@@ -446,15 +662,20 @@ function KelolaPengguna() {
               <option>
                 Superadmin
               </option>
+
             </select>
 
 
             <select
               value={statusFilter}
-              onChange={(event) =>
-                setStatusFilter(event.target.value)
+              onChange={
+                (event) =>
+                  setStatusFilter(
+                    event.target.value
+                  )
               }
             >
+
               <option>
                 Semua Status
               </option>
@@ -464,15 +685,22 @@ function KelolaPengguna() {
               </option>
 
               <option>
+                Menunggu Aktivasi
+              </option>
+
+              <option>
                 Nonaktif
               </option>
+
             </select>
 
 
             <button
               type="button"
               className="manage-users-reset"
-              onClick={resetFilters}
+              onClick={
+                resetFilters
+              }
             >
               Reset Filter
             </button>
@@ -480,13 +708,16 @@ function KelolaPengguna() {
           </div>
 
 
-          {/* TABLE */}
+          {/* =========================
+              TABLE
+          ========================= */}
 
           <div className="manage-users-table-wrapper">
 
             <table className="manage-users-table">
 
               <thead>
+
                 <tr>
                   <th>PENGGUNA</th>
                   <th>EMAIL</th>
@@ -495,115 +726,182 @@ function KelolaPengguna() {
                   <th>AKTIVITAS TERAKHIR</th>
                   <th>AKSI</th>
                 </tr>
+
               </thead>
 
 
               <tbody>
 
-                {filteredUsers.map((user) => (
-                  <tr key={user.id}>
+                {filteredUsers.map(
+                  (user) => {
 
-                    <td>
-
-                      <div className="manage-users-user">
-
-                        <div className="manage-users-avatar">
-                          {user.initials}
-                        </div>
-
-                        <strong>
-                          {user.name}
-                        </strong>
-
-                      </div>
-
-                    </td>
+                    const statusClass =
+                      user.status === 'Aktif'
+                        ? 'active'
+                        : user.status ===
+                            'Menunggu Aktivasi'
+                          ? 'pending'
+                          : 'inactive'
 
 
-                    <td>
-                      {user.email}
-                    </td>
+                    return (
+                      <tr key={user.id}>
+
+                        {/* USER */}
+
+                        <td>
+
+                          <div className="manage-users-user">
+
+                            <div className="manage-users-avatar">
+                              {user.initials}
+                            </div>
+
+                            <strong>
+                              {user.name}
+                            </strong>
+
+                          </div>
+
+                        </td>
 
 
-                    <td>
+                        {/* EMAIL */}
 
-                      <span
-                        className={
-                          user.role === 'Superadmin'
-                            ? 'manage-users-role superadmin'
-                            : 'manage-users-role'
-                        }
-                      >
-                        {user.role}
-                      </span>
-
-                    </td>
+                        <td>
+                          {user.email}
+                        </td>
 
 
-                    <td>
+                        {/* ROLE */}
 
-                      <span
-                        className={
-                          user.status === 'Aktif'
-                            ? 'manage-users-status active'
-                            : 'manage-users-status inactive'
-                        }
-                      >
-                        <span />
+                        <td>
 
-                        {user.status}
-                      </span>
-
-                    </td>
-
-
-                    <td>
-                      {user.lastActive}
-                    </td>
-
-
-                    <td>
-
-                      <div className="manage-users-actions">
-
-                        <button
-                          type="button"
-                          className="manage-users-edit-button"
-                          onClick={() =>
-                            openEditModal(user)
-                          }
-                        >
-                          Edit
-                        </button>
-
-
-                        {user.role !== 'Superadmin' && (
-                          <button
-                            type="button"
+                          <span
                             className={
-                              user.status === 'Aktif'
-                                ? 'manage-users-status-button deactivate'
-                                : 'manage-users-status-button activate'
-                            }
-                            onClick={() =>
-                              openStatusConfirm(user)
+                              user.role ===
+                              'Superadmin'
+
+                                ? 'manage-users-role superadmin'
+
+                                : 'manage-users-role'
                             }
                           >
-                            {user.status === 'Aktif'
-                              ? 'Nonaktifkan'
-                              : 'Aktifkan'}
-                          </button>
-                        )}
+                            {user.role}
+                          </span>
 
-                      </div>
+                        </td>
 
-                    </td>
 
-                  </tr>
-                ))}
+                        {/* STATUS */}
+
+                        <td>
+
+                          <span
+                            className={`manage-users-status ${statusClass}`}
+                          >
+
+                            <span />
+
+                            {user.status}
+
+                          </span>
+
+                        </td>
+
+
+                        {/* LAST ACTIVE */}
+
+                        <td>
+                          {user.lastActive}
+                        </td>
+
+
+                        {/* ACTION */}
+
+                        <td>
+
+                          <div className="manage-users-actions">
+
+                            <button
+                              type="button"
+                              className="manage-users-edit-button"
+                              onClick={() =>
+                                openEditModal(
+                                  user
+                                )
+                              }
+                            >
+                              Edit
+                            </button>
+
+
+                            {/* PENDING */}
+
+                            {user.status ===
+                              'Menunggu Aktivasi' &&
+                              user.accountCode && (
+
+                              <button
+                                type="button"
+                                className="manage-users-code-button"
+                                onClick={() =>
+                                  openCodeModal(
+                                    user
+                                  )
+                                }
+                              >
+                                Kode Akun
+                              </button>
+
+                            )}
+
+
+                            {/* ACTIVE / INACTIVE */}
+
+                            {user.role !==
+                              'Superadmin' &&
+                              user.status !==
+                                'Menunggu Aktivasi' && (
+
+                              <button
+                                type="button"
+                                className={
+                                  user.status ===
+                                  'Aktif'
+
+                                    ? 'manage-users-status-button deactivate'
+
+                                    : 'manage-users-status-button activate'
+                                }
+                                onClick={() =>
+                                  openStatusConfirm(
+                                    user
+                                  )
+                                }
+                              >
+
+                                {user.status ===
+                                'Aktif'
+                                  ? 'Nonaktifkan'
+                                  : 'Aktifkan'}
+
+                              </button>
+
+                            )}
+
+                          </div>
+
+                        </td>
+
+                      </tr>
+                    )
+                  }
+                )}
 
 
                 {filteredUsers.length === 0 && (
+
                   <tr>
 
                     <td
@@ -614,6 +912,7 @@ function KelolaPengguna() {
                     </td>
 
                   </tr>
+
                 )}
 
               </tbody>
@@ -632,6 +931,7 @@ function KelolaPengguna() {
       ========================= */}
 
       {showUserModal && (
+
         <div className="manage-users-modal-overlay">
 
           <div className="manage-users-modal">
@@ -641,15 +941,20 @@ function KelolaPengguna() {
               <div>
 
                 <h2>
+
                   {modalMode === 'add'
                     ? 'Tambah Pengguna'
                     : 'Edit Pengguna'}
+
                 </h2>
 
+
                 <p>
+
                   {modalMode === 'add'
                     ? 'Tambahkan akun baru ke SIPRESTASI.'
                     : 'Perbarui informasi dan role pengguna.'}
+
                 </p>
 
               </div>
@@ -659,7 +964,9 @@ function KelolaPengguna() {
                 type="button"
                 className="manage-users-modal-close"
                 onClick={() =>
-                  setShowUserModal(false)
+                  setShowUserModal(
+                    false
+                  )
                 }
               >
                 ×
@@ -670,6 +977,8 @@ function KelolaPengguna() {
 
             <div className="manage-users-form">
 
+              {/* NAME */}
+
               <label>
 
                 <span>
@@ -679,17 +988,24 @@ function KelolaPengguna() {
                 <input
                   type="text"
                   placeholder="Masukkan nama lengkap"
-                  value={formData.name}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      name: event.target.value,
-                    })
+                  value={
+                    formData.name
+                  }
+                  onChange={
+                    (event) =>
+                      setFormData({
+                        ...formData,
+                        name:
+                          event.target
+                            .value,
+                      })
                   }
                 />
 
               </label>
 
+
+              {/* EMAIL */}
 
               <label>
 
@@ -700,17 +1016,24 @@ function KelolaPengguna() {
                 <input
                   type="email"
                   placeholder="nama@pradita.ac.id"
-                  value={formData.email}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      email: event.target.value,
-                    })
+                  value={
+                    formData.email
+                  }
+                  onChange={
+                    (event) =>
+                      setFormData({
+                        ...formData,
+                        email:
+                          event.target
+                            .value,
+                      })
                   }
                 />
 
               </label>
 
+
+              {/* ROLE */}
 
               <label>
 
@@ -719,14 +1042,20 @@ function KelolaPengguna() {
                 </span>
 
                 <select
-                  value={formData.role}
-                  onChange={(event) =>
-                    setFormData({
-                      ...formData,
-                      role: event.target.value,
-                    })
+                  value={
+                    formData.role
+                  }
+                  onChange={
+                    (event) =>
+                      setFormData({
+                        ...formData,
+                        role:
+                          event.target
+                            .value,
+                      })
                   }
                 >
+
                   <option>
                     Administrator
                   </option>
@@ -734,6 +1063,7 @@ function KelolaPengguna() {
                   <option>
                     Superadmin
                   </option>
+
                 </select>
 
               </label>
@@ -747,7 +1077,9 @@ function KelolaPengguna() {
                 type="button"
                 className="manage-users-modal-cancel"
                 onClick={() =>
-                  setShowUserModal(false)
+                  setShowUserModal(
+                    false
+                  )
                 }
               >
                 Batal
@@ -761,11 +1093,15 @@ function KelolaPengguna() {
                   !formData.name.trim() ||
                   !formData.email.trim()
                 }
-                onClick={handleSaveUser}
+                onClick={
+                  handleSaveUser
+                }
               >
+
                 {modalMode === 'add'
                   ? 'Tambah Pengguna'
                   : 'Simpan Perubahan'}
+
               </button>
 
             </div>
@@ -773,6 +1109,139 @@ function KelolaPengguna() {
           </div>
 
         </div>
+
+      )}
+
+
+      {/* =========================
+          ACCOUNT CODE MODAL
+      ========================= */}
+
+      {showCodeModal &&
+        codeUser && (
+
+        <div className="manage-users-modal-overlay">
+
+          <div className="manage-users-confirm-modal manage-users-code-modal">
+
+            <div className="manage-users-confirm-icon">
+              <ShieldIcon />
+            </div>
+
+
+            <h2>
+
+              {codeModalMode ===
+              'created'
+                ? 'Akun Berhasil Dibuat'
+                : 'Kode Akun'}
+
+            </h2>
+
+
+            <p>
+
+              {codeModalMode ===
+              'created'
+                ? 'Akun baru berhasil dibuat dan sedang menunggu aktivasi pengguna.'
+                : 'Informasi kode akun pengguna yang masih menunggu aktivasi.'}
+
+            </p>
+
+
+            <div className="manage-users-code-meta">
+
+              <div>
+                <span>Nama</span>
+                <strong>
+                  {codeUser.name}
+                </strong>
+              </div>
+
+
+              <div>
+                <span>Email</span>
+                <strong>
+                  {codeUser.email}
+                </strong>
+              </div>
+
+
+              <div>
+                <span>Role</span>
+                <strong>
+                  {codeUser.role}
+                </strong>
+              </div>
+
+
+              <div>
+                <span>Status</span>
+
+                <strong className="manage-users-code-pending">
+                  Menunggu Aktivasi
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div className="manage-users-code-box">
+
+              <span>
+                Kode Akun
+              </span>
+
+
+              <strong>
+                {codeUser.accountCode}
+              </strong>
+
+            </div>
+
+
+            <p className="manage-users-code-note">
+
+              Simpan kode akun ini sebagai identitas akun baru.
+              Akun belum dapat digunakan sampai pengguna menyelesaikan proses aktivasi.
+
+            </p>
+
+
+            <div className="manage-users-confirm-actions">
+
+              <button
+                type="button"
+                className="manage-users-modal-cancel"
+                onClick={
+                  closeCodeModal
+                }
+              >
+                Tutup
+              </button>
+
+
+              <button
+                type="button"
+                className="manage-users-modal-save"
+                onClick={
+                  handleCopyCode
+                }
+              >
+
+                {codeCopied
+                  ? 'Kode Disalin ✓'
+                  : 'Salin Kode'}
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
       )}
 
 
@@ -780,7 +1249,9 @@ function KelolaPengguna() {
           CONFIRM STATUS
       ========================= */}
 
-      {showConfirmModal && selectedUser && (
+      {showConfirmModal &&
+        selectedUser && (
+
         <div className="manage-users-modal-overlay">
 
           <div className="manage-users-confirm-modal">
@@ -789,16 +1260,24 @@ function KelolaPengguna() {
               <ShieldIcon />
             </div>
 
+
             <h2>
-              {selectedUser.status === 'Aktif'
+
+              {selectedUser.status ===
+              'Aktif'
                 ? 'Nonaktifkan Pengguna?'
                 : 'Aktifkan Pengguna?'}
+
             </h2>
 
+
             <p>
-              {selectedUser.status === 'Aktif'
+
+              {selectedUser.status ===
+              'Aktif'
                 ? `Akun ${selectedUser.name} tidak dapat mengakses SIPRESTASI setelah dinonaktifkan.`
                 : `Akun ${selectedUser.name} akan kembali mendapatkan akses ke SIPRESTASI.`}
+
             </p>
 
 
@@ -808,8 +1287,15 @@ function KelolaPengguna() {
                 type="button"
                 className="manage-users-modal-cancel"
                 onClick={() => {
-                  setShowConfirmModal(false)
-                  setSelectedUser(null)
+
+                  setShowConfirmModal(
+                    false
+                  )
+
+                  setSelectedUser(
+                    null
+                  )
+
                 }}
               >
                 Batal
@@ -819,11 +1305,16 @@ function KelolaPengguna() {
               <button
                 type="button"
                 className="manage-users-modal-save"
-                onClick={handleToggleStatus}
+                onClick={
+                  handleToggleStatus
+                }
               >
-                {selectedUser.status === 'Aktif'
+
+                {selectedUser.status ===
+                'Aktif'
                   ? 'Ya, Nonaktifkan'
                   : 'Ya, Aktifkan'}
+
               </button>
 
             </div>
@@ -831,6 +1322,7 @@ function KelolaPengguna() {
           </div>
 
         </div>
+
       )}
 
     </div>
@@ -881,24 +1373,6 @@ function SummaryCard({
    ICONS
 ========================= */
 
-function PlusIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="17"
-      height="17"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    >
-      <path d="M12 5v14" />
-      <path d="M5 12h14" />
-    </svg>
-  )
-}
-
-
 function SearchIcon() {
   return (
     <svg
@@ -910,7 +1384,12 @@ function SearchIcon() {
       strokeWidth="1.8"
       strokeLinecap="round"
     >
-      <circle cx="11" cy="11" r="7" />
+      <circle
+        cx="11"
+        cy="11"
+        r="7"
+      />
+
       <path d="m20 20-4-4" />
     </svg>
   )
@@ -929,9 +1408,20 @@ function UsersIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="9" cy="8" r="3" />
+      <circle
+        cx="9"
+        cy="8"
+        r="3"
+      />
+
       <path d="M3.5 19c.5-3 2.5-5 5.5-5s5 2 5.5 5" />
-      <circle cx="17" cy="9" r="2.2" />
+
+      <circle
+        cx="17"
+        cy="9"
+        r="2.2"
+      />
+
       <path d="M15.5 14.5c2.8-.8 5 .8 5.5 3.5" />
     </svg>
   )
@@ -950,7 +1440,12 @@ function AdminIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="12" cy="8" r="3" />
+      <circle
+        cx="12"
+        cy="8"
+        r="3"
+      />
+
       <path d="M6 20c.5-4 2.5-6 6-6s5.5 2 6 6" />
     </svg>
   )
@@ -970,6 +1465,7 @@ function ShieldIcon() {
       strokeLinejoin="round"
     >
       <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3Z" />
+
       <path d="m9 12 2 2 4-4" />
     </svg>
   )
@@ -988,8 +1484,37 @@ function ActiveIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="12" cy="12" r="8" />
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+      />
+
       <path d="m8.5 12 2.3 2.3 4.8-5" />
+    </svg>
+  )
+}
+
+
+function PendingIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+      />
+
+      <path d="M12 8v4l2.5 1.5" />
     </svg>
   )
 }

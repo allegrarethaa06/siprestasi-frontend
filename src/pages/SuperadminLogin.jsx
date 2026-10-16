@@ -1,61 +1,250 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import './SuperadminLogin.css'
 
+
 function Login() {
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
+
+  /* =========================
+     MODE
+  ========================= */
+
+  const [mode, setMode] = useState('login')
+
+
+  /* =========================
+     FORM DATA
+  ========================= */
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] =
+    useState('')
 
-  const [emailTouched, setEmailTouched] = useState(false)
-  const [passwordTouched, setPasswordTouched] = useState(false)
 
-  const [loginError, setLoginError] = useState('')
-  const navigate = useNavigate() 
+  /* =========================
+     SHOW PASSWORD
+  ========================= */
 
-  // =========================
-  // VALIDASI
-  // =========================
+  const [showPassword, setShowPassword] =
+    useState(false)
+
+  const [
+    showConfirmPassword,
+    setShowConfirmPassword,
+  ] = useState(false)
+
+
+  /* =========================
+     TOUCHED
+  ========================= */
+
+  const [emailTouched, setEmailTouched] =
+    useState(false)
+
+  const [passwordTouched, setPasswordTouched] =
+    useState(false)
+
+  const [
+    confirmPasswordTouched,
+    setConfirmPasswordTouched,
+  ] = useState(false)
+
+
+  /* =========================
+     MESSAGE
+  ========================= */
+
+  const [loginError, setLoginError] =
+    useState('')
+
+  const [
+    activationSuccess,
+    setActivationSuccess,
+  ] = useState('')
+
+
+  /* =========================
+     VALIDASI EMAIL
+  ========================= */
 
   const emailIsValid =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+      email.trim()
+    )
+
 
   const emailError =
     emailTouched &&
     email.trim() !== '' &&
     !emailIsValid
 
+
+  /* =========================
+     VALIDASI PASSWORD
+  ========================= */
+
+  const passwordIsValid =
+    password.length >= 8 &&
+    password.length <= 64
+
+
   const passwordError =
     passwordTouched &&
-    password.trim() === ''
+    !passwordIsValid
+
+
+  /* =========================
+     KONFIRMASI PASSWORD
+  ========================= */
+
+  const confirmPasswordError =
+    mode === 'activate' &&
+    confirmPasswordTouched &&
+    (
+      confirmPassword.trim() === '' ||
+      confirmPassword !== password
+    )
+
+
+  /* =========================
+     FORM VALID
+  ========================= */
 
   const isFormValid =
     email.trim() !== '' &&
     emailIsValid &&
-    password.trim() !== ''
+    passwordIsValid &&
+    (
+      mode === 'login' ||
+      (
+        confirmPassword.trim() !== '' &&
+        confirmPassword === password
+      )
+    )
 
-  // =========================
-  // SUBMIT
-  // =========================
 
-const handleSubmit = (e) => {
-  e.preventDefault()
+  /* =========================
+     SWITCH MODE
+  ========================= */
 
-  setEmailTouched(true)
-  setPasswordTouched(true)
-  setLoginError('')
+  const switchToLogin = () => {
+    setMode('login')
 
-  if (!isFormValid) {
-    return
+    setPassword('')
+    setConfirmPassword('')
+
+    setPasswordTouched(false)
+    setConfirmPasswordTouched(false)
+
+    setShowPassword(false)
+    setShowConfirmPassword(false)
+
+    setLoginError('')
   }
 
-  localStorage.setItem('siprestasi_superadmin_auth', 'true')
-  navigate('/superadmin/dashboard')
-}
+
+  const switchToActivation = () => {
+    setMode('activate')
+
+    setPassword('')
+    setConfirmPassword('')
+
+    setPasswordTouched(false)
+    setConfirmPasswordTouched(false)
+
+    setShowPassword(false)
+    setShowConfirmPassword(false)
+
+    setLoginError('')
+    setActivationSuccess('')
+  }
+
+
+  /* =========================
+     SUBMIT
+  ========================= */
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    setEmailTouched(true)
+    setPasswordTouched(true)
+
+    setLoginError('')
+    setActivationSuccess('')
+
+
+    if (mode === 'activate') {
+      setConfirmPasswordTouched(true)
+    }
+
+
+    if (!isFormValid) {
+      return
+    }
+
+
+    /* =========================
+       AKTIVASI AKUN
+    ========================= */
+
+    if (mode === 'activate') {
+
+      /*
+        NANTI BACKEND:
+
+        1. Cek email sudah terdaftar
+        2. Pastikan role = Superadmin
+        3. Pastikan status =
+           Menunggu Aktivasi
+        4. Hash password baru
+        5. Simpan password
+        6. Ubah status menjadi Aktif
+
+        Superadmin tidak dapat
+        mengaktifkan email yang belum
+        terdaftar.
+      */
+
+
+      setMode('login')
+
+      setPassword('')
+      setConfirmPassword('')
+
+      setPasswordTouched(false)
+      setConfirmPasswordTouched(false)
+
+      setShowPassword(false)
+      setShowConfirmPassword(false)
+
+      setActivationSuccess(
+        'Akun berhasil diaktifkan. Silakan masuk menggunakan password yang telah dibuat.'
+      )
+
+      return
+    }
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    localStorage.setItem(
+      'siprestasi_superadmin_auth',
+      'true'
+    )
+
+    navigate('/superadmin/dashboard')
+  }
+
 
   return (
     <main className="login-page">
+
       <section className="login-card">
 
         {/* =========================
@@ -64,9 +253,12 @@ const handleSubmit = (e) => {
 
         <div className="login-left">
 
+          {/* BRAND */}
+
           <div className="brand">
 
             <div className="brand-icon">
+
               <svg
                 viewBox="0 0 24 24"
                 width="26"
@@ -77,31 +269,69 @@ const handleSubmit = (e) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M2 10l10-5 10 5-10 5-10-5Z" />
-                <path d="M6 12v5c3 2 9 2 12 0v-5" />
+
+                <path
+                  d="M2 10l10-5 10 5-10 5-10-5Z"
+                />
+
+                <path
+                  d="M6 12v5c3 2 9 2 12 0v-5"
+                />
+
               </svg>
+
             </div>
+
 
             <div>
-              <h2>SIPRESTASI</h2>
-              <p>SISTEM PRESTASI MAHASISWA</p>
+
+              <h2>
+                SIPRESTASI
+              </h2>
+
+              <p>
+                SISTEM PRESTASI MAHASISWA
+              </p>
+
             </div>
 
           </div>
 
+
+          {/* WELCOME */}
+
           <div className="welcome-content">
-            <h1>Selamat Datang Kembali</h1>
+
+            <h1>
+
+              {mode === 'login'
+                ? 'Selamat Datang Kembali'
+                : 'Aktivasi Akun SIPRESTASI'}
+
+            </h1>
+
 
             <p>
-              Masuk sebagai Superadmin untuk mengelola proses seleksi dan
-              penilaian Mahasiswa Berprestasi.
+
+              {mode === 'login'
+                ? 'Masuk sebagai Superadmin untuk mengelola proses seleksi dan penilaian Mahasiswa Berprestasi.'
+                : 'Aktifkan akun Superadmin Anda dan buat password untuk mulai menggunakan SIPRESTASI.'}
+
             </p>
+
           </div>
 
-          <div className="decoration decoration-top"></div>
-          <div className="decoration decoration-bottom"></div>
+
+          <div
+            className="decoration decoration-top"
+          />
+
+          <div
+            className="decoration decoration-bottom"
+          />
 
         </div>
+
 
         {/* =========================
             RIGHT SIDE
@@ -111,13 +341,42 @@ const handleSubmit = (e) => {
 
           <div className="login-form-wrapper">
 
+            {/* HEADING */}
+
             <div className="login-heading">
-              <h1>Masuk ke SIPRESTASI</h1>
+
+              <h1>
+
+                {mode === 'login'
+                  ? 'Masuk ke SIPRESTASI'
+                  : 'Aktivasi Akun'}
+
+              </h1>
+
 
               <p>
-                Masukkan akun Superadmin Anda untuk melanjutkan.
+
+                {mode === 'login'
+                  ? 'Masukkan akun Superadmin Anda untuk melanjutkan.'
+                  : 'Masukkan email dan buat password baru untuk mengaktifkan akun.'}
+
               </p>
+
             </div>
+
+
+            {/* SUCCESS */}
+
+            {activationSuccess && (
+
+              <div className="activation-success">
+
+                {activationSuccess}
+
+              </div>
+
+            )}
+
 
             <form onSubmit={handleSubmit}>
 
@@ -128,8 +387,12 @@ const handleSubmit = (e) => {
               <div className="form-group">
 
                 <label htmlFor="email">
-                  Email<span>*</span>
+
+                  Email
+                  <span>*</span>
+
                 </label>
+
 
                 <div className="input-wrapper">
 
@@ -139,32 +402,54 @@ const handleSubmit = (e) => {
                     name="email"
                     autoComplete="email"
                     value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
+                    onChange={(event) => {
+
+                      setEmail(
+                        event.target.value
+                      )
+
                       setLoginError('')
+                      setActivationSuccess('')
+
                     }}
-                    onBlur={() => setEmailTouched(true)}
-                    className={emailError ? 'input-error' : ''}
+                    onBlur={() =>
+                      setEmailTouched(true)
+                    }
+                    className={
+                      emailError
+                        ? 'input-error'
+                        : ''
+                    }
                   />
 
+
                   {emailError && (
+
                     <span
                       className="error-icon"
                       aria-hidden="true"
                     >
                       !
                     </span>
+
                   )}
 
                 </div>
 
+
                 {emailError && (
-                  <p className="error-message" role="alert">
+
+                  <p
+                    className="error-message"
+                    role="alert"
+                  >
                     Format email tidak valid.
                   </p>
+
                 )}
 
               </div>
+
 
               {/* =========================
                   PASSWORD
@@ -173,131 +458,284 @@ const handleSubmit = (e) => {
               <div className="form-group">
 
                 <label htmlFor="password">
-                  Password<span>*</span>
+
+                  {mode === 'login'
+                    ? 'Password'
+                    : 'Password Baru'}
+
+                  <span>*</span>
+
                 </label>
+
 
                 <div className="password-input">
 
                   <input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={
+                      showPassword
+                        ? 'text'
+                        : 'password'
+                    }
                     name="password"
-                    autoComplete="current-password"
+                    autoComplete={
+                      mode === 'login'
+                        ? 'current-password'
+                        : 'new-password'
+                    }
                     value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value)
+                    onChange={(event) => {
+
+                      setPassword(
+                        event.target.value
+                      )
+
                       setLoginError('')
+
                     }}
-                    onBlur={() => setPasswordTouched(true)}
-                    className={passwordError ? 'input-error' : ''}
+                    minLength={8}
+                    maxLength={64}
+                    onBlur={() =>
+                      setPasswordTouched(true)
+                    }
+                    className={
+                      passwordError
+                        ? 'input-error'
+                        : ''
+                    }
                   />
 
+
                   {passwordError && (
+
                     <span
                       className="error-icon password-error-icon"
                       aria-hidden="true"
                     >
                       !
                     </span>
+
                   )}
+
 
                   <button
                     type="button"
                     className="show-password"
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() =>
+                      setShowPassword(
+                        (current) => !current
+                      )
+                    }
                     aria-label={
                       showPassword
                         ? 'Sembunyikan password'
                         : 'Tampilkan password'
                     }
                   >
-                    {!showPassword ? (
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
-                        <circle cx="12" cy="12" r="3" />
-                      </svg>
-                    ) : (
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 3l18 18" />
-                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
-                        <path d="M9.9 4.2A10.5 10.5 0 0 1 12 4c6.5 0 10 8 10 8a18 18 0 0 1-2.1 3.2" />
-                        <path d="M6.6 6.6C3.8 8.3 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 4.4-1" />
-                      </svg>
-                    )}
+
+                    <EyeIcon
+                      hidden={showPassword}
+                    />
+
                   </button>
 
                 </div>
 
+
                 {passwordError && (
-                  <p className="error-message" role="alert">
-                    Password wajib diisi.
+
+                  <p
+                    className="error-message"
+                    role="alert"
+                  >
+
+                    {password.length === 0
+                      ? 'Password wajib diisi.'
+                      : 'Password harus terdiri dari 8–64 karakter.'}
+
                   </p>
+
+                )}
+
+
+                {mode === 'activate' && (
+
+                  <p className="password-helper">
+                    Gunakan 8–64 karakter.
+                  </p>
+
                 )}
 
               </div>
+
+
+              {/* =========================
+                  CONFIRM PASSWORD
+              ========================= */}
+
+              {mode === 'activate' && (
+
+                <div className="form-group">
+
+                  <label htmlFor="confirmPassword">
+
+                    Konfirmasi Password
+                    <span>*</span>
+
+                  </label>
+
+
+                  <div className="password-input">
+
+                    <input
+                      id="confirmPassword"
+                      type={
+                        showConfirmPassword
+                          ? 'text'
+                          : 'password'
+                      }
+                      name="confirmPassword"
+                      autoComplete="new-password"
+                      value={confirmPassword}
+                      minLength={8}
+                      maxLength={64}
+                      onChange={(event) =>
+                        setConfirmPassword(
+                          event.target.value
+                        )
+                      }
+                      onBlur={() =>
+                        setConfirmPasswordTouched(
+                          true
+                        )
+                      }
+                      className={
+                        confirmPasswordError
+                          ? 'input-error'
+                          : ''
+                      }
+                    />
+
+
+                    {confirmPasswordError && (
+
+                      <span
+                        className="error-icon password-error-icon"
+                        aria-hidden="true"
+                      >
+                        !
+                      </span>
+
+                    )}
+
+
+                    <button
+                      type="button"
+                      className="show-password"
+                      onClick={() =>
+                        setShowConfirmPassword(
+                          (current) => !current
+                        )
+                      }
+                      aria-label={
+                        showConfirmPassword
+                          ? 'Sembunyikan konfirmasi password'
+                          : 'Tampilkan konfirmasi password'
+                      }
+                    >
+
+                      <EyeIcon
+                        hidden={
+                          showConfirmPassword
+                        }
+                      />
+
+                    </button>
+
+                  </div>
+
+
+                  {confirmPasswordError && (
+
+                    <p
+                      className="error-message"
+                      role="alert"
+                    >
+                      Konfirmasi password harus sama dengan password baru.
+                    </p>
+
+                  )}
+
+                </div>
+
+              )}
+
 
               {/* =========================
                   LOGIN ERROR
               ========================= */}
 
               {loginError && (
-                <div className="login-error-alert" role="alert">
+
+                <div
+                  className="login-error-alert"
+                  role="alert"
+                >
+
                   <span className="login-error-alert-icon">
                     !
                   </span>
 
+
                   <span>
                     {loginError}
                   </span>
+
                 </div>
+
               )}
 
+
               {/* =========================
-                  OPTIONS
+                  LOGIN OPTIONS
               ========================= */}
 
-              <div className="form-options">
+              {mode === 'login' && (
 
-                <label className="remember-me">
+                <div className="form-options">
 
-                  <input type="checkbox" />
+                  <label className="remember-me">
 
-                  <span className="custom-checkbox"></span>
+                    <input
+                      type="checkbox"
+                    />
 
-                  Ingat saya
+                    <span className="custom-checkbox" />
 
-                </label>
+                    Ingat saya
 
-                <button
-                  type="button"
-                  className="forgot-password"
-                  onClick={() => navigate('/forgot-password')}
-                >
-                  Lupa Password?
-                </button>
+                  </label>
 
-              </div>
+
+                  <button
+                    type="button"
+                    className="forgot-password"
+                    onClick={() =>
+                      navigate(
+                        '/forgot-password'
+                      )
+                    }
+                  >
+                    Lupa Password?
+                  </button>
+
+                </div>
+
+              )}
+
 
               {/* =========================
-                  LOGIN BUTTON
+                  BUTTON
               ========================= */}
 
               <button
@@ -305,9 +743,67 @@ const handleSubmit = (e) => {
                 className="login-button"
                 disabled={!isFormValid}
               >
-                <span>Masuk</span>
-                <span className="arrow">→</span>
+
+                <span>
+
+                  {mode === 'login'
+                    ? 'Masuk'
+                    : 'Aktifkan Akun'}
+
+                </span>
+
+
+                <span className="arrow">
+                  →
+                </span>
+
               </button>
+
+
+              {/* =========================
+                  MODE SWITCH
+              ========================= */}
+
+              <div className="account-activation-switch">
+
+                {mode === 'login' ? (
+
+                  <p>
+
+                    Akun baru?{' '}
+
+                    <button
+                      type="button"
+                      onClick={
+                        switchToActivation
+                      }
+                    >
+                      Aktivasi akun
+                    </button>
+
+                  </p>
+
+                ) : (
+
+                  <p>
+
+                    Sudah mengaktifkan akun?{' '}
+
+                    <button
+                      type="button"
+                      onClick={
+                        switchToLogin
+                      }
+                    >
+                      Kembali ke Login
+                    </button>
+
+                  </p>
+
+                )}
+
+              </div>
+
 
               {/* =========================
                   NOTE
@@ -316,15 +812,36 @@ const handleSubmit = (e) => {
               <div className="login-note">
 
                 <div className="separator">
-                  <span></span>
-                  <i></i>
-                  <span></span>
+
+                  <span />
+
+                  <i />
+
+                  <span />
+
                 </div>
 
+
                 <p>
-                  Hanya akun yang terdaftar sebagai Superadmin
-                  <br />
-                  yang dapat mengakses sistem ini.
+
+                  {mode === 'login' ? (
+
+                    <>
+                      Hanya akun yang terdaftar sebagai Superadmin
+                      <br />
+                      yang dapat mengakses sistem ini.
+                    </>
+
+                  ) : (
+
+                    <>
+                      Aktivasi hanya dapat dilakukan untuk akun Superadmin
+                      <br />
+                      yang telah terdaftar pada sistem.
+                    </>
+
+                  )}
+
                 </p>
 
               </div>
@@ -332,11 +849,83 @@ const handleSubmit = (e) => {
             </form>
 
           </div>
+
         </div>
 
       </section>
+
     </main>
   )
 }
+
+
+/* =========================
+   EYE ICON
+========================= */
+
+function EyeIcon({
+  hidden = false,
+}) {
+
+  if (!hidden) {
+
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+
+        <path
+          d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="3"
+        />
+
+      </svg>
+    )
+
+  }
+
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+
+      <path d="M3 3l18 18" />
+
+      <path
+        d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+      />
+
+      <path
+        d="M9.9 4.2A10.5 10.5 0 0 1 12 4c6.5 0 10 8 10 8a18 18 0 0 1-2.1 3.2"
+      />
+
+      <path
+        d="M6.6 6.6C3.8 8.3 2 12 2 12s3.5 8 10 8a9.8 9.8 0 0 0 4.4-1"
+      />
+
+    </svg>
+  )
+}
+
 
 export default Login

@@ -15,7 +15,15 @@ function SuperadminNavbar({ variant = 'default' }) {
   const isManageActive =
     location.pathname.startsWith('/superadmin/kelola-')
 
+  const isSelectionActive =
+    location.pathname.startsWith('/superadmin/daftar-mapres') ||
+    location.pathname.startsWith('/superadmin/pradita-value') ||
+    location.pathname.startsWith('/superadmin/hasil-seleksi')
+
   const [showManageMenu, setShowManageMenu] = useState(false)
+
+  const [showSelectionMenu, setShowSelectionMenu] =
+  useState(false)
 
   const [showNotifications, setShowNotifications] =
   useState(false)
@@ -96,94 +104,199 @@ const markAllAsRead = () => {
 
       <nav className="superadmin-nav-menu">
 
+  <NavLink
+    to="/superadmin/dashboard"
+    className={({ isActive }) =>
+      isActive
+        ? 'superadmin-nav-link active'
+        : 'superadmin-nav-link'
+    }
+  >
+    Dashboard
+  </NavLink>
+
+
+  {/* SELEKSI */}
+
+  <div className="superadmin-nav-dropdown-wrapper">
+
+    <button
+      type="button"
+      className={`superadmin-nav-link superadmin-manage-trigger ${
+        isSelectionActive ? 'active' : ''
+      }`}
+      onClick={() => {
+        setShowSelectionMenu((value) => !value)
+        setShowManageMenu(false)
+      }}
+    >
+      Seleksi
+
+      <ChevronDownIcon />
+    </button>
+
+
+    {showSelectionMenu && (
+  <div className="superadmin-manage-dropdown">
+
+    <button
+      type="button"
+      className="superadmin-manage-item"
+      onClick={() => {
+        setShowSelectionMenu(false)
+        navigate('/superadmin/daftar-mapres')
+      }}
+    >
+      <StudentIcon />
+
+      <div>
+        <strong>Daftar Mapres</strong>
+        <span>Verifikasi dan seleksi Tahap 1</span>
+      </div>
+    </button>
+
+
+    <button
+      type="button"
+      className="superadmin-manage-item"
+      onClick={() => {
+        setShowSelectionMenu(false)
+        navigate('/superadmin/daftar-mapres/ranking')
+      }}
+    >
+      <ContentIcon />
+
+      <div>
+        <strong>Peringkat Tahap 1</strong>
+        <span>Lihat peringkat mahasiswa</span>
+      </div>
+    </button>
+
+
+    <button
+      type="button"
+      className="superadmin-manage-item"
+      onClick={() => {
+        setShowSelectionMenu(false)
+        navigate('/superadmin/pradita-value')
+      }}
+    >
+      <UsersIcon />
+
+      <div>
+        <strong>Pradita Value</strong>
+        <span>Penilaian finalis Tahap 2</span>
+      </div>
+    </button>
+
+
+    <button
+      type="button"
+      className="superadmin-manage-item"
+      onClick={() => {
+        setShowSelectionMenu(false)
+        navigate('/superadmin/hasil-seleksi')
+      }}
+    >
+      <ContentIcon />
+
+      <div>
+        <strong>Hasil Seleksi</strong>
+        <span>Peringkat dan hasil akhir</span>
+      </div>
+    </button>
+
+  </div>
+)}
+
+  </div>
+
+
+  {/* KELOLA */}
+
+  <div className="superadmin-nav-dropdown-wrapper">
+
+    <button
+      type="button"
+      className={`superadmin-nav-link superadmin-manage-trigger ${
+        isManageActive ? 'active' : ''
+      }`}
+      onClick={() => {
+        setShowManageMenu((value) => !value)
+        setShowSelectionMenu(false)
+      }}
+    >
+      Kelola
+
+      <ChevronDownIcon />
+    </button>
+
+
+    {showManageMenu && (
+      <div className="superadmin-manage-dropdown">
+
         <NavLink
-          to="/superadmin/dashboard"
-          className={({ isActive }) =>
-            isActive
-              ? 'superadmin-nav-link active'
-              : 'superadmin-nav-link'
-          }
+          to="/superadmin/kelola-pengguna"
+          className="superadmin-manage-item"
+          onClick={() => setShowManageMenu(false)}
         >
-          Dashboard
+          <UsersIcon />
+
+          <div>
+            <strong>
+              Kelola Pengguna
+            </strong>
+
+            <span>
+              Admin dan akun pengguna
+            </span>
+          </div>
         </NavLink>
 
 
-        <button
-          type="button"
-          className={`superadmin-nav-link superadmin-manage-trigger ${
-            isManageActive ? 'active' : ''
-          }`}
-          onClick={() => setShowManageMenu((value) => !value)}
+        <NavLink
+          to="/superadmin/kelola-mahasiswa"
+          className="superadmin-manage-item"
+          onClick={() => setShowManageMenu(false)}
         >
-          Kelola
+          <StudentIcon />
 
-          <ChevronDownIcon />
-        </button>
+          <div>
+            <strong>
+              Kelola Mahasiswa
+            </strong>
 
-
-        {showManageMenu && (
-          <div className="superadmin-manage-dropdown">
-
-            <NavLink
-                to="/superadmin/kelola-pengguna"
-                className="superadmin-manage-item"
-                onClick={() => setShowManageMenu(false)}
-                >
-                <UsersIcon />
-
-                <div>
-                    <strong>
-                    Kelola Pengguna
-                    </strong>
-
-                    <span>
-                    Admin dan akun pengguna
-                    </span>
-                </div>
-                </NavLink>
-
-
-            <NavLink
-                to="/superadmin/kelola-mahasiswa"
-                className="superadmin-manage-item"
-                onClick={() => setShowManageMenu(false)}
-                >
-                <StudentIcon />
-
-                <div>
-                    <strong>
-                    Kelola Mahasiswa
-                    </strong>
-
-                    <span>
-                    Data mahasiswa SIPRESTASI
-                    </span>
-                </div>
-                </NavLink>
-
-
-            <NavLink
-                to="/superadmin/kelola-konten"
-                className="superadmin-manage-item"
-                onClick={() => setShowManageMenu(false)}
-                >
-                <ContentIcon />
-
-                <div>
-                    <strong>
-                    Kelola Konten
-                    </strong>
-
-                    <span>
-                    Informasi dan konten sistem
-                    </span>
-                </div>
-                </NavLink>
-
+            <span>
+              Data mahasiswa SIPRESTASI
+            </span>
           </div>
-        )}
+        </NavLink>
 
-      </nav>
+
+        <NavLink
+          to="/superadmin/kelola-konten"
+          className="superadmin-manage-item"
+          onClick={() => setShowManageMenu(false)}
+        >
+          <ContentIcon />
+
+          <div>
+            <strong>
+              Kelola Konten
+            </strong>
+
+            <span>
+              Informasi dan konten sistem
+            </span>
+          </div>
+        </NavLink>
+
+      </div>
+    )}
+
+  </div>
+
+</nav>
 
 
       {/* RIGHT */}

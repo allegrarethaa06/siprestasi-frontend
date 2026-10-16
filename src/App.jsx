@@ -16,6 +16,22 @@ import SuperadminProfile from './pages/SuperadminProfile'
 import ForgotPassword from './pages/ForgotPassword'
 
 
+/* =========================
+   ADMIN FEATURES
+========================= */
+
+import DaftarMapres from './pages/DaftarMapres'
+import PeringkatTahap1 from './pages/PeringkatTahap1'
+import VerifikasiPengajuan from './pages/VerifikasiPengajuan'
+import LihatDetail from './pages/LihatDetail'
+import TinjauRevisi from './pages/TinjauRevisi'
+
+import PraditaValue from './pages/PraditaValue'
+import DetailPraditaValue from './pages/DetailPraditaValue'
+
+import HasilSeleksi from './pages/HasilSeleksi'
+
+
 function isSuperadminAuthenticated() {
   return (
     localStorage.getItem(
@@ -61,13 +77,17 @@ function App() {
 
       <Routes>
 
+        {/* HOME */}
+
         <Route
           path="/"
           element={<HomeRedirect />}
         />
 
 
-        {/* LOGIN */}
+        {/* =========================
+            AUTH
+        ========================= */}
 
         <Route
           path="/superadmin/login"
@@ -79,7 +99,10 @@ function App() {
           element={<ForgotPassword />}
         />
 
-        {/* DASHBOARD */}
+
+        {/* =========================
+            DASHBOARD
+        ========================= */}
 
         <Route
           path="/superadmin/dashboard"
@@ -91,7 +114,101 @@ function App() {
         />
 
 
-        {/* KELOLA PENGGUNA */}
+        {/* =========================
+            SELEKSI - DAFTAR MAPRES
+        ========================= */}
+
+        <Route
+          path="/superadmin/daftar-mapres"
+          element={
+            <ProtectedSuperadminRoute>
+              <DaftarMapres />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        <Route
+          path="/superadmin/daftar-mapres/ranking"
+          element={
+            <ProtectedSuperadminRoute>
+              <PeringkatTahap1 />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        <Route
+          path="/superadmin/daftar-mapres/:nim/verifikasi"
+          element={
+            <ProtectedSuperadminRoute>
+              <VerifikasiPengajuan />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        <Route
+          path="/superadmin/daftar-mapres/:nim/detail"
+          element={
+            <ProtectedSuperadminRoute>
+              <LihatDetail />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        <Route
+          path="/superadmin/daftar-mapres/:nim/revisi"
+          element={
+            <ProtectedSuperadminRoute>
+              <TinjauRevisi />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        {/* =========================
+            SELEKSI - PRADITA VALUE
+        ========================= */}
+
+        <Route
+          path="/superadmin/pradita-value"
+          element={
+            <ProtectedSuperadminRoute>
+              <PraditaValue />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        <Route
+          path="/superadmin/pradita-value/:nim"
+          element={
+            <ProtectedSuperadminRoute>
+              <DetailPraditaValue />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        {/* =========================
+            SELEKSI - HASIL
+        ========================= */}
+
+        <Route
+          path="/superadmin/hasil-seleksi"
+          element={
+            <ProtectedSuperadminRoute>
+              <HasilSeleksi />
+            </ProtectedSuperadminRoute>
+          }
+        />
+
+
+        {/* =========================
+            KELOLA SISTEM
+        ========================= */}
 
         <Route
           path="/superadmin/kelola-pengguna"
@@ -103,8 +220,6 @@ function App() {
         />
 
 
-        {/* KELOLA MAHASISWA */}
-
         <Route
           path="/superadmin/kelola-mahasiswa"
           element={
@@ -114,8 +229,6 @@ function App() {
           }
         />
 
-
-        {/* KELOLA KONTEN */}
 
         <Route
           path="/superadmin/kelola-konten"
@@ -127,7 +240,9 @@ function App() {
         />
 
 
-        {/* PROFILE */}
+        {/* =========================
+            PROFILE
+        ========================= */}
 
         <Route
           path="/superadmin/profile"
@@ -139,7 +254,9 @@ function App() {
         />
 
 
-        {/* FALLBACK */}
+        {/* =========================
+            FALLBACK
+        ========================= */}
 
         <Route
           path="*"
