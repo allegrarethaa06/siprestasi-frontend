@@ -1045,7 +1045,7 @@ function PendaftaranTahap1() {
                     }
                     onChange={handleChange}
                   >
-                    <option value="">
+                    <option value="" disabled hidden>
                       Pilih tingkat prestasi
                     </option>
 
@@ -1220,28 +1220,42 @@ function PendaftaranTahap1() {
                   </label>
 
                   <select
-                    name="tingkatOrganisasi"
-                    value={
-                      formData.tingkatOrganisasi
-                    }
-                    onChange={handleChange}
-                  >
-                    <option value="">
-                      Pilih tingkat organisasi
-                    </option>
+  name="tingkatOrganisasi"
+  value={formData.tingkatOrganisasi}
+  onChange={handleChange}
+>
+<option value="" disabled hidden>
+    Pilih tingkat organisasi
+  </option>
 
-                    <option value="internasional">
-                      Internasional
-                    </option>
+  <option value="internasional">
+    Internasional
+  </option>
 
-                    <option value="nasional">
-                      Nasional
-                    </option>
+  <option value="nasional">
+    Nasional
+  </option>
 
-                    <option value="lokal">
-                      Lokal / Kampus
-                    </option>
-                  </select>
+  <option value="provinsi">
+    Provinsi
+  </option>
+
+  <option value="kabupaten-kota">
+    Kabupaten / Kota
+  </option>
+
+  <option value="kecamatan">
+    Kecamatan
+  </option>
+
+  <option value="kampus">
+    Kampus
+  </option>
+
+  <option value="sekolah">
+    Sekolah
+  </option>
+</select>
                 </div>
 
                 <div className="registration-field">
@@ -1251,28 +1265,38 @@ function PendaftaranTahap1() {
                   </label>
 
                   <select
-                    name="jabatan"
-                    value={
-                      formData.jabatan
-                    }
-                    onChange={handleChange}
-                  >
-                    <option value="">
-                      Pilih jabatan
-                    </option>
+  name="jabatan"
+  value={formData.jabatan}
+  onChange={handleChange}
+>
+ <option value="" disabled hidden>
+  Pilih jabatan
+</option>
 
-                    <option value="ketua">
-                      Ketua
-                    </option>
+  <option value="ketua">
+    Ketua
+  </option>
 
-                    <option value="koordinator">
-                      Koordinator Divisi
-                    </option>
+  <option value="wakil-ketua">
+    Wakil Ketua
+  </option>
 
-                    <option value="anggota">
-                      Anggota
-                    </option>
-                  </select>
+  <option value="sekretaris">
+    Sekretaris
+  </option>
+
+  <option value="bendahara">
+    Bendahara
+  </option>
+
+  <option value="koordinator-divisi">
+    Koordinator Divisi
+  </option>
+
+  <option value="anggota">
+    Anggota
+  </option>
+</select>
                 </div>
 
                 <div className="registration-field">
@@ -1400,7 +1424,7 @@ function PendaftaranTahap1() {
                     }
                     onChange={handleChange}
                   >
-                    <option value="">
+                    <option value="" disabled hidden>
                       Pilih bahasa asing
                     </option>
 
