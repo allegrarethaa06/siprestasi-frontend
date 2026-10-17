@@ -437,6 +437,599 @@
   font-size: 11px;
 }
 
+/* =========================================================
+   COHORT WINNER CAROUSEL
+========================================================= */
+
+.final-cohort-carousel {
+  position: relative;
+
+  width: 100%;
+  max-width: 1080px;
+  height: 430px;
+
+  margin:
+    34px
+    auto
+    0;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.final-cohort-card {
+  font-family: inherit;
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+/* ACTIVE */
+
+.final-cohort-card-active {
+  position: absolute;
+  z-index: 3;
+
+  top: 50%;
+  left: 50%;
+
+  width: 500px;
+  min-height: 382px;
+
+  padding:
+    25px
+    28px
+    26px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.24);
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #6d1735 0%,
+      #7e1f4e 34%,
+      #a9587e 68%,
+      #d8a6bc 100%
+    );
+
+  box-shadow:
+    0 24px 50px
+    rgba(75, 28, 50, 0.18);
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+}
+
+
+/* SIDE */
+
+.final-cohort-card-side {
+  position: absolute;
+  z-index: 1;
+
+  top: 50%;
+
+  width: 380px;
+  height: 310px;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 24px;
+
+  color: #5c4c54;
+
+  border:
+    1px solid #eadde3;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fbf6f8 0%,
+      #f1dce6 100%
+    );
+
+  box-shadow:
+    0 14px 30px
+    rgba(62, 36, 48, 0.08);
+
+  cursor: pointer;
+
+  opacity: 0.88;
+}
+
+.final-cohort-card-left {
+  left: 18%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(0.92);
+}
+
+.final-cohort-card-right {
+  left: 82%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(0.92);
+}
+
+.final-cohort-card-left:hover {
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(0.96);
+}
+
+.final-cohort-card-right:hover {
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(0.96);
+}
+
+
+/* =========================================================
+   SIDE CONTENT
+========================================================= */
+
+.final-cohort-side-label {
+  color: #9a4d72;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.09em;
+}
+
+.final-cohort-card-side
+> strong {
+  color: #7e1f4e;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.final-cohort-card-side
+> small {
+  margin-top: 4px;
+
+  color: #8d7f86;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+.final-cohort-preview-avatars {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: 13px;
+}
+
+.final-cohort-preview-avatar {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-left: -9px;
+
+  color: #7e1f4e;
+
+  border:
+    3px solid #f8eef3;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.final-cohort-preview-avatar:first-child {
+  margin-left: 0;
+}
+
+
+/* =========================================================
+   ACTIVE HEADING
+========================================================= */
+
+.final-cohort-card-heading {
+  text-align: center;
+}
+
+.final-cohort-card-heading
+> span {
+  display: block;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.11em;
+}
+
+.final-cohort-card-heading
+> strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #ffffff;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+.final-cohort-card-heading
+> p {
+  margin:
+    6px
+    0
+    0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   PODIUM
+========================================================= */
+
+.final-cohort-podium {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  align-items: end;
+
+  gap: 13px;
+
+  margin-top: 28px;
+}
+
+
+/* =========================================================
+   WINNER
+========================================================= */
+
+.final-cohort-winner {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.final-cohort-winner-1 {
+  transform:
+    translateY(-15px);
+}
+
+
+.final-cohort-winner-label {
+  margin-bottom: 8px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.74
+    );
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+}
+
+
+.final-cohort-winner-avatar {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  margin-bottom: 10px;
+
+  color: #7e1f4e;
+
+  border:
+    2px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
+
+  border-radius: 50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.final-cohort-winner-1
+.final-cohort-winner-avatar {
+  width: 74px;
+  height: 74px;
+
+  border-width: 3px;
+
+  font-size: 20px;
+}
+
+.final-cohort-winner-avatar
+img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+.final-cohort-winner-name {
+  width: 100%;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.final-cohort-winner-1
+.final-cohort-winner-name {
+  font-size: 15px;
+}
+
+
+.final-cohort-winner-nim {
+  width: 100%;
+
+  overflow: hidden;
+
+  margin-top: 3px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.66
+    );
+
+  font-size: 9px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+.final-cohort-winner-score {
+  margin-top: 10px;
+
+  color: #ffffff;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.final-cohort-winner-1
+.final-cohort-winner-score {
+  font-size: 24px;
+}
+
+
+.final-cohort-winner-score-label {
+  margin-top: 4px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.62
+    );
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.final-cohort-controls {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 2px;
+}
+
+.final-cohort-controls
+> button {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: #7e1f4e;
+
+  border:
+    1px solid #e0cbd5;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.final-cohort-controls
+> button:hover {
+  border-color: #c596ac;
+
+  background: #fbf4f7;
+}
+
+
+.final-cohort-dots {
+  min-height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    0
+    11px;
+
+  border-radius: 999px;
+
+  background: #f3edef;
+}
+
+.final-cohort-dots
+button {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: #cdbbc4;
+
+  cursor: pointer;
+
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
+}
+
+.final-cohort-dots
+button.is-active {
+  width: 20px;
+
+  background: #7e1f4e;
+}
 
 /* =========================================================
    PERSONAL RESULT
@@ -1595,6 +2188,25 @@
 ========================================================= */
 
 @media (max-width: 1000px) {
+    .final-cohort-carousel {
+    height: 410px;
+  }
+
+  .final-cohort-card-active {
+    width: 470px;
+  }
+
+  .final-cohort-card-side {
+    width: 320px;
+  }
+
+  .final-cohort-card-left {
+    left: 14%;
+  }
+
+  .final-cohort-card-right {
+    left: 86%;
+  }
 
   .finalis-dashboard-container {
     width:
@@ -1670,6 +2282,76 @@
 
 @media (max-width: 700px) {
 
+  .final-cohort-carousel {
+    height: auto;
+
+    margin-top: 24px;
+
+    overflow: visible;
+  }
+
+  .final-cohort-card-side {
+    display: none;
+  }
+
+  .final-cohort-card-active {
+    position: relative;
+
+    top: auto;
+    left: auto;
+
+    width: 100%;
+    min-height: 0;
+
+    padding:
+      24px
+      20px;
+
+    border-radius: 24px;
+
+    transform: none;
+  }
+
+  .final-cohort-podium {
+    grid-template-columns: 1fr;
+
+    gap: 22px;
+
+    margin-top: 25px;
+  }
+
+  .final-cohort-winner {
+    padding:
+      15px
+      0;
+
+    border-top:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.18
+      );
+  }
+
+  .final-cohort-winner:first-child {
+    border-top: 0;
+  }
+
+  .final-cohort-winner-1 {
+    order: -1;
+
+    transform: none;
+  }
+
+  .final-cohort-winner-name {
+    white-space: normal;
+  }
+
+  .final-cohort-controls {
+    margin-top: 16px;
+  }
   .finalis-dashboard-page {
     padding-bottom: 36px;
   }
