@@ -1,0 +1,235 @@
+.action-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.action-modal {
+  width: 100%;
+  max-width: 460px;
+  padding: 28px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #EAECF2;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.action-modal-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 14px;
+}
+
+.action-modal-icon.approve {
+  background: #EAF8F1;
+  color: #168A5B;
+}
+
+.action-modal-icon.revision,
+.action-modal-icon.revision-again {
+  background: #FFF4E5;
+  color: #C26A0B;
+}
+
+.action-modal h2 {
+  margin: 0 0 8px;
+  color: #1A1D29;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.action-modal-description {
+  margin: 0 0 18px;
+  color: #6E7485;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.revision-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.revision-input-group label {
+  color: #343A4A;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.revision-input-group textarea {
+  min-height: 110px;
+  padding: 12px 14px;
+  resize: vertical;
+  border: 1px solid #E2E5EE;
+  border-radius: 12px;
+  outline: none;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 13.5px;
+  color: #1A1D29;
+  line-height: 1.5;
+  background: #F9FAFC;
+}
+
+.revision-input-group textarea:focus {
+  border-color: #7C0E44;
+  background: #FFFFFF;
+}
+
+.revision-input-group > span {
+  color: #8A90A2;
+  font-size: 12px;
+}
+
+.approve-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  background: #FBF4F7;
+  border: 1px solid #EFE0E7;
+}
+
+.approve-info > span {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #F4E4EC;
+  color: #7C0E44;
+}
+
+.approve-info p {
+  margin: 0;
+  color: #4E5568;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.action-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.modal-cancel,
+.modal-confirm {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.modal-cancel {
+  border: 1px solid #E2E5EE;
+  background: #ffffff;
+  color: #4E5568;
+}
+
+.modal-cancel:hover {
+  background: #F4F5F9;
+}
+
+.modal-confirm.approve {
+  border: 1px solid #7C0E44;
+  background: #7C0E44;
+  color: #ffffff;
+}
+
+.modal-confirm.approve:hover {
+  background: #610A34;
+}
+
+.modal-confirm.revision {
+  border: 1px solid #C26A0B;
+  background: #C26A0B;
+  color: #ffffff;
+}
+
+.modal-confirm.revision:hover {
+  background: #A35707;
+}
+
+.modal-confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.revision-cat-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.revision-cat-label {
+  color: #343A4A;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.revision-cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.revision-cat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #F9FAFC;
+  border: 1px solid #E2E5EE;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13.5px;
+  color: #343A4A;
+  user-select: none;
+}
+
+.revision-cat-item:hover {
+  background: #FFF8F9;
+  border-color: #E6CCD7;
+}
+
+.revision-cat-item.selected {
+  background: #FDF5F8;
+  border-color: #7C0E44;
+  color: #7C0E44;
+  font-weight: 600;
+}
+
+.revision-cat-item input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: #7C0E44;
+  cursor: pointer;
+}
+
+.revision-cat-error {
+  color: #D32F2F;
+  font-size: 12px;
+  font-weight: 600;
+}

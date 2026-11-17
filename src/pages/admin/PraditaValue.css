@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap');
+
+.pv-locked-notice {
+  background: #FFFFFF;
+  border: 1px solid #EBD0DC;
+  border-radius: 18px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.025);
+}
+
+.pv-locked-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 680px;
+}
+
+.pv-locked-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #F9EEF3;
+  color: #7C0E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pv-locked-left strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1D29;
+  margin-bottom: 3px;
+}
+
+.pv-locked-left p {
+  margin: 0;
+  font-size: 13px;
+  color: #6E7485;
+  line-height: 1.5;
+}
+
+.pv-table-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pv-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.pv-card-head h2 {
+  margin: 0 0 3px;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #1A1D29;
+}
+
+.pv-card-head p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #6E7485;
+}
+
+.pv-filter-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: #F4F5F9;
+  border: 1px solid #EAECF2;
+  border-radius: 11px;
+}
+
+.pv-pill {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6E7485;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.pv-pill:hover {
+  color: #1A1D29;
+}
+
+.pv-pill.active {
+  background: #FFFFFF;
+  color: #7C0E44;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(17, 24, 39, 0.06);
+}
+
+.pv-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: #F4F5F9;
+  color: #4E5568;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.pv-rank-badge.rank-1 {
+  background: #FFF4D6;
+  border: 1px solid #F5DA91;
+  color: #9E6700;
+}
+
+.pv-rank-badge.rank-2 {
+  background: #EEF1F6;
+  border: 1px solid #D5DCE8;
+  color: #495466;
+}
+
+.pv-rank-badge.rank-3 {
+  background: #FCECE3;
+  border: 1px solid #EFCAB7;
+  color: #9A4D29;
+}
+
+.pv-progress-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pv-progress-pill.empty {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.pv-progress-pill.partial {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.pv-progress-pill.complete {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.pv-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 18px;
+  border-radius: 14px;
+  background: #FBF4F7;
+  border: 1px solid #EFE0E7;
+}
+
+.pv-info-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #F4E3EB;
+  color: #7C0E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pv-info-banner strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1A1D29;
+  margin-bottom: 3px;
+}
+
+.pv-info-banner p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #5C6274;
+  line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .pv-filter-pills {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .pv-pill {
+    flex: 1;
+    text-align: center;
+  }
+}

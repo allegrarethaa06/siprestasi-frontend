@@ -1,0 +1,421 @@
+.period-bar-embedded {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 0.5px solid #F3ECEF;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.period-bar-standalone {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border: 0.5px solid #F2E9EC;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(109, 23, 53, 0.04);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.period-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.period-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 360px;
+}
+
+.period-bar-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: #F8EFF2;
+  color: #6D1735;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.period-bar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.period-bar-title-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.period-bar-title-line strong {
+  color: #1D1D1D;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.period-mini-badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.period-mini-badge.open {
+  background: #F1EDEE;
+  color: #645B5E;
+}
+
+.period-mini-badge.closed {
+  background: #6D1735;
+  color: #ffffff;
+}
+
+.period-bar-info > span {
+  color: #6F6F6F;
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+.period-bar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.period-action-btn {
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.period-action-btn.outline {
+  border: 0.5px solid #E5DCE0;
+  background: #ffffff;
+  color: #383236;
+}
+
+.period-action-btn.outline:hover {
+  background: #FAF6F8;
+  border-color: #D2C3C9;
+}
+
+.period-action-btn.primary {
+  border: 0.5px solid #6D1735;
+  background: #6D1735;
+  color: #ffffff;
+}
+
+.period-action-btn.primary:hover {
+  background: #59112A;
+}
+
+.period-action-btn.soft {
+  border: 0.5px solid #E1C8D0;
+  background: #F8EEF2;
+  color: #6D1735;
+}
+
+.period-action-btn.soft:hover {
+  background: #F2E2E8;
+}
+
+.period-inline-toast {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.period-inline-toast.success {
+  background: #EAF8F2;
+  color: #287A5A;
+}
+
+.period-inline-toast.error {
+  background: #FDF0F0;
+  color: #A62929;
+}
+
+.period-inline-toast button {
+  border: none;
+  background: transparent;
+  color: currentColor;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+/* =========================
+   MODAL (MATCHES ActionModal.css)
+========================= */
+
+.period-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(28, 19, 22, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.period-action-modal {
+  width: 100%;
+  max-width: 450px;
+  padding: 28px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(36, 22, 27, 0.18);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.period-action-modal.wide {
+  max-width: 500px;
+}
+
+.period-modal-circle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.period-modal-circle.burgundy {
+  background: #F8EFF2;
+  color: #6D1735;
+}
+
+.period-modal-circle.approve {
+  background: #e7f8f1;
+  color: #168a68;
+}
+
+.period-modal-circle.amber {
+  background: #fff3df;
+  color: #a7620e;
+}
+
+.period-action-modal h2 {
+  margin: 0 0 7px;
+  color: #241e20;
+  font-size: 20px;
+}
+
+.period-modal-desc {
+  margin: 0 0 18px;
+  color: #766b6f;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.period-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 4px;
+  padding: 11px;
+  border-radius: 7px;
+  background: #f8f1f4;
+}
+
+.period-info-box > span {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #6d1735;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.period-info-box p {
+  margin: 0;
+  color: #5d5155;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.period-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.period-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.period-field label {
+  color: #42393c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.period-field input {
+  padding: 9px 11px;
+  border: 1px solid #ded2d6;
+  border-radius: 7px;
+  outline: none;
+  font-family: inherit;
+  font-size: 11.5px;
+  color: #241e20;
+}
+
+.period-field input:focus {
+  border-color: #6d1735;
+}
+
+.period-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.period-modal-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.period-btn-cancel {
+  padding: 9px 16px;
+  border: 1px solid #dfd5d8;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #4f4649;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.period-btn-confirm {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 7px;
+  background: #6d1735;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.period-btn-confirm:disabled,
+.period-btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.period-finalists-box {
+  border: 1px solid #eee4e8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.period-finalists-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: #f8eff2;
+  color: #6d1735;
+  font-size: 10.5px;
+}
+
+.period-finalists-scroll {
+  max-height: 210px;
+  overflow-y: auto;
+}
+
+.period-finalist-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-top: 1px solid #f4ecef;
+}
+
+.period-finalist-meta strong {
+  display: block;
+  color: #241e20;
+  font-size: 11px;
+}
+
+.period-finalist-meta span {
+  color: #766b6f;
+  font-size: 9.5px;
+}
+
+.period-finalist-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.period-score-pill {
+  color: #6d1735;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.period-mail-pill {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #eaf8f2;
+  color: #287a5a;
+  font-size: 8.5px;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .period-bar-buttons {
+    width: 100%;
+  }
+
+  .period-action-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .period-field-grid {
+    grid-template-columns: 1fr;
+  }
+}

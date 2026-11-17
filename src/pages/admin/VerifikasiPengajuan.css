@@ -1,0 +1,543 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap');
+
+.verif-top-bar {
+  margin-bottom: 14px;
+}
+
+.verif-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #E2E5EE;
+  background: #FFFFFF;
+  color: #4E5568;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.verif-back-btn:hover {
+  border-color: #D2B8C5;
+  color: #7C0E44;
+  background: #FBF6F8;
+}
+
+/* =========================================================
+   KARTU IDENTITAS MAHASISWA
+========================================================= */
+.verif-student-banner {
+  background: #FFFFFF;
+  border: 1px solid #EAECF2;
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 18px rgba(17, 24, 39, 0.025);
+}
+
+.verif-student-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.verif-avatar-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #F9EEF3;
+  border: 1px solid #EBD0DC;
+  color: #7C0E44;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verif-student-left h2 {
+  margin: 0 0 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1A1D29;
+}
+
+.verif-student-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #6E7485;
+}
+
+.verif-student-meta strong {
+  color: #7C0E44;
+  font-weight: 700;
+}
+
+/* =========================================================
+   SECTION PANEL CARD
+========================================================= */
+.verif-panel-card {
+  background: #FFFFFF;
+  border: 1px solid #EAECF2;
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 18px rgba(17, 24, 39, 0.025);
+}
+
+.verif-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #F0F2F7;
+}
+
+.verif-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verif-panel-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #F9EEF3;
+  color: #7C0E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verif-panel-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1D29;
+}
+
+.verif-panel-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #F4F5F9;
+  color: #6E7485;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   FIELD GRID & BOXES
+========================================================= */
+.verif-info-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.verif-info-grid.cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.verif-info-grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.verif-field-box {
+  background: #F9FAFC;
+  border: 1px solid #EAECF2;
+  border-radius: 13px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.verif-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6E7485;
+}
+
+.verif-field-val {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.verif-field-val strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1D29;
+}
+
+.verif-highlight-val {
+  color: #7C0E44;
+}
+
+.verif-auto-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #F4E8EE;
+  color: #7C0E44;
+}
+
+/* =========================================================
+   DOCUMENT PREVIEW ROW
+========================================================= */
+.verif-doc-row {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #FBF9FA;
+  border: 1px solid #ECE2E7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.verif-doc-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verif-doc-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: #F9EEF3;
+  color: #7C0E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verif-doc-left strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1A1D29;
+  margin-bottom: 2px;
+}
+
+.verif-doc-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #6E7485;
+}
+
+.verif-doc-ready {
+  color: #168A5B;
+  font-weight: 700;
+}
+
+.verif-view-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #F9EEF3;
+  border: 1px solid #EBD0DC;
+  color: #7C0E44;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  flex-shrink: 0;
+}
+
+.verif-view-doc-btn:hover {
+  background: #7C0E44;
+  border-color: #7C0E44;
+  color: #FFFFFF;
+}
+
+.verif-empty-box {
+  padding: 16px 18px;
+  border-radius: 13px;
+  background: #F9FAFC;
+  border: 1px dashed #DDE1EC;
+}
+
+.verif-empty-box strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #343A4A;
+  margin-bottom: 3px;
+}
+
+.verif-empty-box p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #7B8191;
+}
+
+/* =========================================================
+   REVISION NOTE BOX
+========================================================= */
+.verif-revision-note-box {
+  padding: 16px 18px;
+  border-radius: 13px;
+  background: #FFF9F2;
+  border: 1px solid #F5DEC0;
+}
+
+.verif-revision-note-copy span {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #B46000;
+  margin-bottom: 4px;
+}
+
+.verif-revision-note-copy p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #343A4A;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   SUMMARY ROW & SCORE CARD
+========================================================= */
+.verif-summary-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.verif-checks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.verif-check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #F9FAFC;
+  border: 1px solid #EAECF2;
+}
+
+.verif-check-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #EAF8F1;
+  color: #168A5B;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verif-check-item.is-neutral .verif-check-dot {
+  background: #EEF0F6;
+  color: #6E7485;
+}
+
+.verif-check-item p {
+  margin: 0;
+  font-size: 13px;
+  color: #4E5568;
+}
+
+.verif-check-item strong {
+  color: #1A1D29;
+  font-weight: 700;
+}
+
+.verif-score-card {
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: #FBF4F7;
+  border: 1px solid #EBD3DE;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.verif-score-card span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #7C0E44;
+}
+
+.verif-score-card strong {
+  font-size: 32px;
+  font-weight: 700;
+  color: #7C0E44;
+  line-height: 1.15;
+  margin: 3px 0;
+}
+
+.verif-score-card small {
+  font-size: 12px;
+  color: #6E7485;
+}
+
+/* =========================================================
+   DECISION BAR
+========================================================= */
+.verif-decision-bar {
+  background: #FFFFFF;
+  border: 1px solid #EAECF2;
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: 0 4px 18px rgba(17, 24, 39, 0.025);
+}
+
+.verif-decision-bar h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1D29;
+}
+
+.verif-decision-bar p {
+  margin: 0;
+  font-size: 13px;
+  color: #6E7485;
+}
+
+.verif-decision-btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.verif-btn-revise,
+.verif-btn-approve {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 11px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.verif-btn-revise {
+  background: #FFF4E5;
+  border: 1px solid #F5D7B0;
+  color: #B8610A;
+}
+
+.verif-btn-revise:hover {
+  background: #C26A0B;
+  border-color: #C26A0B;
+  color: #FFFFFF;
+}
+
+.verif-btn-approve {
+  background: #F9EEF3;
+  border: 1px solid #E8C7D6;
+  color: #7C0E44;
+}
+
+.verif-btn-approve:hover {
+  background: #7C0E44;
+  border-color: #7C0E44;
+  color: #FFFFFF;
+}
+
+.verif-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: #EAF8F1;
+  border: 1px solid #C2EBD8;
+  color: #168A5B;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 960px) {
+  .verif-info-grid.cols-4,
+  .verif-info-grid.cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .verif-summary-row {
+    grid-template-columns: 1fr;
+  }
+
+  .verif-score-card {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .verif-student-banner,
+  .verif-decision-bar,
+  .verif-doc-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .verif-info-grid.cols-4,
+  .verif-info-grid.cols-3,
+  .verif-checks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .verif-decision-btns {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .verif-btn-revise,
+  .verif-btn-approve {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,1382 @@
+/* ==========================================================
+   SIPRESTASI ADMIN DASHBOARD — FINEXY INSPIRED UI
+   Font: Titillium Web
+   Brand Primary: #7C0E44 (Burgundy)
+========================================================== */
+
+.finexy-admin-shell {
+  min-height: 100vh;
+  background: #F4F5F9;
+  color: #111827;
+  font-family: 'Titillium Web', sans-serif;
+  padding: 18px 22px 36px;
+  box-sizing: border-box;
+}
+
+.finexy-admin-shell *,
+.finexy-admin-shell button,
+.finexy-admin-shell input,
+.finexy-admin-shell select {
+  font-family: 'Titillium Web', sans-serif;
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   TOPBAR
+========================================================== */
+
+.finexy-topbar {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.03);
+  border: 1px solid #ECEEF4;
+  margin-bottom: 18px;
+}
+
+.finexy-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.finexy-brand-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.finexy-brand-divider {
+  width: 1px;
+  height: 22px;
+  background: #E5E7EB;
+}
+
+.finexy-brand-tag {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #7C0E44;
+  background: #FDF2F7;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.finexy-topbar-search {
+  flex: 1;
+  max-width: 420px;
+  background: #F6F7FA;
+  border: 1px solid #ECEEF3;
+  border-radius: 999px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.finexy-topbar-search:focus-within {
+  background: #ffffff;
+  border-color: #7C0E44;
+}
+
+.finexy-search-icon {
+  color: #6B7280;
+  flex-shrink: 0;
+}
+
+.finexy-topbar-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  color: #111827;
+}
+
+.finexy-topbar-search input::placeholder {
+  color: #9CA3AF;
+}
+
+.finexy-search-kbd {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9CA3AF;
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.finexy-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.finexy-notif-wrap {
+  position: relative;
+}
+
+.finexy-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ECEEF3;
+  background: #F7F8FA;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.finexy-icon-circle:hover {
+  background: #FDF2F7;
+  color: #7C0E44;
+  border-color: #F2D5E3;
+}
+
+.finexy-notif-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7C0E44;
+  border: 2px solid #ffffff;
+}
+
+.finexy-notif-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 310px;
+  background: #ffffff;
+  border: 1px solid #ECEEF3;
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+  padding: 14px;
+  z-index: 90;
+}
+
+.finexy-notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.finexy-notif-head strong {
+  font-size: 13.5px;
+  color: #111827;
+}
+
+.finexy-notif-head span {
+  font-size: 11.5px;
+  color: #7C0E44;
+  font-weight: 600;
+}
+
+.finexy-notif-item {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #FDF7FA;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.finexy-notif-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7C0E44;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.finexy-notif-item strong {
+  display: block;
+  font-size: 12.5px;
+  color: #111827;
+}
+
+.finexy-notif-item p {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: #6B7280;
+}
+
+.finexy-notif-empty {
+  margin: 8px 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: #6B7280;
+}
+
+.finexy-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px 5px 6px;
+  border-radius: 999px;
+  border: 1px solid #ECEEF3;
+  background: #F7F8FA;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.finexy-profile-pill:hover {
+  background: #F1F3F7;
+}
+
+.finexy-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #7C0E44;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finexy-profile-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.15;
+}
+
+.finexy-profile-info strong {
+  font-size: 12.5px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.finexy-profile-info span {
+  font-size: 11px;
+  color: #6B7280;
+}
+
+.finexy-profile-chevron {
+  color: #6B7280;
+}
+
+/* ==========================================================
+   BODY LAYOUT (SIDEBAR KIRI + MAIN)
+========================================================== */
+
+.finexy-body-grid {
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* ==========================================================
+   SIDEBAR KIRI (FINEXY STYLE)
+========================================================== */
+
+.finexy-sidebar {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #ECEEF4;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-height: calc(100vh - 115px);
+  position: sticky;
+  top: 18px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.03);
+}
+
+.finexy-sidebar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.finexy-sidebar-bottom {
+  margin-top: auto;
+}
+
+.finexy-sidebar-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #9CA3AF;
+  padding: 0 12px 6px;
+}
+
+.finexy-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  color: #374151;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.finexy-nav-item:hover {
+  background: #F6F7FA;
+  color: #111827;
+}
+
+.finexy-nav-item.active {
+  background: #7C0E44;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(124, 14, 68, 0.25);
+}
+
+.finexy-nav-badge {
+  margin-left: auto;
+  font-style: normal;
+  background: #7C0E44;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finexy-nav-item.active .finexy-nav-badge {
+  background: #ffffff;
+  color: #7C0E44;
+}
+
+.finexy-nav-tag {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.finexy-nav-tag.locked {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.finexy-nav-tag.open {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-logout-btn {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: none;
+  background: #F8F3F5;
+  color: #7C0E44;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.finexy-logout-btn:hover {
+  background: #F2E4EA;
+}
+
+/* ==========================================================
+   MAIN CONTENT AREA
+========================================================== */
+
+.finexy-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.finexy-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.finexy-page-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.finexy-page-header p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #6B7280;
+}
+
+.finexy-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.finexy-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  color: #1F2937;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.finexy-date-pill:hover {
+  border-color: #7C0E44;
+}
+
+.finexy-stage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #E8C7D6;
+  background: #F9EEF3;
+  color: #7C0E44;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.finexy-stage-btn.primary {
+  background: #F9EEF3;
+  color: #7C0E44;
+  border: 1px solid #E8C7D6;
+}
+
+.finexy-stage-btn.primary:hover,
+.finexy-stage-btn.reopen:hover {
+  background: #7C0E44;
+  color: #ffffff;
+  border-color: #7C0E44;
+}
+
+.finexy-stage-btn.reopen {
+  background: #F9EEF3;
+  color: #7C0E44;
+  border: 1px solid #E8C7D6;
+}
+
+.finexy-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.finexy-alert-banner.success {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.finexy-alert-banner.error {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.finexy-alert-banner button {
+  border: none;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   ROW 1: 4 STAT CARDS (FINEXY STYLE)
+========================================================== */
+
+.finexy-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.finexy-stat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #ECEEF4;
+  padding: 18px 20px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.025);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.finexy-stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.finexy-stat-top span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4B5563;
+}
+
+.finexy-stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F6F7FA;
+  border: 1px solid #ECEEF3;
+  color: #1F2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.finexy-stat-middle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.finexy-stat-middle strong {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: #111827;
+}
+
+.finexy-stat-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.finexy-stat-badge.green {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-stat-badge.amber {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.finexy-stat-badge.rose {
+  background: #FCE7F3;
+  color: #9D174D;
+}
+
+.finexy-stat-badge.neutral {
+  background: #F3F4F6;
+  color: #4B5563;
+}
+
+.finexy-stat-foot {
+  margin: 0;
+  font-size: 12px;
+  color: #6B7280;
+}
+
+/* ==========================================================
+   ROW 2: 2-COLUMN MIDDLE GRID
+========================================================== */
+
+.finexy-middle-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 16px;
+}
+
+.finexy-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #ECEEF4;
+  padding: 20px 22px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.025);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.finexy-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.finexy-panel-head h2 {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.finexy-panel-head p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #6B7280;
+}
+
+.finexy-period-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.finexy-period-chip.open {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-period-chip.closed {
+  background: #FDF2F7;
+  color: #7C0E44;
+}
+
+.finexy-chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.finexy-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.finexy-stage-box {
+  border: 1px solid #ECEEF4;
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: #FAFBFD;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finexy-stage-box.active {
+  background: #FDF7FA;
+  border-color: #EBC8D8;
+}
+
+.finexy-stage-box.done {
+  background: #F8FDF9;
+  border-color: #CBEFD6;
+}
+
+.finexy-stage-box-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.finexy-stage-step {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+}
+
+.finexy-stage-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  color: #4B5563;
+}
+
+.finexy-stage-pill.active {
+  background: #7C0E44;
+  color: #ffffff;
+}
+
+.finexy-stage-pill.done {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-stage-box strong {
+  font-size: 14px;
+  color: #111827;
+}
+
+.finexy-stage-box p {
+  margin: 0;
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.finexy-stage-bar {
+  margin-top: 6px;
+  height: 5px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  overflow: hidden;
+}
+
+.finexy-stage-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #7C0E44;
+  transition: width 0.3s ease;
+}
+
+.finexy-period-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #F1F3F7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.finexy-period-footer-copy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #4B5563;
+}
+
+.finexy-footer-icon {
+  color: #7C0E44;
+  flex-shrink: 0;
+}
+
+.finexy-link-btn {
+  border: none;
+  background: transparent;
+  color: #7C0E44;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* KANAN: PERLU TINDAKAN */
+
+.finexy-tasks-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.finexy-task-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid #ECEEF4;
+  background: #FAFBFD;
+}
+
+.finexy-task-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: #FDF2F7;
+  color: #7C0E44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.finexy-task-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.finexy-task-copy strong {
+  font-size: 13px;
+  color: #111827;
+}
+
+.finexy-task-copy span {
+  font-size: 11.5px;
+  color: #6B7280;
+  line-height: 1.35;
+}
+
+.finexy-task-btn {
+  min-width: 102px;
+  text-align: center;
+  padding: 7px 14px;
+  border-radius: 9px;
+  border: 1px solid #EBD0DC;
+  background: #F9EEF3;
+  color: #7C0E44;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.finexy-task-btn:hover {
+  background: #7C0E44;
+  border-color: #7C0E44;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   ROW 3: TABLE PENGAJUAN TERBARU
+========================================================== */
+
+.finexy-table-panel {
+  padding: 20px 22px;
+}
+
+.finexy-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.finexy-table-head h2 {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.finexy-table-head p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #6B7280;
+}
+
+.finexy-table-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.finexy-mini-search,
+.finexy-filter-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid #E5E7EB;
+  background: #F8F9FB;
+  color: #6B7280;
+}
+
+.finexy-mini-search input,
+.finexy-filter-select select {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12.5px;
+  color: #111827;
+}
+
+.finexy-view-all-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid #EBCAD9;
+  background: #FDF2F7;
+  color: #7C0E44;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.finexy-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.finexy-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.finexy-table thead tr {
+  background: #F7F8FA;
+}
+
+.finexy-table th {
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B7280;
+  border-bottom: 1px solid #ECEEF4;
+}
+
+.finexy-table th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.finexy-table th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.finexy-table td {
+  padding: 14px;
+  font-size: 13px;
+  color: #1F2937;
+  border-bottom: 1px solid #F1F3F7;
+  vertical-align: middle;
+}
+
+.finexy-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.finexy-td-nim {
+  font-weight: 700;
+  color: #111827;
+}
+
+.finexy-td-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6B7280 !important;
+  font-size: 12.5px !important;
+  white-space: nowrap;
+}
+
+.finexy-student-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.finexy-student-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FDF2F7;
+  color: #7C0E44;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.finexy-student-cell strong {
+  display: block;
+  font-size: 13px;
+  color: #111827;
+}
+
+.finexy-student-cell span {
+  display: block;
+  font-size: 11.5px;
+  color: #6B7280;
+}
+
+.finexy-completeness-text {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #4B5563;
+}
+
+.finexy-status-pill {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.finexy-status-pill.approved {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-status-pill.review {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.finexy-status-pill.revision {
+  background: #FCE7F3;
+  color: #BE185D;
+}
+
+.finexy-td-score {
+  font-weight: 700;
+  color: #111827 !important;
+}
+
+.finexy-row-btn {
+  min-width: 96px;
+  text-align: center;
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.finexy-row-btn.primary {
+  background: #F9EEF3;
+  border-color: #EBD0DC;
+  color: #7C0E44;
+}
+
+.finexy-row-btn:hover,
+.finexy-row-btn.primary:hover {
+  background: #7C0E44;
+  border-color: #7C0E44;
+  color: #ffffff;
+}
+
+.finexy-table-empty {
+  text-align: center;
+  padding: 28px !important;
+  color: #6B7280 !important;
+}
+
+.finexy-upload-toast {
+  background: #ffffff;
+  border: 1px solid #CBEFD6;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.finexy-upload-toast strong {
+  display: block;
+  font-size: 13.5px;
+  color: #15803D;
+}
+
+.finexy-upload-toast span {
+  font-size: 12px;
+  color: #4B5563;
+}
+
+.finexy-upload-toast button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6B7280;
+}
+
+/* ==========================================================
+   MODALS
+========================================================== */
+
+.finexy-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.finexy-modal-card {
+  width: 100%;
+  max-width: 450px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+}
+
+.finexy-modal-card.wide {
+  max-width: 520px;
+}
+
+.finexy-modal-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.finexy-modal-icon.burgundy {
+  background: #FDF2F7;
+  color: #7C0E44;
+}
+
+.finexy-modal-icon.amber {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.finexy-modal-icon.green {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.finexy-modal-card h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.finexy-modal-card p {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4B5563;
+}
+
+.finexy-modal-note {
+  background: #FDF7FA;
+  border: 1px solid #F2D5E3;
+  border-radius: 11px;
+  padding: 11px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #4B5563;
+}
+
+.finexy-schedule-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.finexy-schedule-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.finexy-schedule-form input {
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid #D1D5DB;
+  font-size: 13px;
+  outline: none;
+}
+
+.finexy-schedule-form input:focus {
+  border-color: #7C0E44;
+}
+
+.finexy-schedule-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.finexy-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.finexy-btn-ghost {
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.finexy-btn-solid {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #7C0E44;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.finexy-finalists-box {
+  border: 1px solid #ECEEF4;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.finexy-finalists-head {
+  background: #FDF2F7;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #7C0E44;
+}
+
+.finexy-finalists-list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.finexy-finalist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid #F3F4F6;
+}
+
+.finexy-finalist-item strong {
+  display: block;
+  font-size: 13px;
+  color: #111827;
+}
+
+.finexy-finalist-item span {
+  font-size: 11.5px;
+  color: #6B7280;
+}
+
+.finexy-finalist-right {
+  text-align: right;
+}
+
+.finexy-email-sent-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #DCFCE7;
+  color: #15803D !important;
+  font-size: 10.5px !important;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1180px) {
+  .finexy-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .finexy-middle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 920px) {
+  .finexy-body-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finexy-sidebar {
+    min-height: auto;
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .finexy-admin-shell {
+    padding: 12px;
+  }
+
+  .finexy-topbar {
+    flex-wrap: wrap;
+  }
+
+  .finexy-topbar-search {
+    order: 3;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .finexy-stats-row,
+  .finexy-stages-grid,
+  .finexy-schedule-row {
+    grid-template-columns: 1fr;
+  }
+}
